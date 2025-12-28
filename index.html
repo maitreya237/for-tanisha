@@ -302,6 +302,39 @@
                 </div>
             </div>
 
+            <!-- DYNAMIC DDx CHALLENGE CARD -->
+            <div id="ddx-card" class="hidden rounded-2xl card-shadow overflow-hidden animate-in"
+                style="background: rgba(26, 10, 46, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(236, 72, 153, 0.3);">
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl rose-float">🌹</span>
+                        <h2 class="text-xl font-bold"
+                            style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Playfair Display', serif;">
+                            Differential Diagnosis Challenge
+                        </h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl border"
+                            style="background: rgba(0,0,0,0.2); border-color: rgba(251, 191, 36, 0.2);">
+                            <p class="text-[11px] font-black uppercase mb-1 tracking-wider" style="color: #fbbf24;">Vs.
+                                Differential Condition</p>
+                            <p id="ddx-diff" class="text-lg font-bold" style="color: #fce7f3;">
+                                <!-- Spindal Stenosis -->
+                            </p>
+                        </div>
+
+                        <div class="pl-4 border-l-2" style="border-color: rgba(236, 72, 153, 0.5);">
+                            <p class="text-[11px] font-black uppercase mb-1 tracking-wider opacity-60"
+                                style="color: #c4b5fd;">Key Distinguishing Factor</p>
+                            <p id="ddx-reason" class="text-md leading-relaxed" style="color: #e9d5ff;">
+                                <!-- Reason goes here -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="space-y-12">
                 <!-- Table 1: Structural -->
                 <div class="animate-in">
@@ -493,7 +526,7 @@
 
 
     <script>
-        // --- DATABASE: 24 CASES ---
+
         const database = {
             msk: {
                 "Lumbar IVDP (L4-L5)": {
@@ -508,7 +541,8 @@
                         { i: "Difficulty putting on socks", r: "Requires maximum lumbar flexion and end-range neural stretch.", f: "Patient report / Obs" },
                         { i: "Antalgic Gait", r: "Weight shift away from the affected side to minimize compressive loading.", f: "Shortened stance phase" },
                         { i: "Work Absenteeism", r: "Severe pain prevents sustained postures required for office tasks.", f: "Sick leave > 5 days" }
-                    ]
+                    ],
+                    ddx: { diff: 'Spinal Stenosis', reason: 'IVDP pain is flexion-intolerant (pain increases while sitting/bending). Stenosis is extension-intolerant; flexion (shopping cart sign) increases the foraminal volume and relieves pain.' }
                 },
                 "Knee Osteoarthritis (Grade III)": {
                     struct: [
@@ -522,7 +556,8 @@
                         { i: "Impaired Sit-to-Stand", r: "Pain during the transition phase where knee load is maximum.", f: "5-Time STS > 15 seconds" },
                         { i: "Reduced Walking Speed", r: "Compensatory mechanism to reduce ground reaction force and pain.", f: "Timed 10m walk < 0.8 m/s" },
                         { i: "Inability to squat", r: "Mechanical block from osteophytes and severe pain at high flexion.", f: "Failed functional test" }
-                    ]
+                    ],
+                    ddx: { diff: 'Meniscal Tear', reason: 'OA pain is global/diffuse and worse with weight-bearing throughout the day. Meniscal tears involve mechanical locking/catching and focal joint-line tenderness with a traumatic onset.' }
                 },
                 "Frozen Shoulder (Freezing)": {
                     struct: [
@@ -536,7 +571,8 @@
                         { i: "Difficulty in Toileting", r: "Restricted Internal Rotation and Extension (Hand-behind-back).", f: "Apley's Inferior Failed" },
                         { i: "Difficulty putting on a jacket", r: "Requires humeral clearance and end-range reach.", f: "Observed functional lag" },
                         { i: "Restricted Overhead reaching", r: "Mechanical block in the inferior capsule preventing humeral glide.", f: "Reach < 90 degrees" }
-                    ]
+                    ],
+                    ddx: { diff: 'Rotator Cuff Tear', reason: 'Frozen Shoulder involves a severe block in BOTH Active and Passive ROM (Capsular Pattern). RC tears show restricted Active ROM but generally preserved Passive ROM (with pain).' }
                 },
                 "Cervical Radiculopathy (C6-C7)": {
                     struct: [
@@ -550,7 +586,8 @@
                         { i: "Impaired Grip Stability", r: "Wrist extensor/flexor weakness secondary to nerve root compression.", f: "Dynamometer: 15kg deficit" },
                         { i: "Restricted driving (Blind spot)", r: "Neck rotation aggravates radiating pain in the arm.", f: "Limited rotation to 30 deg" },
                         { i: "Difficulty Typing", r: "Paresthesia and fine motor weakness in the hand.", f: "Dropped speed / Errors" }
-                    ]
+                    ],
+                    ddx: { diff: 'Thoracic Outlet Syndrome', reason: 'Radiculopathy features dermatomal/myotomal deficits and Spurling\'s positivity. TOS involves posture-dependent symptoms and vascular changes (Adson\'s sign).' }
                 },
                 "Lateral Epicondylitis": {
                     struct: [
@@ -564,7 +601,8 @@
                         { i: "Reduced Grip Force", r: "Pain inhibition prevents full force production in extension.", f: "Grip test: Pain-limited" },
                         { i: "Difficulty wringing clothes", r: "Rotational stress on the extensor origin.", f: "Functional failure" },
                         { i: "Impaired sport participation", r: "High velocity loads in tennis/badminton cause severe nociception.", f: "VAS 9/10 during play" }
-                    ]
+                    ],
+                    ddx: { diff: 'Radial Tunnel Syndrome', reason: 'In RTS, tenderness is 4-5cm distal to the lateral epicondyle over the supinator muscle. In Epicondylitis, tenderness is directly on the common extensor origin.' }
                 },
                 "Ankle Sprain (Grade II)": {
                     struct: [
@@ -578,7 +616,8 @@
                         { i: "Difficulty on uneven ground", r: "Compromised dynamic stabilization mechanisms.", f: "Subjective instability" },
                         { i: "Altered Gait (Limping)", r: "Avoidance of heel strike or full weight bearing.", f: "Antalgic pattern" },
                         { i: "Difficulty descending stairs", r: "Requires maximum closed-chain dorsiflexion.", f: "Pain at end range" }
-                    ]
+                    ],
+                    ddx: { diff: 'Maisonneuve Fracture', reason: 'Maisonneuve involves a proximal fibular fracture; tenderness is felt high at the fibular head, whereas ATFL tenderness is strictly at the lateral malleolus.' }
                 },
                 "Rheumatoid Arthritis (Hand)": {
                     struct: [
@@ -606,8 +645,9 @@
                         { i: "Reduced Vital Capacity", r: "Restricted rib cage expansion in severe cases (>60 deg).", f: "PFT: Restrictive pattern" },
                         { i: "Back Pain on fatigue", r: "Overwork of muscles on the convex side.", f: "VAS 4/10 after school" },
                         { i: "Difficulty in fitting clothes", r: "Asymmetry of waistline and shoulders.", f: "Patient report" }
-                    ]
-                }
+                    ],
+                    ddx: { diff: 'Kyphosis (Scheuermann\'s)', reason: 'Scoliosis involves lateral curvature and rotation. Scheuermann\'s is a structural hyper-kyphosis (sagittal plane) with vertebral wedging.' }
+                },
             },
             neuro: {
                 "Stroke (MCA Hemiplegia)": {
@@ -622,7 +662,8 @@
                         { i: "Difficulty in Feeding", r: "Dominant hand involvement and loss of pincer grasp.", f: "FIM: 3/7 for Eating" },
                         { i: "Impaired Community Ambulation", r: "Circumduction gait required for foot clearance.", f: "Gait speed < 0.4 m/s" },
                         { i: "Speech Impairment (Aphasia)", r: "Involvement of Broca's/Wernicke's area.", f: "Communication screen failed" }
-                    ]
+                    ],
+                    ddx: { diff: 'Hemorrhagic Stroke', reason: 'Ischemic stroke (MCA) is gradual onset with focal deficits. Hemorrhagic stroke is sudden severe headache (thunderclap) with rapid deterioration and often loss of consciousness.' }
                 },
                 "Parkinson's Disease": {
                     struct: [
@@ -636,7 +677,8 @@
                         { i: "Micrographia", r: "Loss of motor scaling in fine motor tasks.", f: "Handwriting shrinking" },
                         { i: "Frequent Falls", r: "Loss of protective 'step' reaction.", f: "Pull Test: Positive" },
                         { i: "Difficulty in Bed Mobility", r: "Axial rigidity prevents segmental rolling.", f: "Timed bed roll > 30s" }
-                    ]
+                    ],
+                    ddx: { diff: 'Essential Tremor', reason: 'PD tremor is a resting tremor (disappears during activity) with pill-rolling character. Essential tremor is an action/postural tremor (appears during movement) and often involves the head/voice.' }
                 },
                 "Spinal Cord Injury (T10)": {
                     struct: [
@@ -650,7 +692,8 @@
                         { i: "Impaired Transfers", r: "Lack of core strength to bridge or slide.", f: "Requires sliding board" },
                         { i: "Risk of Pressure Sores", r: "Inability to perform weight shifts (pressure relief).", f: "History of Grade I sore" },
                         { i: "Inability to perform ADLs (LL)", r: "Paralysis preventing pants/shoes application.", f: "Requires adaptive tools" }
-                    ]
+                    ],
+                    ddx: { diff: 'Spinal Tumor', reason: 'SCI (T10) is acute trauma with sudden complete paralysis. Spinal tumor is gradual progressive weakness with sensory level ascending slowly over weeks/months.' }
                 },
                 "Guillain-Barré Syndrome (GBS)": {
                     struct: [
@@ -664,7 +707,8 @@
                         { i: "Inability to swallow", r: "Bulbar nerve involvement.", f: "NPO / NG Tube needed" },
                         { i: "Loss of fine motor skills", r: "Profound distal weakness.", f: "Unable to hold cup" },
                         { i: "Impaired Communication", r: "Facial nerve weakness and ventilation.", f: "Uses eye signals" }
-                    ]
+                    ],
+                    ddx: { diff: 'Multiple Sclerosis', reason: 'GBS is a peripheral LMN condition with ascending flaccid paralysis and areflexia. MS is a central UMN condition with spasticity, visual changes (optic neuritis), and scanning speech.' }
                 },
                 "Bell's Palsy": {
                     struct: [
@@ -678,7 +722,8 @@
                         { i: "Speech Blur (Slurring)", r: "Inability to form labial sounds (B, P, M).", f: "Observed dysarthria" },
                         { i: "Eye Irritation", r: "Exposure keratitis due to lack of blinking.", f: "Redness / Dryness" },
                         { i: "Social Withdrawal", r: "Facial asymmetry and drooping causing embarrassment.", f: "Avoids cameras/people" }
-                    ]
+                    ],
+                    ddx: { diff: 'Stroke (Hemiplegia)', reason: 'Bell\'s Palsy (LMN) involves the whole half of the face including the forehead. Stroke (UMN) spares the forehead (preserves wrinkling) due to bilateral cortical supply.' }
                 },
                 "Cerebral Palsy (Spastic Diplegia)": {
                     struct: [
@@ -692,7 +737,8 @@
                         { i: "Difficulty in toileting", r: "Leg spasticity prevents independent squat/sit.", f: "Parent assistance needed" },
                         { i: "Slow walking speed", r: "High energy cost of spastic gait.", f: "Speed < 0.5 m/s" },
                         { i: "Academic struggle", r: "Associated cognitive or visual deficits.", f: "IEP required" }
-                    ]
+                    ],
+                    ddx: { diff: 'Duchenne Muscular Dystrophy', reason: 'CP is a static brain lesion (non-progressive) present from birth. DMD is a progressive muscle wasting disease with a positive Gower\'s sign and calf pseudohypertrophy.' }
                 },
                 "Multiple Sclerosis (Cerebellar)": {
                     struct: [
@@ -706,7 +752,8 @@
                         { i: "Ataxic Gait", r: "Unsteady, broad-based gait pattern.", f: "Frequent falls" },
                         { i: "Difficulty in dressing", r: "Loss of precision in fine motor coordination.", f: "Timed task: High" },
                         { i: "Fatigue during ADLs", r: "Demyelinated nerves require more energy to fire.", f: "Fatigue scale > 8/10" }
-                    ]
+                    ],
+                    ddx: { diff: 'Parkinson\'s Disease', reason: 'MS cerebellar features include intention tremor and nystagmus. PD has resting tremor (pill-rolling), bradykinesia, and lead-pipe rigidity without cerebellar signs.' }
                 },
                 "Cerebellar Ataxia": {
                     struct: [
@@ -720,7 +767,8 @@
                         { i: "Impaired Writing", r: "Loss of fine tremor control.", f: "Large, shaky letters" },
                         { i: "Difficulty in stairs", r: "Balance impairment in single leg phase.", f: "Needs 2-person assist" },
                         { i: "Inability to cycle", r: "Requires high-level complex coordination.", f: "Failed attempt" }
-                    ]
+                    ],
+                    ddx: { diff: 'Sensory Ataxia', reason: 'In Cerebellar Ataxia, balance is poor with eyes OPEN and CLOSED (Romberg -ve/irrelevant). In Sensory Ataxia (Tabes Dorsalis), balance worsens dramatically with eyes closed (Romberg +ve).' }
                 }
             },
             cvrs: {
@@ -736,7 +784,8 @@
                         { i: "Reduced Exercise Capacity", r: "Early metabolic acidosis and ventilatory limit.", f: "6MWT < 250m" },
                         { i: "Difficulty in bathing", r: "Steam and humidity aggravate airway resistance.", f: "Patient report" },
                         { i: "Social Withdrawal", r: "Oxygen dependency and fear of breathlessness.", f: "Avoids outings" }
-                    ]
+                    ],
+                    ddx: { diff: 'Congestive Heart Failure', reason: 'COPD features hyper-resonance, barrel chest and smoking history. CHF features fine basal crepitations (wet lungs), S3 gallop, and orthopnea.' }
                 },
                 "Post-CABG (Day 2)": {
                     struct: [
@@ -750,7 +799,8 @@
                         { i: "Inability to walk independently", r: "Post-op hypotension and pain.", f: "Requires walking frame" },
                         { i: "Difficulty in Deep Breathing", r: "Splinting of the chest wall.", f: "Inspiratory capacity low" },
                         { i: "Anxiety", r: "Fear of heart failure post-surgery.", f: "Refuses exercise" }
-                    ]
+                    ],
+                    ddx: { diff: 'Pneumonia', reason: 'Post-CABG atelectasis is non-infectious lung collapse from pain/anesthesia. Pneumonia is an active infection with high fever, productive sputum, and consolidation on X-ray.' }
                 },
                 "Myocardial Infarction": {
                     struct: [
@@ -764,7 +814,8 @@
                         { i: "Impaired Self-Care", r: "Fatigue and risk of arrhythmia.", f: "Needs total assist" },
                         { i: "Fear of Exercise", r: "Psychological trauma from the cardiac event.", f: "Avoids even minor movements" },
                         { i: "Inability to climb stairs", r: "Requires sudden high cardiac output.", f: "Failed test" }
-                    ]
+                    ],
+                    ddx: { diff: 'Angina Pectoris', reason: 'Angina is relieved by rest or Nitroglycerin within 15 mins. MI pain is more severe (crushing), lasts > 30 mins, and is NOT relieved by rest/GTN (requires morphine).' }
                 },
                 "Bronchial Asthma": {
                     struct: [
@@ -778,7 +829,8 @@
                         { i: "Absenteeism from School", r: "Frequent exacerbations.", f: "Missed 15 days/term" },
                         { i: "Restricted Sport Play", r: "Exercise induced bronchospasm.", f: "Wheezing after 5 mins play" },
                         { i: "Inability to use perfumes", r: "Chemical triggers for airway spasm.", f: "Avoids cosmetics" }
-                    ]
+                    ],
+                    ddx: { diff: 'Cardiac Asthma', reason: 'Bronchial asthma is reversible and has allergic components (wheeze). Cardiac asthma is secondary to left heart failure (pink frothy sputum) and not relieved by salbutamol.' }
                 },
                 "Bronchiectasis": {
                     struct: [
@@ -792,7 +844,8 @@
                         { i: "Reduced Lung Endurance", r: "Chronic airway obstruction and fibrosis.", f: "6MWT < 300m" },
                         { i: "Difficulty in concentrated work", r: "Frequent coughing bouts interrupt tasks.", f: "Productivity drop" },
                         { i: "Anorexia (Weight Loss)", r: "High metabolic cost of chronic infection.", f: "BMI < 18.5" }
-                    ]
+                    ],
+                    ddx: { diff: 'Lung Abscess', reason: 'Bronchiectasis involves chronic copious 3-layered sputum and clubbing. Lung Abscess is acute/sub-acute with high spiking fever and distinct foul-smelling (putrid) breath.' }
                 },
                 "Pleural Effusion": {
                     struct: [
@@ -806,7 +859,8 @@
                         { i: "Difficulty in Side-lying", r: "Pain and fluid shift issues.", f: "Prefers affected side" },
                         { i: "Impaired Chest Expansion", r: "Mechanical block to rib cage movement.", f: "Excursion < 2cm" },
                         { i: "Inability to walk long distances", r: "Dyspnea due to reduced vital capacity.", f: "Stops after 50m" }
-                    ]
+                    ],
+                    ddx: { diff: 'Pneumonia (Consolidation)', reason: 'Effusion features stony dull percussion, reduced vocal fremitus, and absent breath sounds (fluid blocks sound). Pneumonia involves dull percussion but INCREASED vocal resonance (solid transmits sound).' }
                 },
                 "Pneumonia": {
                     struct: [
@@ -820,7 +874,8 @@
                         { i: "Reduced Exercise Tolerance", r: "Systemic infection and reduced O2 levels.", f: "Fatigue at minimal walk" },
                         { i: "Impaired Appetite", r: "Malaise and work of breathing cost.", f: "Caloric intake low" },
                         { i: "Difficulty in speech", r: "Shortness of breath prevents long sentences.", f: "Phrases < 3 words" }
-                    ]
+                    ],
+                    ddx: { diff: 'Pulmonary Tuberculosis', reason: 'Pneumonia is acute bacterial infection with high fever and rapid onset. TB is chronic with night sweats, weight loss, and cavitary lesions on X-ray.' }
                 },
                 "Congestive Heart Failure": {
                     struct: [
@@ -834,7 +889,8 @@
                         { i: "Difficulty in Dressing", r: "Fatigue even with small movements.", f: "Requires assist" },
                         { i: "Inability to walk up driveways", r: "Extreme dyspnea on slight incline.", f: "Stops immediately" },
                         { i: "Mood Depression", r: "Chronic illness and physical limitations.", f: "Mental screen positive" }
-                    ]
+                    ],
+                    ddx: { diff: 'Cor Pulmonale', reason: 'CHF is left heart failure (pulmonary edema). Cor Pulmonale is right heart failure secondary to chronic lung disease (COPD) with peripheral edema and JVP elevation.' }
                 }
             }
         };
@@ -907,6 +963,19 @@
         function renderTables() {
             const condName = document.getElementById('conditionSelect').value;
             const data = database[currentCategory][condName];
+
+            // Render DDx Card
+            const ddxCard = document.getElementById('ddx-card');
+            const ddxDiff = document.getElementById('ddx-diff');
+            const ddxReason = document.getElementById('ddx-reason');
+
+            if (data.ddx) {
+                ddxCard.classList.remove('hidden');
+                ddxDiff.innerText = data.ddx.diff;
+                ddxReason.innerText = data.ddx.reason;
+            } else {
+                ddxCard.classList.add('hidden');
+            }
 
             const structTbody = document.getElementById('struct-table-body');
             const funcTbody = document.getElementById('func-table-body');
