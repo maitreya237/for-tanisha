@@ -306,7 +306,7 @@
             <div id="ddx-card" class="hidden rounded-2xl card-shadow overflow-hidden animate-in"
                 style="background: rgba(26, 10, 46, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(236, 72, 153, 0.3);">
                 <div class="p-6">
-                    <div class="flex items-center gap-3 mb-4">
+                    <div class="flex items-center gap-3 mb-6">
                         <span class="text-2xl rose-float">🌹</span>
                         <h2 class="text-xl font-bold"
                             style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Playfair Display', serif;">
@@ -314,23 +314,8 @@
                         </h2>
                     </div>
 
-                    <div class="space-y-4">
-                        <div class="p-4 rounded-xl border"
-                            style="background: rgba(0,0,0,0.2); border-color: rgba(251, 191, 36, 0.2);">
-                            <p class="text-[11px] font-black uppercase mb-1 tracking-wider" style="color: #fbbf24;">Vs.
-                                Differential Condition</p>
-                            <p id="ddx-diff" class="text-lg font-bold" style="color: #fce7f3;">
-                                <!-- Spindal Stenosis -->
-                            </p>
-                        </div>
-
-                        <div class="pl-4 border-l-2" style="border-color: rgba(236, 72, 153, 0.5);">
-                            <p class="text-[11px] font-black uppercase mb-1 tracking-wider opacity-60"
-                                style="color: #c4b5fd;">Key Distinguishing Factor</p>
-                            <p id="ddx-reason" class="text-md leading-relaxed" style="color: #e9d5ff;">
-                                <!-- Reason goes here -->
-                            </p>
-                        </div>
+                    <div id="ddx-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- DDx items will be injected here by JS -->
                     </div>
                 </div>
             </div>
@@ -542,7 +527,13 @@
                         { i: "Antalgic Gait", r: "Weight shift away from the affected side to minimize compressive loading.", f: "Shortened stance phase" },
                         { i: "Work Absenteeism", r: "Severe pain prevents sustained postures required for office tasks.", f: "Sick leave > 5 days" }
                     ],
-                    ddx: { diff: 'Spinal Stenosis', reason: 'IVDP pain is flexion-intolerant (pain increases while sitting/bending). Stenosis is extension-intolerant; flexion (shopping cart sign) increases the foraminal volume and relieves pain.' }
+                    ddx: [
+                        { diff: 'Spinal Stenosis', reason: 'IVDP pain is flexion-intolerant (sitting/bending worsens). Stenosis is extension-intolerant; flexion (shopping cart sign) increases foraminal volume and relieves pain.' },
+                        { diff: 'Sacroiliac Joint Dysfunction', reason: 'SI joint pain is unilateral buttock/posterior thigh without radicular pattern. IVDP involves dermatomal radiation below the knee with positive SLR.' },
+                        { diff: 'Piriformis Syndrome', reason: 'Piriformis involves deep buttock pain with FAIR test positivity. IVDP has positive SLR and specific nerve root signs (EHL weakness in L5).' },
+                        { diff: 'Facet Joint Arthropathy', reason: 'Facet joint pain is localized paraspinal without leg radiation. IVDP involves sciatica with dermatomal distribution and neural tension signs.' },
+                        { diff: 'Ankylosing Spondylitis', reason: 'AS pain is inflammatory (worse at night, improves with exercise) and has morning stiffness >30 mins. IVDP is mechanical (worse with activity).' }
+                    ]
                 },
                 "Knee Osteoarthritis (Grade III)": {
                     struct: [
@@ -557,7 +548,13 @@
                         { i: "Reduced Walking Speed", r: "Compensatory mechanism to reduce ground reaction force and pain.", f: "Timed 10m walk < 0.8 m/s" },
                         { i: "Inability to squat", r: "Mechanical block from osteophytes and severe pain at high flexion.", f: "Failed functional test" }
                     ],
-                    ddx: { diff: 'Meniscal Tear', reason: 'OA pain is global/diffuse and worse with weight-bearing throughout the day. Meniscal tears involve mechanical locking/catching and focal joint-line tenderness with a traumatic onset.' }
+                    ddx: [
+                        { diff: 'Meniscal Tear', reason: 'OA pain is global/diffuse and worse with weight-bearing. Meniscal tears involve mechanical locking/catching, focal joint-line tenderness, and a traumatic onset.' },
+                        { diff: 'Patellofemoral Pain Syndrome', reason: 'PFPS pain is anterior (retropatellar) worse with stairs. OA involves diffuse joint pain, crepitus throughout ROM, and radiographic joint space narrowing.' },
+                        { diff: 'Pes Anserine Bursitis', reason: 'Pes anserine pain is medial proximal tibia (bursa site). OA is diffuse knee joint pain with VMO atrophy and fixed flexion deformity.' },
+                        { diff: 'Gout (Acute)', reason: 'Gout is sudden severe pain with joint swelling, redness, and elevated uric acid. OA is chronic degenerative with gradual onset and no systemic inflammation.' },
+                        { diff: 'Ligamentous Instability (ACL/PCL)', reason: 'Ligament injury shows instability (Lachman +ve). OA shows stiffness with fixed deformity and no acute instability unless end-stage.' }
+                    ]
                 },
                 "Frozen Shoulder (Freezing)": {
                     struct: [
@@ -572,7 +569,13 @@
                         { i: "Difficulty putting on a jacket", r: "Requires humeral clearance and end-range reach.", f: "Observed functional lag" },
                         { i: "Restricted Overhead reaching", r: "Mechanical block in the inferior capsule preventing humeral glide.", f: "Reach < 90 degrees" }
                     ],
-                    ddx: { diff: 'Rotator Cuff Tear', reason: 'Frozen Shoulder involves a severe block in BOTH Active and Passive ROM (Capsular Pattern). RC tears show restricted Active ROM but generally preserved Passive ROM (with pain).' }
+                    ddx: [
+                        { diff: 'Rotator Cuff Tear', reason: 'Frozen Shoulder involves severe restriction in BOTH Active and Passive ROM (Capsular Pattern). RC tears show restricted Active ROM but generally preserved Passive ROM.' },
+                        { diff: 'Glenohumeral Osteoarthritis', reason: 'OA shows bony crepitus and osteophyte formation on X-ray. Frozen shoulder involves capsular fibrosis without significant bony changes initially.' },
+                        { diff: 'Calcific Tendinitis', reason: 'Calcific tendinitis shows acute severe pain with calcium deposits on X-ray. Frozen shoulder is chronic progressive stiffness without calcium deposits.' },
+                        { diff: 'Shoulder Impingement', reason: 'Impingement pain is in mid-arc (60-120°) with Neer\'s/Hawkins +ve. Frozen shoulder has global restriction in all planes (capsular pattern: ER < Abd < IR).' },
+                        { diff: 'C5 Radiculopathy', reason: 'C5 radiculopathy involves neck pain radiating to deltoid with motor weakness. Frozen shoulder is localized shoulder stiffness without neurological deficits.' }
+                    ]
                 },
                 "Cervical Radiculopathy (C6-C7)": {
                     struct: [
@@ -587,7 +590,13 @@
                         { i: "Restricted driving (Blind spot)", r: "Neck rotation aggravates radiating pain in the arm.", f: "Limited rotation to 30 deg" },
                         { i: "Difficulty Typing", r: "Paresthesia and fine motor weakness in the hand.", f: "Dropped speed / Errors" }
                     ],
-                    ddx: { diff: 'Thoracic Outlet Syndrome', reason: 'Radiculopathy features dermatomal/myotomal deficits and Spurling\'s positivity. TOS involves posture-dependent symptoms and vascular changes (Adson\'s sign).' }
+                    ddx: [
+                        { diff: 'Thoracic Outlet Syndrome', reason: 'Radiculopathy has dermatomal/myotomal deficits and Spurling\'s +ve. TOS involves posture-dependent symptoms, vascular changes (Adson\'s sign), and no specific dermatome.' },
+                        { diff: 'Brachial Plexus Injury', reason: 'Plexus injury involves multiple nerve roots (C5-T1) after trauma. Radiculopathy is a single nerve root compression with specific level findings (C7 = triceps).' },
+                        { diff: 'Peripheral Nerve Entrapment', reason: 'Nerve entrapment (ulnar/median) involves distal symptoms. Cervical radiculopathy involves proximal neck pain radiating distally with Spurling\'s test.' },
+                        { diff: 'Shoulder Pathology (Referred)', reason: 'Shoulder pathology worsens with shoulder movement. Cervical radiculopathy worsens with neck extension/rotation and has positive ULNT.' },
+                        { diff: 'Pancoast Tumor', reason: 'Pancoast tumor involves Horner\'s syndrome (ptosis, miosis) and apical lung mass on X-ray. Radiculopathy is degenerative disc/osteophyte compression.' }
+                    ]
                 },
                 "Lateral Epicondylitis": {
                     struct: [
@@ -602,7 +611,13 @@
                         { i: "Difficulty wringing clothes", r: "Rotational stress on the extensor origin.", f: "Functional failure" },
                         { i: "Impaired sport participation", r: "High velocity loads in tennis/badminton cause severe nociception.", f: "VAS 9/10 during play" }
                     ],
-                    ddx: { diff: 'Radial Tunnel Syndrome', reason: 'In RTS, tenderness is 4-5cm distal to the lateral epicondyle over the supinator muscle. In Epicondylitis, tenderness is directly on the common extensor origin.' }
+                    ddx: [
+                        { diff: 'Radial Tunnel Syndrome', reason: 'RTS tenderness is 4-5cm distal to lateral epicondyle over supinator. Epicondylitis tenderness is directly on the common extensor origin (lateral epicondyle).' },
+                        { diff: 'C6 Radiculopathy', reason: 'C6 radiculopathy involves neck pain, biceps weakness, and diminished brachioradialis reflex. Lateral epicondylitis is localized elbow pain with normal reflexes.' },
+                        { diff: 'Elbow Osteoarthritis', reason: 'OA involves loss of extension, joint crepitus, and radiographic changes. Lateral epicondylitis has full ROM with pain only on resisted wrist extension.' },
+                        { diff: 'Triceps Tendinopathy', reason: 'Triceps tendinopathy involves posterior elbow pain on resisted extension. Lateral epicondylitis is lateral pain on resisted wrist/finger extension.' },
+                        { diff: 'Radial Head Fracture', reason: 'Radial head fracture involves acute trauma, joint swelling, and limited pronation/supination. Lateral epicondylitis is chronic overuse without trauma.' }
+                    ]
                 },
                 "Ankle Sprain (Grade II)": {
                     struct: [
@@ -617,7 +632,13 @@
                         { i: "Altered Gait (Limping)", r: "Avoidance of heel strike or full weight bearing.", f: "Antalgic pattern" },
                         { i: "Difficulty descending stairs", r: "Requires maximum closed-chain dorsiflexion.", f: "Pain at end range" }
                     ],
-                    ddx: { diff: 'Maisonneuve Fracture', reason: 'Maisonneuve involves a proximal fibular fracture; tenderness is felt high at the fibular head, whereas ATFL tenderness is strictly at the lateral malleolus.' }
+                    ddx: [
+                        { diff: 'Maisonneuve Fracture', reason: 'Maisonneuve involves proximal fibular fracture; tenderness high at fibular head with syndesmotic injury. ATFL sprain has lateral malleolus tenderness.' },
+                        { diff: 'Lateral Malleolus Fracture', reason: 'Fracture involves bony tenderness, inability to weight-bear (Ottawa rules +ve), and X-ray confirms fracture. ATFL sprain has ligamentous laxity without fracture.' },
+                        { diff: 'Peroneal Tendinopathy', reason: 'Peroneal tendinopathy involves pain posterior to lateral malleolus along tendon course. ATFL sprain is anterior-lateral with ligamentous laxity (anterior drawer +ve).' },
+                        { diff: 'Subtalar Joint Sprain', reason: 'Subtalar sprain involves hindfoot instability and pain below lateral malleolus. ATFL involves ankle joint with anterior drawer and talar tilt tests positive.' },
+                        { diff: 'Sinus Tarsi Syndrome', reason: 'Sinus tarsi syndrome involves anterolateral hindfoot pain in the sinus (between talus/calcaneus). ATFL sprain is anterior ankle with lateral malleolus swelling.' }
+                    ]
                 },
                 "Rheumatoid Arthritis (Hand)": {
                     struct: [
@@ -625,6 +646,13 @@
                         { i: "Swan Neck Deformity", r: "Imbalance of volar plate and extensor tendon tension.", f: "PIP hyperextension, DIP flex" },
                         { i: "Morning Stiffness", r: "Fluid accumulation in joint space during overnight rest.", f: "Duration > 1 hour" },
                         { i: "Reduced Grip Strength", r: "Pain, joint instability, and intrinsic muscle wasting.", f: "Sphygmomanometer test low" }
+                    ],
+                    ddx: [
+                        { diff: 'Osteoarthritis (Hand)', reason: 'OA involves DIP joints (Heberden nodes) and is non-inflammatory. RA targets PIP/MCP joints with morning stiffness >1 hour and symmetrical involvement.' },
+                        { diff: 'Psoriatic Arthritis', reason: 'Psoriatic arthritis involves DIP joints with nail pitting and psoriasis plaques. RA is symmetrical PIP/MCP without skin involvement.' },
+                        { diff: 'Gouty Arthritis', reason: 'Gout involves acute monoarticular attacks (often 1st MTP) with tophi and elevated uric acid. RA is chronic polyarticular with +ve RF/Anti-CCP.' },
+                        { diff: 'Systemic Lupus Erythematosus', reason: 'SLE has non-erosive arthritis with malar rash and positive ANA. RA is erosive arthritis with joint deformity (ulnar deviation) and positive RF.' },
+                        { diff: 'Dupuytren\'s Contracture', reason: 'Dupuytren involves palmar fascial thickening (cord) without joint involvement. RA involves synovitis with joint swelling and morning stiffness.' }
                     ],
                     func: [
                         { i: "Difficulty opening jars", r: "Inability to generate torque due to MCP instability.", f: "Functional observation" },
@@ -646,7 +674,13 @@
                         { i: "Back Pain on fatigue", r: "Overwork of muscles on the convex side.", f: "VAS 4/10 after school" },
                         { i: "Difficulty in fitting clothes", r: "Asymmetry of waistline and shoulders.", f: "Patient report" }
                     ],
-                    ddx: { diff: 'Kyphosis (Scheuermann\'s)', reason: 'Scoliosis involves lateral curvature and rotation. Scheuermann\'s is a structural hyper-kyphosis (sagittal plane) with vertebral wedging.' }
+                    ddx: [
+                        { diff: 'Kyphosis (Scheuermann\'s)', reason: 'Scoliosis involves lateral curvature and rotation (rib hump). Scheuermann\'s is structural hyper-kyphosis (sagittal plane) with anterior vertebral wedging.' },
+                        { diff: 'Postural Round Back', reason: 'Postural kyphosis corrects with voluntary extension. Structural scoliosis (Cobb angle >10°) is fixed and does not correct with posture.' },
+                        { diff: 'Leg Length Discrepancy', reason: 'LLD causes functional scoliosis that corrects with heel lift. Idiopathic scoliosis is structural with vertebral rotation and rib hump.' },
+                        { diff: 'Neuromuscular Scoliosis (CP)', reason: 'Neuromuscular scoliosis involves underlying muscle weakness (CP/muscular dystrophy). Idiopathic scoliosis has no neurological deficits.' },
+                        { diff: 'Congenital Scoliosis', reason: 'Congenital scoliosis involves vertebral malformations (hemivertebra) present from birth. Idiopathic scoliosis develops during growth without bony defects.' }
+                    ]
                 },
             },
             neuro: {
@@ -966,13 +1000,32 @@
 
             // Render DDx Card
             const ddxCard = document.getElementById('ddx-card');
-            const ddxDiff = document.getElementById('ddx-diff');
-            const ddxReason = document.getElementById('ddx-reason');
+            const ddxGrid = document.getElementById('ddx-grid');
 
-            if (data.ddx) {
+            if (data.ddx && data.ddx.length > 0) {
                 ddxCard.classList.remove('hidden');
-                ddxDiff.innerText = data.ddx.diff;
-                ddxReason.innerText = data.ddx.reason;
+                ddxGrid.innerHTML = '';
+
+                data.ddx.forEach((item, index) => {
+                    const ddxItem = document.createElement('div');
+                    ddxItem.className = 'rounded-xl border p-4 transition-all duration-300 hover:scale-105';
+                    ddxItem.style.background = 'rgba(0,0,0,0.2)';
+                    ddxItem.style.borderColor = 'rgba(251, 191, 36, 0.3)';
+
+                    ddxItem.innerHTML = `
+                        <div class="flex items-start gap-2 mb-2">
+                            <span class="text-lg font-bold" style="color: #f59e0b;">${index + 1}.</span>
+                            <div class="flex-1">
+                                <p class="text-[10px] font-black uppercase tracking-wider opacity-60 mb-1" style="color: #fbbf24;">Vs.</p>
+                                <p class="text-md font-bold mb-2" style="color: #fce7f3;">${item.diff}</p>
+                                <div class="pl-3 border-l-2 mt-2" style="border-color: rgba(236, 72, 153, 0.4);">
+                                    <p class="text-xs leading-relaxed" style="color: #d8b4fe;">${item.reason}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    ddxGrid.appendChild(ddxItem);
+                });
             } else {
                 ddxCard.classList.add('hidden');
             }
