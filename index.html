@@ -697,7 +697,13 @@
                         { i: "Impaired Community Ambulation", r: "Circumduction gait required for foot clearance.", f: "Gait speed < 0.4 m/s" },
                         { i: "Speech Impairment (Aphasia)", r: "Involvement of Broca's/Wernicke's area.", f: "Communication screen failed" }
                     ],
-                    ddx: { diff: 'Hemorrhagic Stroke', reason: 'Ischemic stroke (MCA) is gradual onset with focal deficits. Hemorrhagic stroke is sudden severe headache (thunderclap) with rapid deterioration and often loss of consciousness.' }
+                    ddx: [
+                        { diff: 'Hemorrhagic Stroke', reason: 'Ischemic stroke (MCA) is gradual onset with focal deficits. Hemorrhagic stroke is sudden severe headache (thunderclap) with rapid deterioration and loss of consciousness.' },
+                        { diff: 'Transient Ischemic Attack (TIA)', reason: 'TIA symptoms resolve completely within 24 hours (usually <1 hour). Stroke causes permanent neurological deficits with brain tissue damage.' },
+                        { diff: 'Brain Tumor', reason: 'Tumor symptoms are progressive over weeks/months with headache and seizures. Stroke is sudden onset with vascular territory distribution.' },
+                        { diff: 'Todd\'s Paralysis (Post-Seizure)', reason: 'Todd\'s paralysis follows a seizure and resolves within 48 hours. Stroke has sudden vascular onset without seizure history.' },
+                        { diff: 'Hypoglycemia', reason: 'Hypoglycemia causes global confusion and resolves with glucose. Stroke causes focal deficits (hemiplegia/aphasia) not responsive to glucose.' }
+                    ]
                 },
                 "Parkinson's Disease": {
                     struct: [
@@ -712,7 +718,13 @@
                         { i: "Frequent Falls", r: "Loss of protective 'step' reaction.", f: "Pull Test: Positive" },
                         { i: "Difficulty in Bed Mobility", r: "Axial rigidity prevents segmental rolling.", f: "Timed bed roll > 30s" }
                     ],
-                    ddx: { diff: 'Essential Tremor', reason: 'PD tremor is a resting tremor (disappears during activity) with pill-rolling character. Essential tremor is an action/postural tremor (appears during movement) and often involves the head/voice.' }
+                    ddx: [
+                        { diff: 'Essential Tremor', reason: 'PD tremor is resting tremor (disappears during activity) with pill-rolling. Essential tremor is action/postural tremor (appears during movement) and often involves head/voice.' },
+                        { diff: 'Progressive Supranuclear Palsy', reason: 'PSP has early vertical gaze palsy and frequent falls backwards. PD has horizontal gaze preserved and festinating gait forward.' },
+                        { diff: 'Multiple System Atrophy', reason: 'MSA has early autonomic failure (orthostatic hypotension) and poor L-DOPA response. PD responds well to L-DOPA initially.' },
+                        { diff: 'Vascular Parkinsonism', reason: 'Vascular parkinsonism involves lower body predominance (gait difficulty) without upper limb tremor. PD has asymmetric tremor starting in one hand.' },
+                        { diff: 'Drug-Induced Parkinsonism', reason: 'Drug-induced is symmetric, caused by antipsychotics/metoclopramide, and resolves with drug cessation. PD is asymmetric and progressive.' }
+                    ]
                 },
                 "Spinal Cord Injury (T10)": {
                     struct: [
@@ -727,7 +739,13 @@
                         { i: "Risk of Pressure Sores", r: "Inability to perform weight shifts (pressure relief).", f: "History of Grade I sore" },
                         { i: "Inability to perform ADLs (LL)", r: "Paralysis preventing pants/shoes application.", f: "Requires adaptive tools" }
                     ],
-                    ddx: { diff: 'Spinal Tumor', reason: 'SCI (T10) is acute trauma with sudden complete paralysis. Spinal tumor is gradual progressive weakness with sensory level ascending slowly over weeks/months.' }
+                    ddx: [
+                        { diff: 'Spinal Tumor', reason: 'SCI (T10) is acute trauma with sudden complete paralysis. Spinal tumor is gradual progressive weakness with sensory level ascending slowly over weeks/months.' },
+                        { diff: 'Transverse Myelitis', reason: 'Transverse myelitis is inflammatory (often post-viral) with partial recovery. SCI is traumatic with poor recovery of complete lesions.' },
+                        { diff: 'Multiple Sclerosis', reason: 'MS has relapsing-remitting course with multiple CNS lesions. SCI is single traumatic event with fixed sensory/motor level.' },
+                        { diff: 'Guillain-Barré Syndrome', reason: 'GBS is ascending flaccid paralysis (LMN) with areflexia. SCI below T10 has UMN signs (spasticity, hyperreflexia) in legs.' },
+                        { diff: 'Cauda Equina Syndrome', reason: 'Cauda Equina involves LMN lesion (areflexic, flaccid) below L1-L2. T10 SCI is UMN (spastic, hyperreflexic) with reflex bladder.' }
+                    ]
                 },
                 "Guillain-Barré Syndrome (GBS)": {
                     struct: [
@@ -742,7 +760,13 @@
                         { i: "Loss of fine motor skills", r: "Profound distal weakness.", f: "Unable to hold cup" },
                         { i: "Impaired Communication", r: "Facial nerve weakness and ventilation.", f: "Uses eye signals" }
                     ],
-                    ddx: { diff: 'Multiple Sclerosis', reason: 'GBS is a peripheral LMN condition with ascending flaccid paralysis and areflexia. MS is a central UMN condition with spasticity, visual changes (optic neuritis), and scanning speech.' }
+                    ddx: [
+                        { diff: 'Multiple Sclerosis', reason: 'GBS is peripheral LMN condition with ascending flaccid paralysis and areflexia. MS is central UMN with spasticity, visual changes (optic neuritis), and scanning speech.' },
+                        { diff: 'Myasthenia Gravis', reason: 'MG has fatigability (worse with use) and positive Tensilon test. GBS has progressive weakness (not fatigable) with negative Tensilon.' },
+                        { diff: 'Botulism', reason: 'Botulism starts with cranial nerves (ptosis, diplopia) descending down. GBS is ascending paralysis starting from legs.' },
+                        { diff: 'Polymyositis', reason: 'Polymyositis is proximal muscle weakness with elevated CK and muscle inflammation. GBS is demyelinating neuropathy with nerve conduction abnormalities.' },
+                        { diff: 'Tick Paralysis', reason: 'Tick paralysis is acute flaccid paralysis that resolves within 24 hours of tick removal. GBS is progressive over days and requires weeks of recovery.' }
+                    ]
                 },
                 "Bell's Palsy": {
                     struct: [
@@ -757,7 +781,13 @@
                         { i: "Eye Irritation", r: "Exposure keratitis due to lack of blinking.", f: "Redness / Dryness" },
                         { i: "Social Withdrawal", r: "Facial asymmetry and drooping causing embarrassment.", f: "Avoids cameras/people" }
                     ],
-                    ddx: { diff: 'Stroke (Hemiplegia)', reason: 'Bell\'s Palsy (LMN) involves the whole half of the face including the forehead. Stroke (UMN) spares the forehead (preserves wrinkling) due to bilateral cortical supply.' }
+                    ddx: [
+                        { diff: 'Stroke (Hemiplegia)', reason: 'Bell\'s Palsy (LMN) involves whole half of face including forehead. Stroke (UMN) spares forehead (preserves wrinkling) due to bilateral cortical supply.' },
+                        { diff: 'Ramsay Hunt Syndrome', reason: 'Ramsay Hunt involves vesicles in ear canal (herpes zoster) with severe otalgia. Bell\'s Palsy is idiopathic without vesicles.' },
+                        { diff: 'Acoustic Neuroma', reason: 'Acoustic neuroma has gradual onset with hearing loss and tinnitus. Bell\'s Palsy is acute onset (24-48 hours) without hearing loss.' },
+                        { diff: 'Lyme Disease', reason: 'Lyme disease has tick bite history, erythema migrans rash, and bilateral facial palsy. Bell\'s Palsy is unilateral without rash.' },
+                        { diff: 'Parotid Tumor', reason: 'Parotid tumor has palpable mass in parotid gland and gradual progression. Bell\'s Palsy has no mass and acute onset.' }
+                    ]
                 },
                 "Cerebral Palsy (Spastic Diplegia)": {
                     struct: [
@@ -772,7 +802,13 @@
                         { i: "Slow walking speed", r: "High energy cost of spastic gait.", f: "Speed < 0.5 m/s" },
                         { i: "Academic struggle", r: "Associated cognitive or visual deficits.", f: "IEP required" }
                     ],
-                    ddx: { diff: 'Duchenne Muscular Dystrophy', reason: 'CP is a static brain lesion (non-progressive) present from birth. DMD is a progressive muscle wasting disease with a positive Gower\'s sign and calf pseudohypertrophy.' }
+                    ddx: [
+                        { diff: 'Duchenne Muscular Dystrophy', reason: 'CP is static brain lesion (non-progressive) present from birth. DMD is progressive muscle wasting with positive Gower\'s sign and calf pseudohypertrophy.' },
+                        { diff: 'Hereditary Spastic Paraplegia', reason: 'HSP is progressive spastic paraplegia with family history. CP is non-progressive with perinatal insult (birth asphyxia/prematurity).' },
+                        { diff: 'Spinal Muscular Atrophy', reason: 'SMA is LMN disease with hypotonia and areflexia. CP is UMN with spasticity and hyperreflexia (scissoring gait).' },
+                        { diff: 'Metachromatic Leukodystrophy', reason: 'MLD is progressive white matter disease with developmental regression. CP is static with no regression after initial injury.' },
+                        { diff: 'Rett Syndrome', reason: 'Rett involves developmental regression in girls with hand wringing. CP has developmental delay but no specific regression pattern.' }
+                    ]
                 },
                 "Multiple Sclerosis (Cerebellar)": {
                     struct: [
@@ -787,7 +823,13 @@
                         { i: "Difficulty in dressing", r: "Loss of precision in fine motor coordination.", f: "Timed task: High" },
                         { i: "Fatigue during ADLs", r: "Demyelinated nerves require more energy to fire.", f: "Fatigue scale > 8/10" }
                     ],
-                    ddx: { diff: 'Parkinson\'s Disease', reason: 'MS cerebellar features include intention tremor and nystagmus. PD has resting tremor (pill-rolling), bradykinesia, and lead-pipe rigidity without cerebellar signs.' }
+                    ddx: [
+                        { diff: 'Parkinson\'s Disease', reason: 'MS cerebellar features include intention tremor and nystagmus. PD has resting tremor (pill-rolling), bradykinesia, and lead-pipe rigidity without cerebellar signs.' },
+                        { diff: 'Friedreich\'s Ataxia', reason: 'Friedreich\'s is hereditary spinocerebellar degeneration with cardiomyopathy and diabetes. MS is autoimmune demyelination with optic neuritis and relapsing course.' },
+                        { diff: 'Brain Tumor (Posterior Fossa)', reason: 'Brain tumor shows progressive symptoms with increased ICP (headache, vomiting). MS has relapsing-remitting course with MRI plaques in time/space.' },
+                        { diff: 'Vitamin B12 Deficiency', reason: 'B12 deficiency causes subacute combined degeneration with posterior column signs. MS has cerebellar ataxia with visual symptoms (optic neuritis).' },
+                        { diff: 'Chronic Alcoholism', reason: 'Alcoholic cerebellar degeneration affects vermis (truncal ataxia) with alcohol history. MS is autoimmune with positive oligoclonal bands in CSF.' }
+                    ]
                 },
                 "Cerebellar Ataxia": {
                     struct: [
@@ -802,7 +844,13 @@
                         { i: "Difficulty in stairs", r: "Balance impairment in single leg phase.", f: "Needs 2-person assist" },
                         { i: "Inability to cycle", r: "Requires high-level complex coordination.", f: "Failed attempt" }
                     ],
-                    ddx: { diff: 'Sensory Ataxia', reason: 'In Cerebellar Ataxia, balance is poor with eyes OPEN and CLOSED (Romberg -ve/irrelevant). In Sensory Ataxia (Tabes Dorsalis), balance worsens dramatically with eyes closed (Romberg +ve).' }
+                    ddx: [
+                        { diff: 'Sensory Ataxia', reason: 'In Cerebellar Ataxia, balance is poor with eyes OPEN and CLOSED (Romberg -ve). In Sensory Ataxia (Tabes Dorsalis), balance worsens dramatically with eyes closed (Romberg +ve).' },
+                        { diff: 'Vestibular Ataxia', reason: 'Vestibular ataxia has vertigo, nystagmus worsened by head movement. Cerebellar ataxia has nystagmus at rest and no vertigo.' },
+                        { diff: 'Friedreich\'s Ataxia', reason: 'Friedreich\'s is hereditary with onset <25 years, areflexia, and cardiomyopathy. Acquired cerebellar ataxia is sporadic with preserved reflexes.' },
+                        { diff: 'Alcoholic Cerebellar Degeneration', reason: 'Alcoholic degeneration primarily affects gait (vermis) with chronic alcohol use. Idiopathic cerebellar ataxia affects limbs equally without alcohol history.' },
+                        { diff: 'Posterior Fossa Tumor', reason: 'Tumor shows progressive unilateral cerebellar signs with increased ICP signs. Idiopathic cerebellar ataxia is bilateral and slowly progressive without ICP.' }
+                    ]
                 }
             },
             cvrs: {
@@ -819,7 +867,13 @@
                         { i: "Difficulty in bathing", r: "Steam and humidity aggravate airway resistance.", f: "Patient report" },
                         { i: "Social Withdrawal", r: "Oxygen dependency and fear of breathlessness.", f: "Avoids outings" }
                     ],
-                    ddx: { diff: 'Congestive Heart Failure', reason: 'COPD features hyper-resonance, barrel chest and smoking history. CHF features fine basal crepitations (wet lungs), S3 gallop, and orthopnea.' }
+                    ddx: [
+                        { diff: 'Congestive Heart Failure', reason: 'COPD features hyper-resonance, barrel chest and smoking history. CHF features fine basal crepitations (wet lungs), S3 gallop, and orthopnea.' },
+                        { diff: 'Bronchial Asthma', reason: 'Asthma has reversible airflow obstruction (responds to bronchodilators). COPD is irreversible obstruction with poor bronchodilator response.' },
+                        { diff: 'Bronchiectasis', reason: 'Bronchiectasis involves chronic copious purulent sputum (3 layers) and clubbing. COPD has scanty mucoid sputum without clubbing (unless severe).' },
+                        { diff: 'Interstitial Lung Disease', reason: 'ILD shows restrictive pattern (FEV1/FVC normal/high) with fine crackles. COPD is obstructive (FEV1/FVC <70%) with wheeze.' },
+                        { diff: 'Pulmonary Tuberculosis', reason: 'TB has night sweats, hemoptysis, and cavitary lesions on X-ray. COPD has chronic productive cough with hyperinflation on X-ray.' }
+                    ]
                 },
                 "Post-CABG (Day 2)": {
                     struct: [
@@ -834,7 +888,13 @@
                         { i: "Difficulty in Deep Breathing", r: "Splinting of the chest wall.", f: "Inspiratory capacity low" },
                         { i: "Anxiety", r: "Fear of heart failure post-surgery.", f: "Refuses exercise" }
                     ],
-                    ddx: { diff: 'Pneumonia', reason: 'Post-CABG atelectasis is non-infectious lung collapse from pain/anesthesia. Pneumonia is an active infection with high fever, productive sputum, and consolidation on X-ray.' }
+                    ddx: [
+                        { diff: 'Pneumonia', reason: 'Post-CABG atelectasis is non-infectious lung collapse from pain/anesthesia. Pneumonia is active infection with high fever, productive sputum, and consolidation on X-ray.' },
+                        { diff: 'Pleural Effusion', reason: 'Effusion shows stony dull percussion with absent breath sounds. Atelectasis has dull percussion but bronchial breathing (transmitted sounds).' },
+                        { diff: 'Pulmonary Embolism', reason: 'PE has sudden dyspnea, tachycardia, and positive D-dimer. Atelectasis is gradual post-op onset with normal D-dimer.' },
+                        { diff: 'Acute Respiratory Distress Syndrome', reason: 'ARDS shows bilateral infiltrates on X-ray with severe hypoxemia (PaO2/FiO2 <200). Atelectasis is localized collapse with milder hypoxemia.' },
+                        { diff: 'Pericardial Effusion', reason: 'Pericardial effusion shows distant heart sounds and electrical alternans on ECG. Atelectasis involves reduced breath sounds in lung fields.' }
+                    ]
                 },
                 "Myocardial Infarction": {
                     struct: [
@@ -849,7 +909,13 @@
                         { i: "Fear of Exercise", r: "Psychological trauma from the cardiac event.", f: "Avoids even minor movements" },
                         { i: "Inability to climb stairs", r: "Requires sudden high cardiac output.", f: "Failed test" }
                     ],
-                    ddx: { diff: 'Angina Pectoris', reason: 'Angina is relieved by rest or Nitroglycerin within 15 mins. MI pain is more severe (crushing), lasts > 30 mins, and is NOT relieved by rest/GTN (requires morphine).' }
+                    ddx: [
+                        { diff: 'Angina Pectoris', reason: 'Angina is relieved by rest or Nitroglycerin within 15 mins. MI pain is more severe (crushing), lasts >30 mins, and is NOT relieved by rest/GTN (requires morphine).' },
+                        { diff: 'Pericarditis', reason: 'Pericarditis pain is sharp/stabbing, improves by leaning forward, and worsens lying flat. MI pain is pressure-like and not posture-dependent.' },
+                        { diff: 'Aortic Dissection', reason: 'Aortic dissection is sudden tearing pain radiating to back with blood pressure differential in arms. MI is anterior chest pain without BP differential.' },
+                        { diff: 'Pulmonary Embolism', reason: 'PE has pleuritic chest pain (worse with breathing), tachypnea, and positive D-dimer. MI has crushing central pain with elevated troponin.' },
+                        { diff: 'Gastroesophageal Reflux', reason: 'GERD is burning retrosternal pain worse after meals, relieved by antacids. MI is crushing pain with radiation to jaw/arm, not relieved by antacids.' }
+                    ]
                 },
                 "Bronchial Asthma": {
                     struct: [
@@ -864,7 +930,13 @@
                         { i: "Restricted Sport Play", r: "Exercise induced bronchospasm.", f: "Wheezing after 5 mins play" },
                         { i: "Inability to use perfumes", r: "Chemical triggers for airway spasm.", f: "Avoids cosmetics" }
                     ],
-                    ddx: { diff: 'Cardiac Asthma', reason: 'Bronchial asthma is reversible and has allergic components (wheeze). Cardiac asthma is secondary to left heart failure (pink frothy sputum) and not relieved by salbutamol.' }
+                    ddx: [
+                        { diff: 'Cardiac Asthma', reason: 'Bronchial asthma is reversible and has allergic components (wheeze). Cardiac asthma is secondary to left heart failure (pink frothy sputum) and not relieved by salbutamol.' },
+                        { diff: 'COPD', reason: 'COPD is chronic irreversible obstruction in adults/smokers. Asthma is reversible airway obstruction with childhood onset and strong family history.' },
+                        { diff: 'Vocal Cord Dysfunction', reason: 'VCD involves paradoxical vocal cord closure with inspiratory stridor. Asthma has expiratory wheeze with peak flow reduction.' },
+                        { diff: 'Bronchiectasis', reason: 'Bronchiectasis involves chronic productive cough with copious sputum. Asthma involves episodic dry cough/wheeze triggered by allergens.' },
+                        { diff: 'Pulmonary Embolism', reason: 'PE has sudden dyspnea without wheeze, positive D-dimer, and pleuritic pain. Asthma has gradual onset wheeze with diurnal variation.' }
+                    ]
                 },
                 "Bronchiectasis": {
                     struct: [
@@ -879,7 +951,13 @@
                         { i: "Difficulty in concentrated work", r: "Frequent coughing bouts interrupt tasks.", f: "Productivity drop" },
                         { i: "Anorexia (Weight Loss)", r: "High metabolic cost of chronic infection.", f: "BMI < 18.5" }
                     ],
-                    ddx: { diff: 'Lung Abscess', reason: 'Bronchiectasis involves chronic copious 3-layered sputum and clubbing. Lung Abscess is acute/sub-acute with high spiking fever and distinct foul-smelling (putrid) breath.' }
+                    ddx: [
+                        { diff: 'Lung Abscess', reason: 'Bronchiectasis involves chronic copious 3-layered sputum and clubbing. Lung Abscess is acute/sub-acute with high spiking fever and distinct foul-smelling (putrid) breath.' },
+                        { diff: 'COPD', reason: 'COPD has irreversible airflow obstruction with scanty sputum. Bronchiectasis has permanent bronchial dilatation with copious purulent sputum (>100ml/day).' },
+                        { diff: 'Pulmonary Tuberculosis', reason: 'TB has night sweats, weight loss, and cavitary lesions (apical). Bronchiectasis has chronic sputum (basal) without constitutional symptoms.' },
+                        { diff: 'Cystic Fibrosis', reason: 'CF has early onset (<5 years), pancreatic insufficiency, and positive sweat chloride test. Bronchiectasis is acquired (post-infection) without pancreatic involvement.' },
+                        { diff: 'Chronic Aspiration', reason: 'Aspiration involves recurrent pneumonias in dependent zones with swallowing difficulty. Bronchiectasis has bronchial dilatation on HRCT without dysphagia.' }
+                    ]
                 },
                 "Pleural Effusion": {
                     struct: [
@@ -894,7 +972,13 @@
                         { i: "Impaired Chest Expansion", r: "Mechanical block to rib cage movement.", f: "Excursion < 2cm" },
                         { i: "Inability to walk long distances", r: "Dyspnea due to reduced vital capacity.", f: "Stops after 50m" }
                     ],
-                    ddx: { diff: 'Pneumonia (Consolidation)', reason: 'Effusion features stony dull percussion, reduced vocal fremitus, and absent breath sounds (fluid blocks sound). Pneumonia involves dull percussion but INCREASED vocal resonance (solid transmits sound).' }
+                    ddx: [
+                        { diff: 'Pneumonia (Consolidation)', reason: 'Effusion features stony dull percussion, reduced vocal fremitus, and absent breath sounds (fluid blocks sound). Pneumonia involves dull percussion but INCREASED vocal resonance (solid transmits sound).' },
+                        { diff: 'Pneumothorax', reason: 'Pneumothorax has hyper-resonance with absent breath sounds. Effusion has stony dullness with tracheal shift away from lesion (massive effusion).' },
+                        { diff: 'Hemothorax', reason: 'Hemothorax has trauma history and bloody fluid on aspiration. Pleural effusion (transudate) is straw-colored without trauma.' },
+                        { diff: 'Empyema', reason: 'Empyema is infected effusion with high fever, pus on aspiration, and septations on ultrasound. Simple effusion is clear/straw-colored fluid.' },
+                        { diff: 'Lung Collapse (Atelectasis)', reason: 'Atelectasis has volume loss with tracheal shift towards lesion. Effusion has tracheal shift away with no volume loss.' }
+                    ]
                 },
                 "Pneumonia": {
                     struct: [
@@ -909,7 +993,13 @@
                         { i: "Impaired Appetite", r: "Malaise and work of breathing cost.", f: "Caloric intake low" },
                         { i: "Difficulty in speech", r: "Shortness of breath prevents long sentences.", f: "Phrases < 3 words" }
                     ],
-                    ddx: { diff: 'Pulmonary Tuberculosis', reason: 'Pneumonia is acute bacterial infection with high fever and rapid onset. TB is chronic with night sweats, weight loss, and cavitary lesions on X-ray.' }
+                    ddx: [
+                        { diff: 'Pulmonary Tuberculosis', reason: 'Pneumonia is acute bacterial infection with high fever and rapid onset. TB is chronic with night sweats, weight loss, and cavitary lesions on X-ray.' },
+                        { diff: 'Bronchitis', reason: 'Bronchitis is inflammation of airways with normal chest X-ray. Pneumonia shows consolidation (alveolar infiltrates) on X-ray.' },
+                        { diff: 'Pulmonary Edema', reason: 'Pulmonary edema has bilateral perihilar infiltrates (bat-wing) and cardiac enlargement. Pneumonia has unilateral lobar consolidation.' },
+                        { diff: 'Lung Abscess', reason: 'Lung abscess shows cavity with air-fluid level on X-ray. Pneumonia shows homogenous consolidation without cavity.' },
+                        { diff: 'Pulmonary Embolism with Infarction', reason: 'PE with infarction has pleuritic pain, wedge-shaped opacity, and positive D-dimer. Pneumonia has productive cough and lobar consolidation.' }
+                    ]
                 },
                 "Congestive Heart Failure": {
                     struct: [
@@ -924,7 +1014,13 @@
                         { i: "Inability to walk up driveways", r: "Extreme dyspnea on slight incline.", f: "Stops immediately" },
                         { i: "Mood Depression", r: "Chronic illness and physical limitations.", f: "Mental screen positive" }
                     ],
-                    ddx: { diff: 'Cor Pulmonale', reason: 'CHF is left heart failure (pulmonary edema). Cor Pulmonale is right heart failure secondary to chronic lung disease (COPD) with peripheral edema and JVP elevation.' }
+                    ddx: [
+                        { diff: 'Cor Pulmonale', reason: 'CHF is left heart failure (pulmonary edema). Cor Pulmonale is right heart failure secondary to chronic lung disease (COPD) with peripheral edema and JVP elevation.' },
+                        { diff: 'COPD Exacerbation', reason: 'COPD has barrel chest, hyperresonance, and obstructive spirometry. CHF has cardiomegaly, S3 gallop, and elevated BNP.' },
+                        { diff: 'Renal Failure', reason: 'Renal failure causes fluid overload with uremia and elevated creatinine. CHF is cardiac dysfunction with elevated BNP and normal/near-normal creatinine.' },
+                        { diff: 'Liver Cirrhosis (Ascites)', reason: 'Cirrhosis causes ascites (abdominal fluid) with hepatomegaly. CHF causes pulmonary edema (lung fluid) with cardiomegaly.' },
+                        { diff: 'Restrictive Cardiomyopathy', reason: 'Restrictive cardiomyopathy has diastolic dysfunction with preserved ejection fraction. Systolic CHF has reduced ejection fraction (<40%).' }
+                    ]
                 }
             }
         };
