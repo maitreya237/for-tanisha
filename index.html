@@ -856,16 +856,16 @@
             cvrs: {
                 "COPD (Severe)": {
                     struct: [
-                        { i: "Air Trapping (Hyperinflation)", r: "Loss of elastic recoil and premature airway closure.", f: "X-ray: Barrel Chest" },
-                        { i: "Diaphragm Flattening", r: "Hyperinflated lungs push the diaphragm down.", f: "Hoover's Sign: Positive" },
-                        { i: "Altered V/Q Mismatch", r: "Destruction of alveolar-capillary membrane.", f: "SpO2 < 88% on room air" },
-                        { i: "Muscle Fiber Shift", r: "Chronic hypoxia causing Type I to Type II fiber shift.", f: "Quadriceps wasting" }
+                        { i: "Air Trapping (Hyperinflation)", r: "• Loss of elastic recoil → airways collapse on expiration<br>• Premature airway closure traps air in alveoli<br>• Increased residual volume → hyperinflation<br>• Chest becomes barrel-shaped (AP diameter increases)<br>• Reduces diaphragm efficiency (flattened position)", f: "X-ray: Barrel Chest" },
+                        { i: "Diaphragm Flattening", r: "• Hyperinflated lungs push diaphragm downward<br>• Normal dome shape → flattened position<br>• Reduces zone of apposition (mechanical disadvantage)<br>• Hoover's sign: Paradoxical inward rib movement<br>• Accessory muscles recruited for breathing", f: "Hoover's Sign: Positive" },
+                        { i: "Altered V/Q Mismatch", r: "• Emphysema → destruction of alveolar-capillary membrane<br>• Reduced surface area for gas exchange<br>• Ventilation > Perfusion (dead space ventilation)<br>• Chronic hypoxemia → SpO2 <88%<br>• Leads to pulmonary hypertension → cor pulmonale", f: "SpO2 < 88% on room air" },
+                        { i: "Muscle Fiber Shift", r: "• Chronic hypoxia → metabolic stress on muscles<br>• Type I fibers (endurance) → Type II (fast-twitch)<br>• Quadriceps preferentially affected<br>• Muscle wasting → visible atrophy<br>• Contributes to exercise intolerance", f: "Quadriceps wasting" }
                     ],
                     func: [
-                        { i: "Dyspnea on ADLs", r: "Increased work of breathing and dynamic hyperinflation.", f: "Borg Dyspnea > 6" },
-                        { i: "Reduced Exercise Capacity", r: "Early metabolic acidosis and ventilatory limit.", f: "6MWT < 250m" },
-                        { i: "Difficulty in bathing", r: "Steam and humidity aggravate airway resistance.", f: "Patient report" },
-                        { i: "Social Withdrawal", r: "Oxygen dependency and fear of breathlessness.", f: "Avoids outings" }
+                        { i: "Dyspnea on ADLs", r: "• ADLs → increased metabolic demand + O2 consumption<br>• Dynamic hyperinflation during exertion<br>• Increased work of breathing → exhaustion<br>• Borg scale >6 indicates severe dyspnea<br>• Simple tasks (dressing, cooking) become impossible", f: "Borg Dyspnea > 6" },
+                        { i: "Reduced Exercise Capacity", r: "• Ventilatory limitation → cannot meet O2 demands<br>• Early lactic acidosis (anaerobic threshold reduced)<br>• 6-Minute Walk Test: <250m indicates severe impairment<br>• Normal >400m, Moderate 250-350m<br>• Predicts mortality + hospitalization risk", f: "6MWT < 250m" },
+                        { i: "Difficulty in bathing", r: "• Steam + humidity → increased airway resistance<br>• Warm moist air triggers bronchospasm<br>• Upper body movement → increased dyspnea<br>• Fear of breathlessness → avoidance behavior<br>• Requires assistance for bathing", f: "Patient report" },
+                        { i: "Social Withdrawal", r: "• Oxygen dependency → embarrassment in public<br>• Fear of sudden breathlessness episodes<br>• Reduced mobility → cannot attend social events<br>• Depression + anxiety common (60% of COPD patients)<br>• Leads to social isolation + quality of life decline", f: "Avoids outings" }
                     ],
                     ddx: [
                         { diff: 'Congestive Heart Failure', reason: 'COPD features hyper-resonance, barrel chest and smoking history. CHF features fine basal crepitations (wet lungs), S3 gallop, and orthopnea.' },
@@ -877,16 +877,16 @@
                 },
                 "Post-CABG (Day 2)": {
                     struct: [
-                        { i: "Sternal Pain", r: "Incision and median sternotomy surgical trauma.", f: "VAS 9/10 on cough" },
-                        { i: "Basal Atelectasis", r: "Shallow breathing due to pain and anesthesia.", f: "Reduced breath sounds RLL" },
-                        { i: "Reduced FVC", r: "Pain limited inspiration and rib cage restriction.", f: "PFT: 40% of predicted" },
-                        { i: "Impaired Secretion Clearance", r: "Weak cough due to sternal pain.", f: "Visible secretions" }
+                        { i: "Sternal Pain", r: "• Median sternotomy → bone + periosteum trauma<br>• Surgical incision → tissue damage + inflammation<br>• Coughing/movement → stress on healing sternum<br>• VAS 9/10 on cough (most painful stimulus)<br>• Pain limits deep breathing + secretion clearance", f: "VAS 9/10 on cough" },
+                        { i: "Basal Atelectasis", r: "• General anesthesia → surfactant dysfunction<br>• Shallow breathing due to pain → reduced lung expansion<br>• Supine position → gravitational collapse of bases<br>• Reduced FRC → alveolar collapse<br>• Typically affects right lower lobe (RLL)", f: "Reduced breath sounds RLL" },
+                        { i: "Reduced FVC", r: "• Pain → restrictive breathing pattern<br>• Rib cage stiffness → reduced chest wall compliance<br>• Inspiratory muscle weakness post-anesthesia<br>• FVC reduced to 40% of predicted (severe restriction)<br>• Limits effective cough + secretion clearance", f: "PFT: 40% of predicted" },
+                        { i: "Impaired Secretion Clearance", r: "• Weak ineffective cough due to sternal pain<br>• Anesthesia → increased mucus production<br>• Reduced mucociliary clearance<br>• Visible secretions retained in airways<br>• Increases risk of pneumonia", f: "Visible secretions" }
                     ],
                     func: [
-                        { i: "Impaired Bed Mobility", r: "Fear of sternal opening and severe pain.", f: "Requires assist of 2" },
-                        { i: "Inability to walk independently", r: "Post-op hypotension and pain.", f: "Requires walking frame" },
-                        { i: "Difficulty in Deep Breathing", r: "Splinting of the chest wall.", f: "Inspiratory capacity low" },
-                        { i: "Anxiety", r: "Fear of heart failure post-surgery.", f: "Refuses exercise" }
+                        { i: "Impaired Bed Mobility", r: "• Fear of sternal dehiscence (opening)<br>• Severe pain on rolling/repositioning<br>• Requires 2-person assist for safety<br>• Log-rolling technique with sternal precautions<br>• Limits independence in bed", f: "Requires assist of 2" },
+                        { i: "Inability to walk independently", r: "• Post-op hypotension → orthostatic intolerance<br>• Pain + weakness → reduced mobility<br>• Walking frame needed for balance support<br>• Early mobilization important for recovery<br>• Gradual progression from bed → chair → walking", f: "Requires walking frame" },
+                        { i: "Difficulty in Deep Breathing", r: "• Splinting → voluntary restriction of chest movement<br>• Pain-avoidance behavior reduces inspiration<br>• Paradoxical breathing pattern<br>• Low inspiratory capacity → incomplete lung inflation<br>• Requires incentive spirometry coaching", f: "Inspiratory capacity low" },
+                        { i: "Anxiety", r: "• Psychological trauma from cardiac event<br>• Fear of heart failure recurring<br>• Refuses exercise due to fear<br>• Catastrophic thinking about exertion<br>• Requires cardiac rehabilitation + counseling", f: "Refuses exercise" }
                     ],
                     ddx: [
                         { diff: 'Pneumonia', reason: 'Post-CABG atelectasis is non-infectious lung collapse from pain/anesthesia. Pneumonia is active infection with high fever, productive sputum, and consolidation on X-ray.' },
@@ -898,16 +898,16 @@
                 },
                 "Myocardial Infarction": {
                     struct: [
-                        { i: "Reduced Cardiac Output", r: "Myocardial necrosis leading to wall motion defect.", f: "Echo: EF 35%" },
-                        { i: "Tachycardia at Rest", r: "Compensatory sympathetic drive.", f: "HR 110 bpm" },
-                        { i: "Ischemic ECG changes", r: "Ongoing myocardial oxygen demand-supply gap.", f: "ST Elevation / T wave invert" },
-                        { i: "Low Blood Pressure", r: "Pump failure failing to sustain mean arterial pressure.", f: "BP 90/60 mmHg" }
+                        { i: "Reduced Cardiac Output", r: "• Myocardial necrosis → loss of contractile tissue<br>• Wall motion defect (hypokinesia/akinesia)<br>• Ejection fraction reduced (Normal 55-70%, MI <40%)<br>• Echo shows EF 35% (moderate-severe dysfunction)<br>• Leads to peripheral hypoperfusion", f: "Echo: EF 35%" },
+                        { i: "Tachycardia at Rest", r: "• Compensatory sympathetic activation<br>• Attempts to maintain cardiac output (CO = HR x SV)<br>• Reduced stroke volume → increased heart rate<br>• Resting HR 110 bpm (normal 60-100 bpm)<br>• Increases myocardial oxygen demand", f: "HR 110 bpm" },
+                        { i: "Ischemic ECG changes", r: "• Acute MI → ST segment elevation (STEMI)<br>• T wave inversion indicates ischemia<br>• Reflects ongoing oxygen demand-supply mismatch<br>• Location of changes indicates affected coronary artery<br>• Serial ECGs monitor evolution", f: "ST Elevation / T wave invert" },
+                        { i: "Low Blood Pressure", r: "• Pump failure → cannot sustain MAP<br>• Reduced ejection fraction → low cardiac output<br>• BP 90/60 mmHg (hypotension, MAP ~70 mmHg)<br>• Target MAP >65 mmHg for organ perfusion<br>• May require inotropic support", f: "BP 90/60 mmHg" }
                     ],
                     func: [
-                        { i: "Activity Intolerance", r: "Inability to meet metabolic O2 demands.", f: "Angina on walking 20m" },
-                        { i: "Impaired Self-Care", r: "Fatigue and risk of arrhythmia.", f: "Needs total assist" },
-                        { i: "Fear of Exercise", r: "Psychological trauma from the cardiac event.", f: "Avoids even minor movements" },
-                        { i: "Inability to climb stairs", r: "Requires sudden high cardiac output.", f: "Failed test" }
+                        { i: "Activity Intolerance", r: "• Reduced cardiac reserve → cannot meet O2 demands<br>• Angina occurs at low exertion (20m walk)<br>• Chest pain limits functional capacity<br>• MET level severely restricted (<2 METs)<br>• Gradual cardiac rehabilitation needed", f: "Angina on walking 20m" },
+                        { i: "Impaired Self-Care", r: "• Severe fatigue from low cardiac output<br>• Risk of arrhythmia during exertion<br>• Total assistance needed for ADLs<br>• Energy conservation techniques required<br>• Bed rest initially, gradual mobilization", f: "Needs total assist" },
+                        { i: "Fear of Exercise", r: "• Psychological trauma from cardiac event<br>• Kinesiophobia (fear of movement)<br>• Avoids even minor movements<br>• Catastrophic thinking about exertion<br>• Requires psychological support + education", f: "Avoids even minor movements" },
+                        { i: "Inability to climb stairs", r: "• Stairs → sudden high cardiac output demand<br>• Each step = 4-6 METs (MI tolerance <2 METs)<br>• Risk of angina, arrhythmia, sudden death<br>• Failed functional capacity test<br>• Contraindicated until cardiac rehabilitation", f: "Failed test" }
                     ],
                     ddx: [
                         { diff: 'Angina Pectoris', reason: 'Angina is relieved by rest or Nitroglycerin within 15 mins. MI pain is more severe (crushing), lasts >30 mins, and is NOT relieved by rest/GTN (requires morphine).' },
@@ -919,15 +919,15 @@
                 },
                 "Bronchial Asthma": {
                     struct: [
-                        { i: "Airway Bronchospasm", r: "Hyper-responsiveness of smooth muscles to allergens.", f: "Polyphonic wheezing" },
-                        { i: "Mucus Hypersecretion", r: "Inflammatory goblet cell hyperplasia.", f: "Productive cough" },
-                        { i: "Reduced FEV1", r: "Obstructive airway narrowing.", f: "PEFR < 60% of best" },
-                        { i: "Accessory Muscle Overuse", r: "High work of breathing to overcome resistance.", f: "SCM / Trap prominence" }
+                        { i: "Airway Bronchospasm", r: "• IgE-mediated hypersensitivity (Type I)<br>• Allergen exposure → mast cell degranulation<br>• Histamine + leukotrienes → smooth muscle contraction<br>• Hyper-responsive airways → narrowing<br>• Polyphonic wheezing (expiratory predominantly)", f: "Polyphonic wheezing" },
+                        { i: "Mucus Hypersecretion", r: "• Goblet cell hyperplasia → excess mucus production<br>• Inflammatory cytokines stimulate secretion<br>• Thick tenacious mucus plugs airways<br>• Productive cough with expectoration<br>• Worsens airway obstruction", f: "Productive cough" },
+                        { i: "Reduced FEV1", r: "• Obstructive airway narrowing → reduced airflow<br>• PEFR (Peak Expiratory Flow Rate) <60% of best<br>• FEV1/FVC ratio <70% (obstructive pattern)<br>• Reversible with bronchodilators (vs COPD)<br>• Severity: Mild >80%, Moderate 60-80%, Severe <60%", f: "PEFR < 60% of best" },
+                        { i: "Accessory Muscle Overuse", r: "• High work of breathing to overcome resistance<br>• SCM (sternocleidomastoid) + scalenes recruited<br>• Upper trapezius prominence visible<br>• Indicates respiratory distress<br>• May progress to respiratory failure", f: "SCM / Trap prominence" }
                     ],
                     func: [
-                        { i: "Sleep Disturbance", r: "Nocturnal dip in cortisol levels aggravating asthma.", f: "Wakes 3-4 times/night" },
-                        { i: "Absenteeism from School", r: "Frequent exacerbations.", f: "Missed 15 days/term" },
-                        { i: "Restricted Sport Play", r: "Exercise induced bronchospasm.", f: "Wheezing after 5 mins play" },
+                        { i: "Sleep Disturbance", r: "• Nocturnal dip in cortisol levels (3-4 AM)<br>• Cortisol normally suppresses inflammation<br>• Nighttime bronchospasm worsens<br>• Wakes 3-4 times/night with cough/wheeze<br>• Poor sleep → daytime fatigue", f: "Wakes 3-4 times/night" },
+                        { i: "Absenteeism from School", r: "• Frequent exacerbations → acute attacks<br>• Triggered by allergens, infections, exercise<br>• Missed 15 days/term (significant impact)<br>• Academic performance affected<br>• Social participation limited", f: "Missed 15 days/term" },
+                        { i: "Restricted Sport Play", r: "• Exercise-induced bronchospasm (EIB)<br>• Cold/dry air during exercise → airway cooling<br>• Wheezing after 5 mins of play<br>• Limits physical activity participation<br>• Pre-treatment with bronchodilators helpful", f: "Wheezing after 5 mins play" },
                         { i: "Inability to use perfumes", r: "Chemical triggers for airway spasm.", f: "Avoids cosmetics" }
                     ],
                     ddx: [
@@ -940,16 +940,16 @@
                 },
                 "Bronchiectasis": {
                     struct: [
-                        { i: "Permanent Airway Dilation", r: "Chronic infection destroying elastic/muscular layers.", f: "HRCT: Tram-track signs" },
-                        { i: "Copious Sputum Production", r: "Impaired mucociliary clearance and infection cycle.", f: "3-layer sputum (>50ml)" },
-                        { i: "Finger Clubbing", r: "Chronic hypoxia leading to soft tissue hyperplasia.", f: "Grade III Clubbing" },
-                        { i: "Hemoptysis", r: "Rupture of hypertrophied bronchial arteries.", f: "Blood stained sputum" }
+                        { i: "Permanent Airway Dilation", r: "• Chronic or severe infection → destroys elastic + muscular layers<br>• Airways lose structural integrity → abnormal dilation<br>• Irreversible bronchial widening<br>• HRCT shows 'tram-track' (parallel lines) + 'signet ring' signs<br>• Most commonly affects lower lobes (gravity-dependent)", f: "HRCT: Tram-track signs" },
+                        { i: "Copious Sputum Production", r: "• Damaged airways → impaired mucociliary clearance<br>• Pooling of secretions → chronic infection cycle<br>• Produces >50ml sputum daily (3-layer: frothy, purulent, sediment)<br>• Pseudomonas aeruginosa common organism<br>• Requires daily postural drainage", f: "3-layer sputum (>50ml)" },
+                        { i: "Finger Clubbing", r: "• Chronic hypoxia → soft tissue hyperplasia<br>• Loss of angle between nail + nail bed (Lovibond angle >180°)<br>• Increased AP diameter of fingertip<br>• Grade III clubbing (severe)<br>• Indicates chronic suppurative lung disease", f: "Grade III Clubbing" },
+                        { i: "Hemoptysis", r: "• Chronic inflammation → bronchial artery hypertrophy<br>• Rupture of dilated vessels → bleeding<br>• Blood-stained sputum (streaky or frank blood)<br>• Can be life-threatening if massive<br>• Requires bronchial artery embolization if severe", f: "Blood stained sputum" }
                     ],
                     func: [
-                        { i: "Social Embarrassment", r: "Foul smelling sputum and frequent coughing.", f: "Avoids public events" },
-                        { i: "Reduced Lung Endurance", r: "Chronic airway obstruction and fibrosis.", f: "6MWT < 300m" },
-                        { i: "Difficulty in concentrated work", r: "Frequent coughing bouts interrupt tasks.", f: "Productivity drop" },
-                        { i: "Anorexia (Weight Loss)", r: "High metabolic cost of chronic infection.", f: "BMI < 18.5" }
+                        { i: "Social Embarrassment", r: "• Foul-smelling (fetid) sputum<br>• Frequent uncontrollable coughing in public<br>• Need to expectorate frequently<br>• Social stigma + embarrassment<br>• Leads to avoidance of public events", f: "Avoids public events" },
+                        { i: "Reduced Lung Endurance", r: "• Chronic airway obstruction → V/Q mismatch<br>• Fibrosis reduces lung compliance<br>• 6-Minute Walk Test <300m (moderate impairment)<br>• Normal >400m<br>• Exertional dyspnea limits activities", f: "6MWT < 300m" },
+                        { i: "Difficulty in concentrated work", r: "• Frequent coughing bouts interrupt tasks<br>• Need for postural drainage 2-3x/day<br>• Fatigue from chronic infection<br>• Productivity significantly affected<br>• May require workplace accommodations", f: "Productivity drop" },
+                        { i: "Anorexia (Weight Loss)", r: "• High metabolic cost of chronic infection<br>• Systemic inflammation → increased energy expenditure<br>• Early satiety from abdominal distension<br>• BMI <18.5 indicates malnutrition<br>• Nutritional supplementation needed", f: "BMI < 18.5" }
                     ],
                     ddx: [
                         { diff: 'Lung Abscess', reason: 'Bronchiectasis involves chronic copious 3-layered sputum and clubbing. Lung Abscess is acute/sub-acute with high spiking fever and distinct foul-smelling (putrid) breath.' },
@@ -961,16 +961,16 @@
                 },
                 "Pleural Effusion": {
                     struct: [
-                        { i: "Fluid in Pleural Space", r: "Altered hydrostatic pressure or inflammatory leakage.", f: "Stony dull percussion" },
-                        { i: "Lung Compression", r: "Fluid volume physically preventing expansion.", f: "Absent breath sounds base" },
-                        { i: "Mediastinal Shift", r: "Pressure of fluid pushing heart to opposite side.", f: "Tracheal shift observed" },
-                        { i: "Pleuritic Chest Pain", r: "Irritation of the parietal pleura.", f: "VAS 7/10 on deep breath" }
+                        { i: "Fluid in Pleural Space", r: "• Transudate (CHF, cirrhosis) → altered hydrostatic pressure<br>• Exudate (pneumonia, cancer) → inflammatory leakage<br>• Accumulation in pleural cavity<br>• Stony dull percussion note (fluid blocks resonance)<br>• Light's criteria differentiates transudate vs exudate", f: "Stony dull percussion" },
+                        { i: "Lung Compression", r: "• Fluid volume compresses adjacent lung tissue<br>• Physically prevents lung expansion<br>• Reduces functional residual capacity (FRC)<br>• Absent/reduced breath sounds at base<br>• Compression atelectasis develops", f: "Absent breath sounds base" },
+                        { i: "Mediastinal Shift", r: "• Massive effusion (>1000ml) → space-occupying effect<br>• Pressure pushes mediastinum to opposite side<br>• Tracheal deviation away from affected side<br>• Can be palpated/observed<br>• Indicates need for urgent drainage", f: "Tracheal shift observed" },
+                        { i: "Pleuritic Chest Pain", r: "• Parietal pleura has rich pain innervation (intercostal nerves)<br>• Inflammation/irritation → sharp localized pain<br>• VAS 7/10, worse with deep breathing/coughing<br>• Pleura rub may be audible<br>• Patient splints affected side", f: "VAS 7/10 on deep breath" }
                     ],
                     func: [
-                        { i: "Orthopnea", r: "Inability to lie flat due to fluid redistribution.", f: "Sleeps on 3 pillows" },
-                        { i: "Difficulty in Side-lying", r: "Pain and fluid shift issues.", f: "Prefers affected side" },
-                        { i: "Impaired Chest Expansion", r: "Mechanical block to rib cage movement.", f: "Excursion < 2cm" },
-                        { i: "Inability to walk long distances", r: "Dyspnea due to reduced vital capacity.", f: "Stops after 50m" }
+                        { i: "Orthopnea", r: "• Lying flat → fluid redistributes + compresses lungs more<br>• Reduced vital capacity in supine position<br>• Sleeps on 3+ pillows for elevation<br>• Gravitational effect on fluid distribution<br>• Improves with upright positioning", f: "Sleeps on 3 pillows" },
+                        { i: "Difficulty in Side-lying", r: "• Side-lying on affected side → increased pain<br>• Fluid shifts with position change<br>• Patient prefers lying on affected side (paradoxical)<br>• Splints painful side, allows unaffected lung to expand<br>• Position-dependent dyspnea", f: "Prefers affected side" },
+                        { i: "Impaired Chest Expansion", r: "• Fluid creates mechanical block to rib cage movement<br>• Prevents normal chest wall excursion<br>• Normal chest expansion 5-7cm<br>• Effusion → <2cm indicates significant restriction<br>• Measured at nipple line/xiphoid level", f: "Excursion < 2cm" },
+                        { i: "Inability to walk long distances", r: "• Reduced vital capacity → exertional dyspnea<br>• Increased work of breathing with exertion<br>• Stops after 50m due to breathlessness<br>• Activity limitation significant<br>• Improves after therapeutic aspiration", f: "Stops after 50m" }
                     ],
                     ddx: [
                         { diff: 'Pneumonia (Consolidation)', reason: 'Effusion features stony dull percussion, reduced vocal fremitus, and absent breath sounds (fluid blocks sound). Pneumonia involves dull percussion but INCREASED vocal resonance (solid transmits sound).' },
@@ -982,16 +982,16 @@
                 },
                 "Pneumonia": {
                     struct: [
-                        { i: "Alveolar Consolidation", r: "Filling of alveoli with inflammatory exudate.", f: "Bronchial breath sounds" },
-                        { i: "Hypoxemia", r: "Impaired diffusion across infected alveolar wall.", f: "SpO2 92% on room air" },
-                        { i: "Pyrexia (Fever)", r: "Systemic inflammatory response to infection.", f: "Temp 101 F" },
-                        { i: "Reduced Lung Compliance", r: "Infiltrates making lung tissue stiff.", f: "High RR (Tachypnea)" }
+                        { i: "Alveolar Consolidation", r: "• Bacterial invasion → inflammatory exudate fills alveoli<br>• Air spaces replaced with fluid/pus/bacteria<br>• Lobar (entire lobe) vs bronchopneumonia (patchy)<br>• Bronchial breath sounds (solid lung transmits)<br>• Increased vocal resonance (tactile fremitus)", f: "Bronchial breath sounds" },
+                        { i: "Hypoxemia", r: "• Consolidated alveoli → impaired gas diffusion<br>• V/Q mismatch (perfusion without ventilation)<br>• SpO2 92% indicates moderate hypoxemia<br>• Normal >95% on room air<br>• May require supplemental oxygen", f: "SpO2 92% on room air" },
+                        { i: "Pyrexia (Fever)", r: "• Systemic inflammatory response syndrome (SIRS)<br>• Pyrogen release (IL-1, TNF-α) → hypothalamic set point elevated<br>• Temperature 101°F (38.3°C)<br>• Associated with rigors (shaking chills)<br>• Antimicrobial therapy reduces fever", f: "Temp 101 F" },
+                        { i: "Reduced Lung Compliance", r: "• Infiltrates make lung tissue stiff (non-compliant)<br>• Increased work of breathing to expand lungs<br>• Tachypnea (high respiratory rate) compensates<br>• Normal RR 12-20/min, Pneumonia >24/min<br>• Shallow rapid breathing pattern", f: "High RR (Tachypnea)" }
                     ],
                     func: [
-                        { i: "Inability to clear secretions", r: "Weak cough due to exhaustion and pain.", f: "Productive green sputum" },
-                        { i: "Reduced Exercise Tolerance", r: "Systemic infection and reduced O2 levels.", f: "Fatigue at minimal walk" },
-                        { i: "Impaired Appetite", r: "Malaise and work of breathing cost.", f: "Caloric intake low" },
-                        { i: "Difficulty in speech", r: "Shortness of breath prevents long sentences.", f: "Phrases < 3 words" }
+                        { i: "Inability to clear secretions", r: "• Weak ineffective cough from exhaustion<br>• Pleuritic pain limits cough effort<br>• Productive green/yellow sputum (purulent)<br>• Retained secretions worsen infection<br>• Requires chest physiotherapy", f: "Productive green sputum" },
+                        { i: "Reduced Exercise Tolerance", r: "• Systemic infection → cytokine-induced fatigue<br>• Hypoxemia → reduced O2 delivery to muscles<br>• Severe fatigue at minimal exertion<br>• Bed rest indicated during acute phase<br>• Gradual activity resumption post-recovery", f: "Fatigue at minimal walk" },
+                        { i: "Impaired Appetite", r: "• Malaise + systemic illness → anorexia<br>• High work of breathing → energy expenditure<br>• Dyspnea interferes with eating<br>• Low caloric intake delays recovery<br>• Nutritional support important", f: "Caloric intake low" },
+                        { i: "Difficulty in speech", r: "• Shortness of breath prevents long sentences<br>• Can only speak in short phrases (<3 words)<br>• Indicates severe respiratory distress<br>• Normal: Can speak full sentences<br>• Sign of respiratory failure risk", f: "Phrases < 3 words" }
                     ],
                     ddx: [
                         { diff: 'Pulmonary Tuberculosis', reason: 'Pneumonia is acute bacterial infection with high fever and rapid onset. TB is chronic with night sweats, weight loss, and cavitary lesions on X-ray.' },
@@ -1003,16 +1003,16 @@
                 },
                 "Congestive Heart Failure": {
                     struct: [
-                        { i: "Systemic Congestion", r: "Right heart failure leading to venous backflow.", f: "Pitting Edema / Raised JVP" },
-                        { i: "Pulmonary Edema", r: "Left heart failure leading to fluid in alveoli.", f: "Basal crackles" },
-                        { i: "Cardiomegaly", r: "Compensatory hypertrophy of the ventricle.", f: "X-ray: Large heart shadow" },
-                        { i: "Reduced Renal Perfusion", r: "Low cardiac output causing fluid retention.", f: "Reduced urine output" }
+                        { i: "Systemic Congestion", r: "• Right heart failure → inadequate RV ejection<br>• Venous backflow → systemic venous congestion<br>• Pitting edema (ankles/legs) - Grade 2-3<br>• Jugular venous pressure (JVP) raised >4cm above sternal angle<br>• Hepatomegaly (liver congestion) may be present", f: "Pitting Edema / Raised JVP" },
+                        { i: "Pulmonary Edema", r: "• Left heart failure → elevated left atrial pressure<br>• Increased pulmonary capillary wedge pressure (PCWP >18mmHg)<br>• Fluid leaks into alveoli (cardiogenic pulmonary edema)<br>• Fine basal crackles (rales) on auscultation<br>• Pink frothy sputum in severe cases", f: "Basal crackles" },
+                        { i: "Cardiomegaly", r: "• Chronic volume/pressure overload → ventricular hypertrophy<br>• Compensatory mechanism (Frank-Starling law)<br>• Cardiothoracic ratio >0.5 on X-ray (enlarged heart shadow)<br>• Echo shows dilated ventricle + reduced EF<br>• Left ventricular hypertrophy (LVH) on ECG", f: "X-ray: Large heart shadow" },
+                        { i: "Reduced Renal Perfusion", r: "• Low cardiac output → reduced renal blood flow<br>• Activates RAAS (renin-angiotensin-aldosterone system)<br>• Aldosterone → Na+ and water retention<br>• Oliguria (reduced urine output <400ml/day)<br>• Worsens fluid overload (vicious cycle)", f: "Reduced urine output" }
                     ],
                     func: [
-                        { i: "Paroxysmal Nocturnal Dyspnea", r: "Sudden fluid shift to lungs during sleep.", f: "Awakes gasping at night" },
-                        { i: "Difficulty in Dressing", r: "Fatigue even with small movements.", f: "Requires assist" },
-                        { i: "Inability to walk up driveways", r: "Extreme dyspnea on slight incline.", f: "Stops immediately" },
-                        { i: "Mood Depression", r: "Chronic illness and physical limitations.", f: "Mental screen positive" }
+                        { i: "Paroxysmal Nocturnal Dyspnea", r: "• Lying flat → increased venous return to heart<br>• Reabsorption of peripheral edema fluid overnight<br>• LV cannot handle increased preload<br>• Sudden pulmonary edema → severe dyspnea<br>• Patient awakes gasping, sits upright for relief", f: "Awakes gasping at night" },
+                        { i: "Difficulty in Dressing", r: "• Raising arms overhead → increased cardiac demand<br>• Severe fatigue even with minimal exertion<br>• MET level <2 (severely limited functional capacity)<br>• Requires assistance for basic ADLs<br>• Energy conservation techniques needed", f: "Requires assist" },
+                        { i: "Inability to walk up driveways", r: "• Incline/slight slope → sudden increased cardiac output demand<br>• Reduced cardiac reserve cannot meet demand<br>• Extreme dyspnea with minimal exertion<br>• Forced to stop immediately<br>• NYHA Class IV (symptoms at rest or minimal activity)", f: "Stops immediately" },
+                        { i: "Mood Depression", r: "• Chronic debilitating illness → loss of independence<br>• Significant physical activity limitations<br>• Social isolation from reduced mobility<br>• Depression prevalence 40-60% in CHF<br>• Positive depression screening (PHQ-9)", f: "Mental screen positive" }
                     ],
                     ddx: [
                         { diff: 'Cor Pulmonale', reason: 'CHF is left heart failure (pulmonary edema). Cor Pulmonale is right heart failure secondary to chronic lung disease (COPD) with peripheral edema and JVP elevation.' },
