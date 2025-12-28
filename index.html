@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhysioMaster Pro | FDPS Exam Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0118 0%, #1a0a2e 30%, #2d1b3d 60%, #1a0a2e 100%);
+            color: #f8f0ff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glass-nav {
+            background: rgba(10, 1, 24, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(236, 72, 153, 0.2);
+            box-shadow: 0 8px 32px rgba(236, 72, 153, 0.15);
+        }
+
+        .tab-btn {
+            padding: 0.875rem 1.5rem;
+            font-weight: 700;
+            font-size: 0.875rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 3px solid transparent;
+            position: relative;
+            color: #d8b4fe;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .tab-btn.active {
+            color: #fbbf24;
+            border-bottom-color: #f59e0b;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        .icf-table th {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2));
+            color: #fbbf24;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.875rem 1rem;
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            font-weight: 700;
+        }
+
+        .icf-table td {
+            padding: 1.125rem;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            font-size: 0.875rem;
+            vertical-align: top;
+            line-height: 1.6;
+            background: rgba(26, 10, 46, 0.5);
+            color: #e9d5ff;
+        }
+
+        .card-shadow {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(236, 72, 153, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .card-shadow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(236, 72, 153, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .reasoning-text {
+            color: #c4b5fd;
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        .finding-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.3));
+            color: #fbbf24;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-pill {
+            cursor: pointer;
+            padding: 0.625rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            letter-spacing: 0.02em;
+        }
+
+        .category-pill.active {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #0a0118;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+            border-color: #fbbf24;
+        }
+
+        .category-pill.inactive {
+            background: rgba(26, 10, 46, 0.6);
+            color: #d8b4fe;
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .category-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.3);
+            border-color: rgba(236, 72, 153, 0.5);
+        }
+
+        .rose-float {
+            animation: gentleFloat 4s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes gentleFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-8px) rotate(5deg);
+            }
+        }
+
+        .dedication-banner {
+            background: linear-gradient(135deg, #5b21b6, #7c3aed, #a855f7, #ec4899);
+            color: #fef3c7;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dedication-banner::before {
+            content: "🌹";
+            position: absolute;
+            left: 8%;
+            font-size: 2.5rem;
+            animation: gentleFloat 4s ease-in-out infinite;
+            filter: drop-shadow(0 2px 8px rgba(236, 72, 153, 0.6));
+        }
+
+        .dedication-banner::after {
+            content: "🌹";
+            position: absolute;
+            right: 8%;
+            font-size: 2.5rem;
+            animation: gentleFloat 4s ease-in-out infinite 2s;
+            filter: drop-shadow(0 2px 8px rgba(236, 72, 153, 0.6));
+        }
+
+        /* iPad & Tablet Responsive */
+        @media (max-width: 1024px) {
+            .tab-btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.8rem;
+            }
+
+            .dedication-banner {
+                padding: 1.25rem 1.5rem;
+            }
+
+            .icf-table th,
+            .icf-table td {
+                font-size: 0.8rem;
+                padding: 0.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tab-btn {
+                padding: 0.625rem 1rem;
+                font-size: 0.75rem;
+            }
+
+            .dedication-banner {
+                padding: 1rem;
+            }
+
+            .dedication-banner::before,
+            .dedication-banner::after {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- Chosen Palette: Romantic Rose & Pink (Primary), Warm Gradients (Love), Soft Pastels (Care) -->
+    <!-- This isn't just an app - it's a love letter wrapped in code 💕 -->
+    <!-- Made with endless love for the most amazing person, Tanisha ✨ -->
+    <!-- Every line of code written while thinking of your smile 😊 -->
+    <!-- CONFIRMATION: Made with 100% love, 0% AI coldness -->
+
+    <!-- Romantic Dedication Banner -->
+    <div class="dedication-banner">
+        <p class="text-2xl md:text-3xl mb-2">Made with Love for Tanisha 💖</p>
+        <p class="text-sm md:text-base opacity-90">You've got this, my brilliant star! ✨</p>
+    </div>
+
+    <header class="glass-nav p-6 sticky top-0 z-50" style="position: relative; z-index: 100;">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-gradient-to-br from-amber-500 to-rose-500 p-3 rounded-2xl text-white rose-float"
+                    style="box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);">
+                    <span class="text-2xl">🌹</span>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight"
+                        style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Playfair Display', serif;">
+                        Tanisha's FDPS Victory Hub
+                    </h1>
+                    <p class="text-xs font-bold uppercase tracking-widest"
+                        style="background: linear-gradient(135deg, #a855f7, #ec4899); -webkit-background-clip: text; background-clip: text; color: transparent;">
+                        Your Personal Exam Companion 🌟
+                    </p>
+                </div>
+            </div>
+            <div class="flex space-x-2">
+                <button onclick="switchView('icf')" id="nav-icf" class="tab-btn active">💪 ICF Matrix</button>
+                <button onclick="switchView('bank')" id="nav-bank" class="tab-btn">📚 Topic Bank</button>
+                <button onclick="switchView('summary')" id="nav-summary" class="tab-btn">✨ Love Notes</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto w-full p-4 md:p-8 flex-grow">
+
+        <!-- VIEW: ICF MATRIX -->
+        <section id="view-icf" class="space-y-8">
+
+            <div class="p-6 rounded-2xl card-shadow"
+                style="background: rgba(26, 10, 46, 0.7); backdrop-filter: blur(10px);">
+                <div class="flex flex-wrap gap-3 mb-6">
+                    <button onclick="setCategory('msk')" id="pill-msk" class="category-pill active">Musculoskeletal
+                        (MSK)</button>
+                    <button onclick="setCategory('neuro')" id="pill-neuro" class="category-pill inactive">Neurological
+                        (Neuro)</button>
+                    <button onclick="setCategory('cvrs')" id="pill-cvrs" class="category-pill inactive">Cardiopulmonary
+                        (CVRS)</button>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center gap-4">
+                    <label class="font-bold whitespace-nowrap" style="color: #fbbf24;">Case Presentation:</label>
+                    <select id="conditionSelect" onchange="renderTables()"
+                        class="w-full rounded-xl px-4 py-3 font-bold outline-none"
+                        style="background: rgba(10, 1, 24, 0.8); border: 2px solid rgba(168, 85, 247, 0.4); color: #e9d5ff;">
+                        <!-- Populated by JS -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="space-y-12">
+                <!-- Table 1: Structural -->
+                <div class="animate-in">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="h-8 w-1 rounded-full"
+                            style="background: linear-gradient(135deg, #a855f7, #ec4899);"></span>
+                        <h2 class="text-xl font-black uppercase tracking-tight"
+                            style="color: #fbbf24; font-family: 'Playfair Display', serif;">1. Structural Impairments
+                        </h2>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden card-shadow overflow-x-auto"
+                        style="background: rgba(10, 1, 24, 0.5);">
+                        <table class="w-full icf-table min-w-[800px]">
+                            <thead>
+                                <tr>
+                                    <th class="w-1/4">Impairment</th>
+                                    <th class="w-1/2">Clinical Reasoning (The Why)</th>
+                                    <th class="w-1/4">Supportive Findings (The Proof)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="struct-table-body">
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Table 2: Functional -->
+                <div class="animate-in">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="h-8 w-1 rounded-full"
+                            style="background: linear-gradient(135deg, #ec4899, #f472b6);"></span>
+                        <h2 class="text-xl font-black uppercase tracking-tight"
+                            style="color: #fbbf24; font-family: 'Playfair Display', serif;">2. Functional Impairments
+                        </h2>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden card-shadow overflow-x-auto"
+                        style="background: rgba(10, 1, 24, 0.5);">
+
+                        <table class="w-full icf-table min-w-[800px]">
+                            <thead>
+                                <tr>
+                                    <th class="w-1/4">Impairment</th>
+                                    <th class="w-1/2">Clinical Reasoning (The Why)</th>
+                                    <th class="w-1/4">Supportive Findings (The Proof)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="func-table-body">
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: TOPIC BANK -->
+        <section id="view-bank" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="bank-container">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- VIEW: LOVE NOTES & ENCOURAGEMENT -->
+        <section id="view-summary" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-8 rounded-3xl card-shadow"
+                    style="background: rgba(26, 10, 46, 0.7); backdrop-filter: blur(15px);">
+                    <h3 class="font-bold text-lg mb-4"
+                        style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Playfair Display', serif;">
+                        📊 Your Study Journey
+                    </h3>
+                    <div style="height: 300px; position: relative;">
+                        <canvas id="distChart"></canvas>
+                    </div>
+                    <p class="text-center mt-4 text-sm italic" style="color: #c4b5fd;">
+                        Every topic mastered is a step closer to your dreams! 🎯
+                    </p>
+                </div>
+                <div class="p-8 rounded-3xl flex flex-col justify-center card-shadow"
+                    style="background: linear-gradient(135deg, #5b21b6, #7c3aed, #a855f7, #ec4899); color: #fef3c7;">
+                    <h3 class="text-2xl font-bold mb-6 text-center"
+                        style="font-family: 'Playfair Display', serif; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);">Love
+                        Notes from Me 🌹</h3>
+                    <div class="space-y-5">
+                        <div class="p-4 rounded-2xl"
+                            style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(251, 191, 36, 0.3);">
+                            <p class="text-sm leading-relaxed">
+                                <strong style="color: #fbbf24;">✨ Remember:</strong> You're not just studying, you're
+                                building your dreams. Every sleepless night, every difficult concept you master - it's
+                                all bringing you closer to being the amazing physiotherapist I know you'll be!
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl"
+                            style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(251, 191, 36, 0.3);">
+                            <p class="text-sm leading-relaxed">
+                                <strong style="color: #fbbf24;">💪 You've got this:</strong> I've watched you overcome
+                                so much already. This exam? It's just another milestone you'll conquer with that
+                                brilliant mind of yours. I believe in you more than you know!
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl"
+                            style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(251, 191, 36, 0.3);">
+                            <p class="text-sm leading-relaxed">
+                                <strong style="color: #fbbf24;">🌟 My Promise:</strong> No matter what happens, I'm so
+                                proud of how hard you're working. Your dedication inspires me every single day. You're
+                                going to ace this and make all your dreams come true!
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-center mt-6 text-sm opacity-90 italic">
+                        Forever your biggest cheerleader 💖
+                    </p>
+                </div>
+            </div>
+
+            <!-- Additional Study Tips with Love -->
+            <div class="mt-8 rounded-3xl overflow-hidden card-shadow"
+                style="background: rgba(26, 10, 46, 0.7); backdrop-filter: blur(15px);">
+                <div class="p-6"
+                    style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2)); border-bottom: 1px solid rgba(251, 191, 36, 0.3);">
+                    <h3 class="text-xl font-bold text-center"
+                        style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Playfair Display', serif;">
+                        💝 Quick Study Reminders (Because I Care!)
+                    </h3>
+                </div>
+                <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center p-4 rounded-2xl"
+                        style="background: rgba(168, 85, 247, 0.15); border: 2px solid rgba(168, 85, 247, 0.3);">
+                        <div class="text-3xl mb-3">🎯</div>
+                        <h4 class="font-bold mb-2" style="color: #fbbf24;">ICF Tip</h4>
+                        <p class="text-sm" style="color: #e9d5ff;">If you forget reasoning, think "Pain → Muscle
+                            Inhibition" or
+                            "Tissue Damage → Blocked Movement"</p>
+                    </div>
+                    <div class="text-center p-4 rounded-2xl"
+                        style="background: rgba(236, 72, 153, 0.15); border: 2px solid rgba(236, 72, 153, 0.3);">
+                        <div class="text-3xl mb-3">🧠</div>
+                        <h4 class="font-bold mb-2" style="color: #fbbf24;">Neuro Cases</h4>
+                        <p class="text-sm" style="color: #e9d5ff;">Always mention *Reflexes* and *Tone* (MAS Grade) in
+                            Structural
+                            Findings. You've got this!</p>
+                    </div>
+                    <div class="text-center p-4 rounded-2xl"
+                        style="background: rgba(245, 158, 11, 0.15); border: 2px solid rgba(245, 158, 11, 0.3);">
+                        <div class="text-3xl mb-3">💪</div>
+                        <h4 class="font-bold mb-2" style="color: #fbbf24;">Functional Tip</h4>
+                        <p class="text-sm" style="color: #e9d5ff;">Always include an ADL limitation (e.g., dressing,
+                            walking,
+                            stairs). You're brilliant!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Motivational Quote -->
+            <div class="mt-8 text-center p-8 rounded-3xl card-shadow"
+                style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2)); border: 2px solid rgba(251, 191, 36, 0.2);">
+                <p class="text-2xl mb-3"
+                    style="font-family: 'Playfair Display', serif; background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700;">
+                    "Success is not final, failure is not fatal: it is the courage to continue that counts."
+                </p>
+                <p class="text-sm italic" style="color: #d8b4fe;">
+                    And you, my love, have all the courage in the world 🌟
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer class="py-10 text-center"
+        style="background: linear-gradient(135deg, rgba(10, 1, 24, 0.95), rgba(26, 10, 46, 0.95)); border-top: 1px solid rgba(236, 72, 153, 0.3); position: relative; z-index: 10;">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="text-lg font-bold mb-2"
+                style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Playfair Display', serif;">
+                Made with 🌹 for the most amazing person in the world
+            </p>
+            <p class="text-sm mb-3" style="color: #e9d5ff;">
+                Every line of code written while thinking of your success, Tanisha 💖
+            </p>
+            <p class="text-xs italic" style="color: #c4b5fd;">
+                "You're going to do amazing things. I'm so proud of you!" ✨
+            </p>
+            <div class="mt-5">
+                <span class="inline-block text-2xl rose-float">🌹</span>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // --- DATABASE: 24 CASES ---
+        const database = {
+            msk: {
+                "Lumbar IVDP (L4-L5)": {
+                    struct: [
+                        { i: "Localized Nociceptive Pain", r: "Posterolateral protrusion compresses the dural sac and nerve root, releasing inflammatory cytokines.", f: "VAS 8/10, Tenderness at L4-L5" },
+                        { i: "Neural Mechanosensitivity", r: "Intraneural edema and restricted nerve gliding within the spinal canal.", f: "+ve SLR at 40 degrees" },
+                        { i: "Restricted Spinal Flexion", r: "Increased intradiscal pressure during flexion causes protective multifidus guarding to prevent further bulging.", f: "Schober's Test < 3cm" },
+                        { i: "Muscle Weakness (EHL)", r: "L5 nerve root compression causing lower motor neuron type weakness.", f: "MMT: 3/5 for Big Toe Ext" }
+                    ],
+                    func: [
+                        { i: "Impaired Prolonged Sitting", r: "Sitting increases intradiscal pressure to 140% of standing, aggravating the disc bulge.", f: "Tolerance < 10 mins" },
+                        { i: "Difficulty putting on socks", r: "Requires maximum lumbar flexion and end-range neural stretch.", f: "Patient report / Obs" },
+                        { i: "Antalgic Gait", r: "Weight shift away from the affected side to minimize compressive loading.", f: "Shortened stance phase" },
+                        { i: "Work Absenteeism", r: "Severe pain prevents sustained postures required for office tasks.", f: "Sick leave > 5 days" }
+                    ]
+                },
+                "Knee Osteoarthritis (Grade III)": {
+                    struct: [
+                        { i: "Articular Crepitus", r: "Loss of hyaline cartilage and roughening of subchondral bone surfaces.", f: "Palpable grating during ROM" },
+                        { i: "VMO Atrophy", r: "Arthrogenic muscle inhibition; joint distension triggers inhibitory reflex to quadriceps.", f: "Thigh girth deficit 3cm" },
+                        { i: "Flexion Deformity", r: "Capsular thickening and osteophyte formation in the posterior compartment.", f: "Fixed flexed knee 10 degrees" },
+                        { i: "Joint Space Narrowing", r: "Degeneration of the medial meniscus and articular cartilage.", f: "X-ray: Grade III medial OA" }
+                    ],
+                    func: [
+                        { i: "Difficulty Climbing Stairs", r: "Requires high knee joint reaction forces and strong eccentric quadriceps control.", f: "Uses handrails / step-by-step" },
+                        { i: "Impaired Sit-to-Stand", r: "Pain during the transition phase where knee load is maximum.", f: "5-Time STS > 15 seconds" },
+                        { i: "Reduced Walking Speed", r: "Compensatory mechanism to reduce ground reaction force and pain.", f: "Timed 10m walk < 0.8 m/s" },
+                        { i: "Inability to squat", r: "Mechanical block from osteophytes and severe pain at high flexion.", f: "Failed functional test" }
+                    ]
+                },
+                "Frozen Shoulder (Freezing)": {
+                    struct: [
+                        { i: "Capsular Pattern Restriction", r: "Global fibrosis of the joint capsule and coracohumeral ligament.", f: "ER < Abd < IR restriction" },
+                        { i: "Scapulohumeral Rhythm Disturbance", r: "Compensatory early scapular rotation due to glenohumeral stiffness.", f: "1:1 rhythm observed" },
+                        { i: "Severe Night Pain", r: "Chronic synovitis and increased intra-capsular pressure in recumbent positions.", f: "Disturbed sleep history" },
+                        { i: "Myofascial Trigger Points", r: "Overuse of Upper Trapezius to compensate for loss of GH abduction.", f: "Tenderness at Trap fibers" }
+                    ],
+                    func: [
+                        { i: "Inability to comb hair", r: "Restricted combined Abduction and External Rotation.", f: "Apley's Superior Failed" },
+                        { i: "Difficulty in Toileting", r: "Restricted Internal Rotation and Extension (Hand-behind-back).", f: "Apley's Inferior Failed" },
+                        { i: "Difficulty putting on a jacket", r: "Requires humeral clearance and end-range reach.", f: "Observed functional lag" },
+                        { i: "Restricted Overhead reaching", r: "Mechanical block in the inferior capsule preventing humeral glide.", f: "Reach < 90 degrees" }
+                    ]
+                },
+                "Cervical Radiculopathy (C6-C7)": {
+                    struct: [
+                        { i: "Foraminal Compression", r: "Osteophytes or disc bulge narrowing the canal, pinching the nerve root.", f: "+ve Spurling's Test" },
+                        { i: "Triceps Weakness", r: "C7 nerve root involvement leading to motor unit loss.", f: "MMT 3/5 for Triceps" },
+                        { i: "Diminished Reflexes", r: "Lower Motor Neuron lesion at C7 segment.", f: "Triceps Jerk: 1+ (Sluggish)" },
+                        { i: "Neural Tension", r: "Mechanosensitivity of the Brachial Plexus trunk.", f: "+ve ULNT (Median Nerve)" }
+                    ],
+                    func: [
+                        { i: "Difficulty in Overhead lifting", r: "Neck extension in overhead tasks further narrows the foramen.", f: "Patient report" },
+                        { i: "Impaired Grip Stability", r: "Wrist extensor/flexor weakness secondary to nerve root compression.", f: "Dynamometer: 15kg deficit" },
+                        { i: "Restricted driving (Blind spot)", r: "Neck rotation aggravates radiating pain in the arm.", f: "Limited rotation to 30 deg" },
+                        { i: "Difficulty Typing", r: "Paresthesia and fine motor weakness in the hand.", f: "Dropped speed / Errors" }
+                    ]
+                },
+                "Lateral Epicondylitis": {
+                    struct: [
+                        { i: "Angiofibroblastic Hyperplasia", r: "Failed healing response at the ECRB origin (Common Extensor).", f: "Tenderness at epicondyle" },
+                        { i: "Painful Resisted Extension", r: "Contractile tissue irritation under load.", f: "+ve Cozen's Test" },
+                        { i: "Reduced Passive Wrist Flexion", r: "Stretch of the sensitized extensor origin.", f: "Mill's Test: Positive" },
+                        { i: "Radial Nerve Mechanosensitivity", r: "Secondary irritation of PIN (Posterior Interosseous Nerve).", f: "+ve ULNT Radial bias" }
+                    ],
+                    func: [
+                        { i: "Difficulty Pouring Tea", r: "Eccentric load on ECRB during wrist tilting.", f: "Reproduction of pain" },
+                        { i: "Reduced Grip Force", r: "Pain inhibition prevents full force production in extension.", f: "Grip test: Pain-limited" },
+                        { i: "Difficulty wringing clothes", r: "Rotational stress on the extensor origin.", f: "Functional failure" },
+                        { i: "Impaired sport participation", r: "High velocity loads in tennis/badminton cause severe nociception.", f: "VAS 9/10 during play" }
+                    ]
+                },
+                "Ankle Sprain (Grade II)": {
+                    struct: [
+                        { i: "Ligamentous Laxity (ATFL)", r: "Partial tearing of fibers post-inversion injury.", f: "+ve Anterior Drawer Test" },
+                        { i: "Localized Edema", r: "Inflammatory exudate and capillary leakage in lateral ankle.", f: "Egg-shaped swelling" },
+                        { i: "Proprioceptive Deficit", r: "Damage to mechanoreceptors in the joint capsule.", f: "Failed Single Leg Stance" },
+                        { i: "Reduced Dorsiflexion", r: "Talar stiffness and protective guarding of posterior calf.", f: "Lunge Test < 10cm" }
+                    ],
+                    func: [
+                        { i: "Inability to run", r: "Lack of ankle stability and pain during push-off phase.", f: "Failed hop test" },
+                        { i: "Difficulty on uneven ground", r: "Compromised dynamic stabilization mechanisms.", f: "Subjective instability" },
+                        { i: "Altered Gait (Limping)", r: "Avoidance of heel strike or full weight bearing.", f: "Antalgic pattern" },
+                        { i: "Difficulty descending stairs", r: "Requires maximum closed-chain dorsiflexion.", f: "Pain at end range" }
+                    ]
+                },
+                "Rheumatoid Arthritis (Hand)": {
+                    struct: [
+                        { i: "Synovial Hyperplasia (Pannus)", r: "Autoimmune destruction of the joint lining.", f: "Ulnar drift, MCP swelling" },
+                        { i: "Swan Neck Deformity", r: "Imbalance of volar plate and extensor tendon tension.", f: "PIP hyperextension, DIP flex" },
+                        { i: "Morning Stiffness", r: "Fluid accumulation in joint space during overnight rest.", f: "Duration > 1 hour" },
+                        { i: "Reduced Grip Strength", r: "Pain, joint instability, and intrinsic muscle wasting.", f: "Sphygmomanometer test low" }
+                    ],
+                    func: [
+                        { i: "Difficulty opening jars", r: "Inability to generate torque due to MCP instability.", f: "Functional observation" },
+                        { i: "Difficulty in writing", r: "Loss of fine motor pincer grip and thumb opposition.", f: "Speed / Legibility drop" },
+                        { i: "Difficulty fastening buttons", r: "Impaired tactile precision and PIP dexterity.", f: "Timed dressing test high" },
+                        { i: "Social Isolation", r: "Embarrassment due to hand deformities and pain.", f: "Psychological report" }
+                    ]
+                },
+                "Scoliosis (Adolescent)": {
+                    struct: [
+                        { i: "Lateral Curvature of Spine", r: "Asymmetric growth and vertebral rotation.", f: "Cobb's Angle 25 degrees" },
+                        { i: "Rib Hump", r: "Rotational component of vertebrae pushing ribs posteriorly.", f: "+ve Adam's Forward Bend" },
+                        { i: "Muscle Imbalance", r: "Shortening on concave side, elongation on convex side.", f: "Tightness of concave lateral" },
+                        { i: "Uneven Shoulder Height", r: "Coronal plane deviation of the spinal axis.", f: "Visual discrepancy 2cm" }
+                    ],
+                    func: [
+                        { i: "Impaired Body Image", r: "Visible deformity affecting self-esteem in teenagers.", f: "Psychological screening" },
+                        { i: "Reduced Vital Capacity", r: "Restricted rib cage expansion in severe cases (>60 deg).", f: "PFT: Restrictive pattern" },
+                        { i: "Back Pain on fatigue", r: "Overwork of muscles on the convex side.", f: "VAS 4/10 after school" },
+                        { i: "Difficulty in fitting clothes", r: "Asymmetry of waistline and shoulders.", f: "Patient report" }
+                    ]
+                }
+            },
+            neuro: {
+                "Stroke (MCA Hemiplegia)": {
+                    struct: [
+                        { i: "Spasticity", r: "Loss of descending inhibitory control over spinal reflexes.", f: "MAS Grade 2 (Biceps)" },
+                        { i: "Muscle Weakness (Hemiplegia)", r: "Destruction of primary motor cortex neurons.", f: "MMT: 1/5 in UL, 2/5 in LL" },
+                        { i: "Synergistic Movement", r: "Loss of fractionation of movement; primitive patterns.", f: "Flexor Synergy in UL" },
+                        { i: "Impaired Balance", r: "Delayed postural righting and equilibrium reactions.", f: "BBS Score: 28/56" }
+                    ],
+                    func: [
+                        { i: "Inability to walk independently", r: "Lack of knee stability and foot drop during swing.", f: "Requires assist of 2" },
+                        { i: "Difficulty in Feeding", r: "Dominant hand involvement and loss of pincer grasp.", f: "FIM: 3/7 for Eating" },
+                        { i: "Impaired Community Ambulation", r: "Circumduction gait required for foot clearance.", f: "Gait speed < 0.4 m/s" },
+                        { i: "Speech Impairment (Aphasia)", r: "Involvement of Broca's/Wernicke's area.", f: "Communication screen failed" }
+                    ]
+                },
+                "Parkinson's Disease": {
+                    struct: [
+                        { i: "Lead-pipe Rigidity", r: "Dopamine depletion in Basal Ganglia; indirect pathway overactivity.", f: "Resistance throughout PROM" },
+                        { i: "Resting Tremor", r: "Rhythmic firing of thalamocortical neurons.", f: "Pill-rolling tremor (4-6Hz)" },
+                        { i: "Bradykinesia", r: "Difficulty initiating movement and scaling amplitude.", f: "Hypomimia (Masked face)" },
+                        { i: "Flexed Posture", r: "Loss of postural righting and axial muscle stiffness.", f: "Forward head, Kyphosis" }
+                    ],
+                    func: [
+                        { i: "Freezing of Gait (FOG)", r: "Inability to initiate swing phase, especially at doorways.", f: "Stuck at 180 deg turn" },
+                        { i: "Micrographia", r: "Loss of motor scaling in fine motor tasks.", f: "Handwriting shrinking" },
+                        { i: "Frequent Falls", r: "Loss of protective 'step' reaction.", f: "Pull Test: Positive" },
+                        { i: "Difficulty in Bed Mobility", r: "Axial rigidity prevents segmental rolling.", f: "Timed bed roll > 30s" }
+                    ]
+                },
+                "Spinal Cord Injury (T10)": {
+                    struct: [
+                        { i: "Complete Paraplegia", r: "Total transection of spinal tracts below T10.", f: "ASIA A: No motor/sensory S4" },
+                        { i: "Hyperreflexia", r: "Emergence of spinal reflexes below level of lesion.", f: "Ankle Clonus: Sustained" },
+                        { i: "Areflexic Bladder", r: "Interruption of supraspinal control of micturition.", f: "Catheter dependent" },
+                        { i: "Muscle Atrophy", r: "Disuse and loss of trophic neuro-signals.", f: "Calf girth significantly low" }
+                    ],
+                    func: [
+                        { i: "Loss of Ambulation", r: "Paralysis of LL and loss of trunk stability.", f: "Wheelchair dependent" },
+                        { i: "Impaired Transfers", r: "Lack of core strength to bridge or slide.", f: "Requires sliding board" },
+                        { i: "Risk of Pressure Sores", r: "Inability to perform weight shifts (pressure relief).", f: "History of Grade I sore" },
+                        { i: "Inability to perform ADLs (LL)", r: "Paralysis preventing pants/shoes application.", f: "Requires adaptive tools" }
+                    ]
+                },
+                "Guillain-Barré Syndrome (GBS)": {
+                    struct: [
+                        { i: "Lower Motor Neuron Weakness", r: "Immune mediated demyelination of peripheral nerves.", f: "MMT: 0/5 distally" },
+                        { i: "Areflexia", r: "Interruption of the reflex arc at the peripheral level.", f: "Absent Knee/Ankle jerks" },
+                        { i: "Respiratory Insufficiency", r: "Phrenic nerve involvement (C3-C5).", f: "FVC < 15 ml/kg" },
+                        { i: "Autonomic Instability", r: "Involvement of sympathetic/parasympathetic fibers.", f: "Fluctuating BP / HR" }
+                    ],
+                    func: [
+                        { i: "Bed Bound State", r: "Global flaccid paralysis.", f: "FIM: Total Assist" },
+                        { i: "Inability to swallow", r: "Bulbar nerve involvement.", f: "NPO / NG Tube needed" },
+                        { i: "Loss of fine motor skills", r: "Profound distal weakness.", f: "Unable to hold cup" },
+                        { i: "Impaired Communication", r: "Facial nerve weakness and ventilation.", f: "Uses eye signals" }
+                    ]
+                },
+                "Bell's Palsy": {
+                    struct: [
+                        { i: "Unilateral Facial Paralysis", r: "Inflammation of CN VII (LMN) in the bony canal.", f: "House-Brackmann Grade VI" },
+                        { i: "Lagophthalmos", r: "Weakness of Orbicularis Oculi.", f: "Inability to close eye" },
+                        { i: "Loss of Taste", r: "Involvement of Chorda Tympani fibers.", f: "Anterior 2/3 tongue numb" },
+                        { i: "Hyperacusis", r: "Stapedius muscle paralysis.", f: "Sensitive to loud sounds" }
+                    ],
+                    func: [
+                        { i: "Difficulty in Chewing", r: "Weakness of Buccinator; food bolus pools in cheek.", f: "Manual assistance needed" },
+                        { i: "Speech Blur (Slurring)", r: "Inability to form labial sounds (B, P, M).", f: "Observed dysarthria" },
+                        { i: "Eye Irritation", r: "Exposure keratitis due to lack of blinking.", f: "Redness / Dryness" },
+                        { i: "Social Withdrawal", r: "Facial asymmetry and drooping causing embarrassment.", f: "Avoids cameras/people" }
+                    ]
+                },
+                "Cerebral Palsy (Spastic Diplegia)": {
+                    struct: [
+                        { i: "Scissoring of Legs", r: "Adductor spasticity pulling limbs across midline.", f: "Adductor MAS Grade 3" },
+                        { i: "Equinus Deformity", r: "Tendo-achilles shortening and Gastroc spasticity.", f: "Toe walking" },
+                        { i: "Contractures (Hamstrings)", r: "Persistent flexion tone leading to sarcomere loss.", f: "Thomas Test: Positive" },
+                        { i: "Delayed Postural Reaction", r: "Periventricular leukomalacia affecting motor tracts.", f: "GMFCS Level III" }
+                    ],
+                    func: [
+                        { i: "Bunny Hopping Mobility", r: "Difficulty in reciprocal limb dissociation.", f: "Observed crawling" },
+                        { i: "Difficulty in toileting", r: "Leg spasticity prevents independent squat/sit.", f: "Parent assistance needed" },
+                        { i: "Slow walking speed", r: "High energy cost of spastic gait.", f: "Speed < 0.5 m/s" },
+                        { i: "Academic struggle", r: "Associated cognitive or visual deficits.", f: "IEP required" }
+                    ]
+                },
+                "Multiple Sclerosis (Cerebellar)": {
+                    struct: [
+                        { i: "Intention Tremor", r: "Demyelinating plaques in the cerebellar peduncles.", f: "Finger-to-nose: Oscillations" },
+                        { i: "Dysmetria", r: "Impaired error correction during movement planning.", f: "+ve Past-pointing" },
+                        { i: "Nystagmus", r: "Involvement of the vestibulo-ocular pathways.", f: "Involuntary eye movement" },
+                        { i: "Scanning Speech", r: "Incoordination of respiratory and vocal muscles.", f: "Staccato speech" }
+                    ],
+                    func: [
+                        { i: "Difficulty in Drinking", r: "Terminal tremor causes spilling.", f: "Needs straw / lid" },
+                        { i: "Ataxic Gait", r: "Unsteady, broad-based gait pattern.", f: "Frequent falls" },
+                        { i: "Difficulty in dressing", r: "Loss of precision in fine motor coordination.", f: "Timed task: High" },
+                        { i: "Fatigue during ADLs", r: "Demyelinated nerves require more energy to fire.", f: "Fatigue scale > 8/10" }
+                    ]
+                },
+                "Cerebellar Ataxia": {
+                    struct: [
+                        { i: "Hypotonia", r: "Loss of cerebellar facilitation of the gamma motor system.", f: "Pendular Knee Jerk" },
+                        { i: "Dysdiadochokinesia", r: "Inability to perform rapid alternating movements.", f: "Supination/Pronation failed" },
+                        { i: "Broad Based Stance", r: "Compensatory mechanism for truncal instability.", f: "Inter-foot distance > 30cm" },
+                        { i: "Rebound Phenomenon", r: "Failure of agonist-antagonist timing.", f: "Holmes test: Positive" }
+                    ],
+                    func: [
+                        { i: "Difficulty walking in straight line", r: "Truncal and limb incoordination.", f: "Tandem walk failed" },
+                        { i: "Impaired Writing", r: "Loss of fine tremor control.", f: "Large, shaky letters" },
+                        { i: "Difficulty in stairs", r: "Balance impairment in single leg phase.", f: "Needs 2-person assist" },
+                        { i: "Inability to cycle", r: "Requires high-level complex coordination.", f: "Failed attempt" }
+                    ]
+                }
+            },
+            cvrs: {
+                "COPD (Severe)": {
+                    struct: [
+                        { i: "Air Trapping (Hyperinflation)", r: "Loss of elastic recoil and premature airway closure.", f: "X-ray: Barrel Chest" },
+                        { i: "Diaphragm Flattening", r: "Hyperinflated lungs push the diaphragm down.", f: "Hoover's Sign: Positive" },
+                        { i: "Altered V/Q Mismatch", r: "Destruction of alveolar-capillary membrane.", f: "SpO2 < 88% on room air" },
+                        { i: "Muscle Fiber Shift", r: "Chronic hypoxia causing Type I to Type II fiber shift.", f: "Quadriceps wasting" }
+                    ],
+                    func: [
+                        { i: "Dyspnea on ADLs", r: "Increased work of breathing and dynamic hyperinflation.", f: "Borg Dyspnea > 6" },
+                        { i: "Reduced Exercise Capacity", r: "Early metabolic acidosis and ventilatory limit.", f: "6MWT < 250m" },
+                        { i: "Difficulty in bathing", r: "Steam and humidity aggravate airway resistance.", f: "Patient report" },
+                        { i: "Social Withdrawal", r: "Oxygen dependency and fear of breathlessness.", f: "Avoids outings" }
+                    ]
+                },
+                "Post-CABG (Day 2)": {
+                    struct: [
+                        { i: "Sternal Pain", r: "Incision and median sternotomy surgical trauma.", f: "VAS 9/10 on cough" },
+                        { i: "Basal Atelectasis", r: "Shallow breathing due to pain and anesthesia.", f: "Reduced breath sounds RLL" },
+                        { i: "Reduced FVC", r: "Pain limited inspiration and rib cage restriction.", f: "PFT: 40% of predicted" },
+                        { i: "Impaired Secretion Clearance", r: "Weak cough due to sternal pain.", f: "Visible secretions" }
+                    ],
+                    func: [
+                        { i: "Impaired Bed Mobility", r: "Fear of sternal opening and severe pain.", f: "Requires assist of 2" },
+                        { i: "Inability to walk independently", r: "Post-op hypotension and pain.", f: "Requires walking frame" },
+                        { i: "Difficulty in Deep Breathing", r: "Splinting of the chest wall.", f: "Inspiratory capacity low" },
+                        { i: "Anxiety", r: "Fear of heart failure post-surgery.", f: "Refuses exercise" }
+                    ]
+                },
+                "Myocardial Infarction": {
+                    struct: [
+                        { i: "Reduced Cardiac Output", r: "Myocardial necrosis leading to wall motion defect.", f: "Echo: EF 35%" },
+                        { i: "Tachycardia at Rest", r: "Compensatory sympathetic drive.", f: "HR 110 bpm" },
+                        { i: "Ischemic ECG changes", r: "Ongoing myocardial oxygen demand-supply gap.", f: "ST Elevation / T wave invert" },
+                        { i: "Low Blood Pressure", r: "Pump failure failing to sustain mean arterial pressure.", f: "BP 90/60 mmHg" }
+                    ],
+                    func: [
+                        { i: "Activity Intolerance", r: "Inability to meet metabolic O2 demands.", f: "Angina on walking 20m" },
+                        { i: "Impaired Self-Care", r: "Fatigue and risk of arrhythmia.", f: "Needs total assist" },
+                        { i: "Fear of Exercise", r: "Psychological trauma from the cardiac event.", f: "Avoids even minor movements" },
+                        { i: "Inability to climb stairs", r: "Requires sudden high cardiac output.", f: "Failed test" }
+                    ]
+                },
+                "Bronchial Asthma": {
+                    struct: [
+                        { i: "Airway Bronchospasm", r: "Hyper-responsiveness of smooth muscles to allergens.", f: "Polyphonic wheezing" },
+                        { i: "Mucus Hypersecretion", r: "Inflammatory goblet cell hyperplasia.", f: "Productive cough" },
+                        { i: "Reduced FEV1", r: "Obstructive airway narrowing.", f: "PEFR < 60% of best" },
+                        { i: "Accessory Muscle Overuse", r: "High work of breathing to overcome resistance.", f: "SCM / Trap prominence" }
+                    ],
+                    func: [
+                        { i: "Sleep Disturbance", r: "Nocturnal dip in cortisol levels aggravating asthma.", f: "Wakes 3-4 times/night" },
+                        { i: "Absenteeism from School", r: "Frequent exacerbations.", f: "Missed 15 days/term" },
+                        { i: "Restricted Sport Play", r: "Exercise induced bronchospasm.", f: "Wheezing after 5 mins play" },
+                        { i: "Inability to use perfumes", r: "Chemical triggers for airway spasm.", f: "Avoids cosmetics" }
+                    ]
+                },
+                "Bronchiectasis": {
+                    struct: [
+                        { i: "Permanent Airway Dilation", r: "Chronic infection destroying elastic/muscular layers.", f: "HRCT: Tram-track signs" },
+                        { i: "Copious Sputum Production", r: "Impaired mucociliary clearance and infection cycle.", f: "3-layer sputum (>50ml)" },
+                        { i: "Finger Clubbing", r: "Chronic hypoxia leading to soft tissue hyperplasia.", f: "Grade III Clubbing" },
+                        { i: "Hemoptysis", r: "Rupture of hypertrophied bronchial arteries.", f: "Blood stained sputum" }
+                    ],
+                    func: [
+                        { i: "Social Embarrassment", r: "Foul smelling sputum and frequent coughing.", f: "Avoids public events" },
+                        { i: "Reduced Lung Endurance", r: "Chronic airway obstruction and fibrosis.", f: "6MWT < 300m" },
+                        { i: "Difficulty in concentrated work", r: "Frequent coughing bouts interrupt tasks.", f: "Productivity drop" },
+                        { i: "Anorexia (Weight Loss)", r: "High metabolic cost of chronic infection.", f: "BMI < 18.5" }
+                    ]
+                },
+                "Pleural Effusion": {
+                    struct: [
+                        { i: "Fluid in Pleural Space", r: "Altered hydrostatic pressure or inflammatory leakage.", f: "Stony dull percussion" },
+                        { i: "Lung Compression", r: "Fluid volume physically preventing expansion.", f: "Absent breath sounds base" },
+                        { i: "Mediastinal Shift", r: "Pressure of fluid pushing heart to opposite side.", f: "Tracheal shift observed" },
+                        { i: "Pleuritic Chest Pain", r: "Irritation of the parietal pleura.", f: "VAS 7/10 on deep breath" }
+                    ],
+                    func: [
+                        { i: "Orthopnea", r: "Inability to lie flat due to fluid redistribution.", f: "Sleeps on 3 pillows" },
+                        { i: "Difficulty in Side-lying", r: "Pain and fluid shift issues.", f: "Prefers affected side" },
+                        { i: "Impaired Chest Expansion", r: "Mechanical block to rib cage movement.", f: "Excursion < 2cm" },
+                        { i: "Inability to walk long distances", r: "Dyspnea due to reduced vital capacity.", f: "Stops after 50m" }
+                    ]
+                },
+                "Pneumonia": {
+                    struct: [
+                        { i: "Alveolar Consolidation", r: "Filling of alveoli with inflammatory exudate.", f: "Bronchial breath sounds" },
+                        { i: "Hypoxemia", r: "Impaired diffusion across infected alveolar wall.", f: "SpO2 92% on room air" },
+                        { i: "Pyrexia (Fever)", r: "Systemic inflammatory response to infection.", f: "Temp 101 F" },
+                        { i: "Reduced Lung Compliance", r: "Infiltrates making lung tissue stiff.", f: "High RR (Tachypnea)" }
+                    ],
+                    func: [
+                        { i: "Inability to clear secretions", r: "Weak cough due to exhaustion and pain.", f: "Productive green sputum" },
+                        { i: "Reduced Exercise Tolerance", r: "Systemic infection and reduced O2 levels.", f: "Fatigue at minimal walk" },
+                        { i: "Impaired Appetite", r: "Malaise and work of breathing cost.", f: "Caloric intake low" },
+                        { i: "Difficulty in speech", r: "Shortness of breath prevents long sentences.", f: "Phrases < 3 words" }
+                    ]
+                },
+                "Congestive Heart Failure": {
+                    struct: [
+                        { i: "Systemic Congestion", r: "Right heart failure leading to venous backflow.", f: "Pitting Edema / Raised JVP" },
+                        { i: "Pulmonary Edema", r: "Left heart failure leading to fluid in alveoli.", f: "Basal crackles" },
+                        { i: "Cardiomegaly", r: "Compensatory hypertrophy of the ventricle.", f: "X-ray: Large heart shadow" },
+                        { i: "Reduced Renal Perfusion", r: "Low cardiac output causing fluid retention.", f: "Reduced urine output" }
+                    ],
+                    func: [
+                        { i: "Paroxysmal Nocturnal Dyspnea", r: "Sudden fluid shift to lungs during sleep.", f: "Awakes gasping at night" },
+                        { i: "Difficulty in Dressing", r: "Fatigue even with small movements.", f: "Requires assist" },
+                        { i: "Inability to walk up driveways", r: "Extreme dyspnea on slight incline.", f: "Stops immediately" },
+                        { i: "Mood Depression", r: "Chronic illness and physical limitations.", f: "Mental screen positive" }
+                    ]
+                }
+            }
+        };
+
+        const topicsBank = [
+            { q: "Muscles of Rotator Cuff", a: "SITS: Supraspinatus, Infraspinatus, Teres Minor, Subscapularis." },
+            { q: "Anatomy of Facial Nerve", a: "CN VII. 5 branches: Temporal, Zygomatic, Buccal, Mandibular, Cervical. (Ten Zebras Bit My Cat)." },
+            { q: "Bell's Palsy", a: "LMN lesion of CN VII. Symptoms: Drooping mouth, eye can't close, loss of forehead wrinkles." },
+            { q: "Factors affecting BMR", a: "Age (down), Gender (Male up), Fever (up), Thyroid hormone (up), Muscle mass (up)." },
+            { q: "Laws of Radiation", a: "Inverse Square (I ∝ 1/d²), Cosine (max at 90°), Grotthus-Draper (only absorbed rays work)." },
+            { q: "Types of TENS", a: "High Freq (Gate Control), Low Freq (Opioid), Burst (Mix), Brief Intense (Block)." },
+            { q: "Axes and Planes", a: "Planes: Sagittal, Frontal, Transverse. Axes: Mediolateral, Anteroposterior, Vertical." },
+            { q: "Naukasana", a: "Boat pose. Core strength, digestion, back muscle endurance." },
+            { q: "Sodium Potassium Pump", a: "3 Na+ Out, 2 K+ In. Uses ATP. Maintains RMP (-70mV)." },
+            { q: "Strength Duration Curve", a: "Rheobase: Min intensity. Chronaxie: Duration at 2x Rheobase (used to check denervation)." },
+            { q: "Extra Ocular Muscles", a: "4 Recti, 2 Obliques. Innervated by CN 3, 4, 6. (LR6-SO4-O3)." },
+            { q: "Sarvangasana", a: "Shoulder stand. Improves venous return, thyroid, and upper body strength." },
+            { q: "Open vs Close Kinematic", a: "OKC: Distal free (Bicep curl). CKC: Distal fixed (Squat). CKC is more functional." },
+            { q: "Features of Skeletal Muscles", a: "Striated, Voluntary, Multi-nucleated, Fatigue-able." },
+            { q: "Gomukhasana", a: "Cow face pose. Excellent for shoulder and hip mobility." },
+            { q: "Abnormal Breathing Patterns", a: "Cheyne-Stokes (Dying), Kussmaul (DKA), Biot's (Brain injury), Apneustic (Brainstem)." },
+            { q: "Insertional Activities", a: "In EMG: Increased (Denervation/Inflammation), Decreased (Fibrosis/Fatty replace)." },
+            { q: "Pain in Children", a: "FACES Scale (Visual), FLACC Scale (Behavioral for non-verbal)." },
+            { q: "Postural Reflex", a: "Righting (verticality), Equilibrium (balance), Tilting (base shift responses)." },
+            { q: "Trendelenburg Sign", a: "Stand on one leg -> Pelvis drops on sound side = Weak Glute Medius of standing leg." },
+            { q: "Electrodes in EMG", a: "Surface (overall), Needle (Concentric/Fine-wire) for motor unit detail." },
+            { q: "MET Significance", a: "1 MET = 3.5ml O2/kg/min. Used to prescribe exercise intensity based on rest cost." },
+            { q: "Righting Reactions", a: "Midbrain reflexes. Labyrinthine/Optical/Body-on-head to keep head vertical." },
+            { q: "RPE (Borg)", a: "6-20 scale. Multiplied by 10 gives approx Heart Rate. Subjective effort measure." },
+            { q: "F Wave", a: "Late motor response from antidromic firing. Checks proximal nerve trunk conduction." },
+            { q: "H Reflex", a: "Electrical equivalent of stretch reflex. Checks S1 nerve root / spinal excitability." },
+            { q: "Rigidity types", a: "Lead-pipe (constant) vs Cogwheel (tremor added). Extrapyramidal sign (Parkinson's)." },
+            { q: "ATNR", a: "Turn head -> Arm/Leg extends on jaw side, flexes on skull side. (Fencer pose)." },
+            { q: "STNR", a: "Head flex -> Arm flex, Leg ext. Head ext -> Arm ext, Leg flex." },
+            { q: "Endurance Assessment", a: "Static (hold time) vs Dynamic (reps/time). 12-min walk or 6MWT." },
+            { q: "Quadriceps Lag", a: "Active extension range is less than passive extension range (indicates weak VMO)." },
+            { q: "Babinski Reflex", a: "Stroke lateral sole -> Big toe extension + fanning = UMN lesion sign." },
+            { q: "Postural Syndrome", a: "McKenzie term: Pain from prolonged loading of normal tissues; disappears on movement." },
+            { q: "Irritability", a: "Assessment: 1. Intensity of stimulus to trigger. 2. Severity. 3. Time to settle." },
+            { q: "Abnormal Spine Postures", a: "Kyphosis, Lordosis, Scoliosis, Gibbus (Angular), Flat Back." },
+            { q: "Clubbing Grades", a: "1. Fluctuation. 2. Lovibond angle loss. 3. Curvature. 4. Bone changes (HOA)." },
+            { q: "Horner Syndrome", a: "Sympathetic damage. Ptosis, Miosis, Anhidrosis, Enophthalmos." }
+        ];
+
+        // --- APP LOGIC ---
+        let currentCategory = 'msk';
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            ['msk', 'neuro', 'cvrs'].forEach(c => {
+                const pill = document.getElementById(`pill-${c}`);
+                if (c === cat) { pill.classList.replace('inactive', 'active'); }
+                else { pill.classList.replace('active', 'inactive'); }
+            });
+            populateConditions();
+        }
+
+        function populateConditions() {
+            const select = document.getElementById('conditionSelect');
+            select.innerHTML = '';
+            Object.keys(database[currentCategory]).forEach(cond => {
+                const opt = document.createElement('option');
+                opt.value = cond;
+                opt.innerText = cond;
+                select.appendChild(opt);
+            });
+            renderTables();
+        }
+
+        function renderTables() {
+            const condName = document.getElementById('conditionSelect').value;
+            const data = database[currentCategory][condName];
+
+            const structTbody = document.getElementById('struct-table-body');
+            const funcTbody = document.getElementById('func-table-body');
+
+            structTbody.innerHTML = '';
+            funcTbody.innerHTML = '';
+
+            data.struct.forEach(row => {
+                structTbody.innerHTML += `
+                <tr>
+                    <td class="font-bold" style="color: #fbbf24;">${row.i}</td>
+                    <td class="reasoning-text">"${row.r}"</td>
+                    <td><span class="finding-badge">${row.f}</span></td>
+                </tr>
+            `;
+            });
+
+            data.func.forEach(row => {
+                funcTbody.innerHTML += `
+                <tr>
+                    <td class="font-bold" style="color: #fbbf24;">${row.i}</td>
+                    <td class="reasoning-text">"${row.r}"</td>
+                    <td><span class="finding-badge">${row.f}</span></td>
+                </tr>
+            `;
+            });
+        }
+
+        function renderBank() {
+            const container = document.getElementById('bank-container');
+            container.innerHTML = '';
+            topicsBank.forEach((item, i) => {
+                container.innerHTML += `
+                <div class="rounded-xl overflow-hidden shadow-sm card-shadow" style="background: rgba(26, 10, 46, 0.6); border: 1px solid rgba(168, 85, 247, 0.3);">
+                    <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="w-full text-left p-4 flex justify-between items-center group transition-all hover:bg-opacity-80" style="background: rgba(168, 85, 247, 0.1);">
+                        <span class="font-bold text-sm group-hover:text-amber-400 transition-colors" style="color: #e9d5ff;">${i + 1}. ${item.q}</span>
+                        <span style="color: #a855f7;">▼</span>
+                    </button>
+                    <div class="hidden p-4 border-t text-sm leading-relaxed italic" style="background: rgba(10, 1, 24, 0.4); border-color: rgba(236, 72, 153, 0.2); color: #d8b4fe;">
+                        ${item.a}
+                    </div>
+                </div>
+            `;
+            });
+        }
+
+        function switchView(v) {
+            ['icf', 'bank', 'summary'].forEach(view => {
+                document.getElementById(`view-${view}`).classList.add('hidden');
+                document.getElementById(`nav-${view}`).classList.remove('active');
+            });
+            document.getElementById(`view-${v}`).classList.remove('hidden');
+            document.getElementById(`nav-${v}`).classList.add('active');
+            if (v === 'summary') renderChart();
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('distChart').getContext('2d');
+            if (window.myChart) window.myChart.destroy();
+            window.myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['MSK ICF', 'Neuro ICF', 'CVRS ICF', 'Question Bank'],
+                    datasets: [{
+                        data: [8, 8, 8, 37],
+                        backgroundColor: ['#ec4899', '#f472b6', '#a855f7', '#fb7185']
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#831843',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        window.onload = () => {
+            populateConditions();
+            renderBank();
+        };
+
+    </script>
+</body>
+
+</html>
