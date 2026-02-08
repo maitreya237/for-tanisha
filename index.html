@@ -4,1217 +4,869 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhysioMaster Pro | FDPS Exam Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>For My Love 💕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap');
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0a0118 0%, #1a0a2e 30%, #2d1b3d 60%, #1a0a2e 100%);
-            color: #f8f0ff;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
+        /* Background slideshow */
+        .bg-slideshow {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
-            pointer-events: none;
+            width: 100%;
+            height: 100%;
             z-index: 0;
         }
 
-        .glass-nav {
-            background: rgba(10, 1, 24, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(236, 72, 153, 0.2);
-            box-shadow: 0 8px 32px rgba(236, 72, 153, 0.15);
+        .bg-slideshow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                    rgba(240, 147, 251, 0.85) 0%,
+                    rgba(245, 87, 108, 0.85) 25%,
+                    rgba(217, 70, 239, 0.85) 50%,
+                    rgba(181, 101, 242, 0.85) 75%,
+                    rgba(167, 139, 250, 0.85) 100%);
+            z-index: 2;
         }
 
-        .tab-btn {
-            padding: 0.875rem 1.5rem;
-            font-weight: 700;
-            font-size: 0.875rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-bottom: 3px solid transparent;
-            position: relative;
-            color: #d8b4fe;
-            border-radius: 12px 12px 0 0;
+        .bg-photo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: photoSlide 30s infinite;
+            z-index: 1;
         }
 
-        .tab-btn.active {
-            color: #fbbf24;
-            border-bottom-color: #f59e0b;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
-            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
+        .bg-photo:nth-child(1) {
+            animation-delay: 0s;
         }
 
-        .tab-btn:hover {
-            transform: translateY(-2px);
-            background: rgba(168, 85, 247, 0.1);
+        .bg-photo:nth-child(2) {
+            animation-delay: 6s;
         }
 
-        .icf-table th {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2));
-            color: #fbbf24;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            padding: 0.875rem 1rem;
-            border: 1px solid rgba(236, 72, 153, 0.3);
-            font-weight: 700;
+        .bg-photo:nth-child(3) {
+            animation-delay: 12s;
         }
 
-        .icf-table td {
-            padding: 1.125rem;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            font-size: 0.875rem;
-            vertical-align: top;
-            line-height: 1.6;
-            background: rgba(26, 10, 46, 0.5);
-            color: #e9d5ff;
+        .bg-photo:nth-child(4) {
+            animation-delay: 18s;
         }
 
-        .card-shadow {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
-                0 0 30px rgba(236, 72, 153, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(168, 85, 247, 0.2);
+        .bg-photo:nth-child(5) {
+            animation-delay: 24s;
         }
 
-        .card-shadow:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5),
-                0 0 40px rgba(236, 72, 153, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
+        @keyframes photoSlide {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
 
-        .reasoning-text {
-            color: #c4b5fd;
-            font-style: italic;
-            font-size: 0.8rem;
-        }
+            3% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
 
-        .finding-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.3));
-            color: #fbbf24;
-            padding: 0.375rem 0.75rem;
-            border-radius: 0.5rem;
-            font-weight: 700;
-            font-size: 0.75rem;
-            margin-top: 0.5rem;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
+            17% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
 
-        .category-pill {
-            cursor: pointer;
-            padding: 0.625rem 1.25rem;
-            border-radius: 9999px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
-            letter-spacing: 0.02em;
-        }
+            20% {
+                opacity: 0;
+                transform: scale(1.15);
+            }
 
-        .category-pill.active {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: #0a0118;
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
-            transform: translateY(-2px);
-            border-color: #fbbf24;
-        }
-
-        .category-pill.inactive {
-            background: rgba(26, 10, 46, 0.6);
-            color: #d8b4fe;
-            border-color: rgba(168, 85, 247, 0.3);
-        }
-
-        .category-pill:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.3);
-            border-color: rgba(236, 72, 153, 0.5);
-        }
-
-        .rose-float {
-            animation: gentleFloat 4s ease-in-out infinite;
-            display: inline-block;
-        }
-
-        @keyframes gentleFloat {
-
-            0%,
             100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-
-            50% {
-                transform: translateY(-8px) rotate(5deg);
+                opacity: 0;
+                transform: scale(1);
             }
         }
 
-        .dedication-banner {
-            background: linear-gradient(135deg, #5b21b6, #7c3aed, #a855f7, #ec4899);
-            color: #fef3c7;
-            padding: 1.5rem 2rem;
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
             position: relative;
+        }
+
+        /* Floating hearts background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
             overflow: hidden;
         }
 
-        .dedication-banner::before {
-            content: "🌹";
+        .heart {
             position: absolute;
-            left: 8%;
-            font-size: 2.5rem;
-            animation: gentleFloat 4s ease-in-out infinite;
-            filter: drop-shadow(0 2px 8px rgba(236, 72, 153, 0.6));
+            font-size: 20px;
+            opacity: 0.6;
+            animation: floatUp 8s infinite ease-in;
         }
 
-        .dedication-banner::after {
-            content: "🌹";
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 700px;
+            padding: 20px 0;
+        }
+
+        /* Entry Gate Card */
+        .entry-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(255, 105, 180, 0.5),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+            animation: cardEntrance 1s ease-out;
+            margin-bottom: 20px;
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Title styling */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(255, 105, 180, 0.6);
+            margin-bottom: 20px;
+            line-height: 1.3;
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.03);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 20px;
+            font-weight: 400;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Input styling */
+        .input-container {
+            margin: 40px 0;
+            position: relative;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 18px 25px;
+            font-size: 1.1rem;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.3),
+                0 12px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Button styling */
+        .btn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c471ed 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 35px rgba(255, 107, 157, 0.4),
+                0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn::before {
+            content: '';
             position: absolute;
-            right: 8%;
-            font-size: 2.5rem;
-            animation: gentleFloat 4s ease-in-out infinite 2s;
-            filter: drop-shadow(0 2px 8px rgba(236, 72, 153, 0.6));
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
         }
 
-        /* iPad & Tablet Responsive */
-        @media (max-width: 1024px) {
-            .tab-btn {
-                padding: 0.75rem 1.25rem;
-                font-size: 0.8rem;
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 45px rgba(255, 107, 157, 0.6),
+                0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Error message */
+        .error-msg {
+            color: #fff;
+            background: rgba(220, 38, 38, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-weight: 500;
+            border: 2px solid rgba(220, 38, 38, 0.5);
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
             }
 
-            .dedication-banner {
-                padding: 1.25rem 1.5rem;
+            25% {
+                transform: translateX(-10px);
             }
 
-            .icf-table th,
-            .icf-table td {
-                font-size: 0.8rem;
-                padding: 0.75rem;
+            75% {
+                transform: translateX(10px);
             }
         }
 
+        /* Photo gallery */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .photo-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: photoFadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .photo-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .photo-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .photo-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .photo-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .photo-item:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .photo-item:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes photoFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(255, 105, 180, 0.4);
+            z-index: 10;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Spotify section */
+        .spotify-section {
+            margin-top: 30px;
+            padding: 30px;
+            background: rgba(30, 215, 96, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 2px solid rgba(30, 215, 96, 0.4);
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .spotify-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .spotify-text {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .spotify-btn {
+            background: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 15px 35px rgba(29, 185, 84, 0.4);
+        }
+
+        .spotify-btn:hover {
+            box-shadow: 0 20px 45px rgba(29, 185, 84, 0.6);
+        }
+
+        /* Success message */
+        .success-msg {
+            background: rgba(168, 85, 247, 0.25);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-weight: 400;
+            border: 2px solid rgba(168, 85, 247, 0.5);
+            animation: fadeIn 0.6s ease-out;
+            line-height: 1.7;
+        }
+
+        /* Loading animation */
+        .loading-hearts {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .loading-hearts span {
+            font-size: 2rem;
+            animation: heartBeat 1s infinite;
+        }
+
+        .loading-hearts span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-hearts span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes heartBeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .tab-btn {
-                padding: 0.625rem 1rem;
-                font-size: 0.75rem;
+            h1 {
+                font-size: 2rem;
             }
 
-            .dedication-banner {
-                padding: 1rem;
+            .subtitle {
+                font-size: 1rem;
             }
 
-            .dedication-banner::before,
-            .dedication-banner::after {
-                font-size: 1.75rem;
+            .entry-card {
+                padding: 40px 25px;
             }
+
+            .photo-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Sparkles */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkleAnim 2s infinite;
+        }
+
+        @keyframes sparkleAnim {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .continue-btn {
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 15px 35px rgba(236, 72, 153, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 15px 35px rgba(236, 72, 153, 0.7), 0 0 40px rgba(236, 72, 153, 0.5);
+            }
+        }
+
+        .love-note {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            color: #fff;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            text-align: left;
+        }
+
+        .love-note strong {
+            color: #ffd700;
+            font-size: 1.1rem;
         }
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col">
-
-    <!-- Chosen Palette: Romantic Rose & Pink (Primary), Warm Gradients (Love), Soft Pastels (Care) -->
-    <!-- This isn't just an app - it's a love letter wrapped in code 💕 -->
-    <!-- Made with endless love for the most amazing person, Tanisha ✨ -->
-    <!-- Every line of code written while thinking of your smile 😊 -->
-    <!-- CONFIRMATION: Made with 100% love, 0% AI coldness -->
-
-    <!-- Romantic Dedication Banner -->
-    <div class="dedication-banner">
-        <p class="text-2xl md:text-3xl mb-2">Made with Love for Tanisha 💖</p>
-        <p class="text-sm md:text-base opacity-90">You've got this, my brilliant star! ✨</p>
+<body>
+    <!-- Background Photo Slideshow -->
+    <div class="bg-slideshow">
+        <img src="IMG-20250501-WA0015.jpg" alt="" class="bg-photo">
+        <img src="IMG-20250501-WA0017.jpg" alt="" class="bg-photo">
+        <img src="Screenshot_2025-12-30-00-26-18-46_92460851df6f172a4592fca41cc2d2e6.jpg" alt="" class="bg-photo">
+        <img src="Screenshot_2025-12-30-00-26-41-62_92460851df6f172a4592fca41cc2d2e6.jpg" alt="" class="bg-photo">
+        <img src="Screenshot_2025-12-30-02-10-02-05_965bbf4d18d205f782c6b8409c5773a4.jpg" alt="" class="bg-photo">
     </div>
 
-    <header class="glass-nav p-6 sticky top-0 z-50" style="position: relative; z-index: 100;">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center space-x-3">
-                <div class="bg-gradient-to-br from-amber-500 to-rose-500 p-3 rounded-2xl text-white rose-float"
-                    style="box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);">
-                    <span class="text-2xl">🌹</span>
-                </div>
-                <div>
-                    <h1 class="text-xl font-extrabold tracking-tight"
-                        style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Playfair Display', serif;">
-                        Tanisha's FDPS Victory Hub
-                    </h1>
-                    <p class="text-xs font-bold uppercase tracking-widest"
-                        style="background: linear-gradient(135deg, #a855f7, #ec4899); -webkit-background-clip: text; background-clip: text; color: transparent;">
-                        Your Personal Exam Companion 🌟
-                    </p>
-                </div>
+    <!-- Floating hearts background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <div class="container">
+        <!-- Entry Gate -->
+        <div class="entry-card" id="entryGate">
+            <h1>Najuk Kali Really Misses You 💕</h1>
+            <p class="subtitle">My love, every moment apart feels like forever...</p>
+            <p class="subtitle" style="font-size: 1rem; margin-top: -10px; opacity: 0.9;">
+                ✨ I've prepared something special for you ✨
+            </p>
+
+            <div class="input-container">
+                <input type="text" id="passwordInput" placeholder="What do I feel for you?..." autocomplete="off"
+                    spellcheck="false">
             </div>
-            <div class="flex space-x-2">
-                <button onclick="switchView('icf')" id="nav-icf" class="tab-btn active">💪 ICF Matrix</button>
-                <button onclick="switchView('bank')" id="nav-bank" class="tab-btn">📚 Topic Bank</button>
-                <button onclick="switchView('summary')" id="nav-summary" class="tab-btn">✨ Love Notes</button>
+
+            <button class="btn" onclick="checkPassword()">Open My Heart 🌹</button>
+
+            <div id="errorMsg" class="error-msg hidden">
+                Try again, my love... you know what's in my heart 💗
             </div>
+
+            <p style="color: rgba(255,255,255,0.7); margin-top: 30px; font-size: 0.9rem; font-style: italic;">
+                Hint: Three words that I say to you every day... 💫
+            </p>
         </div>
-    </header>
 
-    <main class="max-w-7xl mx-auto w-full p-4 md:p-8 flex-grow">
+        <!-- Photo & Message Section -->
+        <div class="entry-card hidden" id="photoSection">
+            <h1>These Moments With You 💖</h1>
+            <p class="subtitle">Every photo is a memory I cherish forever</p>
 
-        <!-- VIEW: ICF MATRIX -->
-        <section id="view-icf" class="space-y-8">
+            <div class="love-note">
+                <strong>My Dearest Love,</strong><br><br>
+                Looking at these photos while we're apart... it hurts but also fills me with so much love.
+                Every moment captured here reminds me of why this separation is so hard.
+                You're not just my girlfriend, you're my best friend, my happiness, my everything. 💕<br><br>
+                I miss your smile. I miss your laugh. I miss the way you look at me.
+                I miss holding your hand. I miss everything about you, every single day.
+            </div>
 
-            <div class="p-6 rounded-2xl card-shadow"
-                style="background: rgba(26, 10, 46, 0.7); backdrop-filter: blur(10px);">
-                <div class="flex flex-wrap gap-3 mb-6">
-                    <button onclick="setCategory('msk')" id="pill-msk" class="category-pill active">Musculoskeletal
-                        (MSK)</button>
-                    <button onclick="setCategory('neuro')" id="pill-neuro" class="category-pill inactive">Neurological
-                        (Neuro)</button>
-                    <button onclick="setCategory('cvrs')" id="pill-cvrs" class="category-pill inactive">Cardiopulmonary
-                        (CVRS)</button>
+            <div class="photo-gallery">
+                <div class="photo-item">
+                    <img src="IMG-20250501-WA0015.jpg" alt="Our Memory">
                 </div>
-
-                <div class="flex flex-col md:flex-row items-center gap-4">
-                    <label class="font-bold whitespace-nowrap" style="color: #fbbf24;">Case Presentation:</label>
-                    <select id="conditionSelect" onchange="renderTables()"
-                        class="w-full rounded-xl px-4 py-3 font-bold outline-none"
-                        style="background: rgba(10, 1, 24, 0.8); border: 2px solid rgba(168, 85, 247, 0.4); color: #e9d5ff;">
-                        <!-- Populated by JS -->
-                    </select>
+                <div class="photo-item">
+                    <img src="IMG-20250501-WA0017.jpg" alt="Our Memory">
+                </div>
+                <div class="photo-item">
+                    <img src="Screenshot_2025-12-30-00-26-18-46_92460851df6f172a4592fca41cc2d2e6.jpg" alt="Our Memory">
+                </div>
+                <div class="photo-item">
+                    <img src="Screenshot_2025-12-30-00-26-41-62_92460851df6f172a4592fca41cc2d2e6.jpg" alt="Our Memory">
+                </div>
+                <div class="photo-item">
+                    <img src="Screenshot_2025-12-30-02-10-02-05_965bbf4d18d205f782c6b8409c5773a4.jpg" alt="Our Memory">
                 </div>
             </div>
 
-            <!-- DYNAMIC DDx CHALLENGE CARD -->
-            <div id="ddx-card" class="hidden rounded-2xl card-shadow overflow-hidden animate-in"
-                style="background: rgba(26, 10, 46, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(236, 72, 153, 0.3);">
-                <div class="p-6">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="text-2xl rose-float">🌹</span>
-                        <h2 class="text-xl font-bold"
-                            style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Playfair Display', serif;">
-                            Differential Diagnosis Challenge
-                        </h2>
-                    </div>
-
-                    <div id="ddx-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <!-- DDx items will be injected here by JS -->
-                    </div>
-                </div>
+            <div class="love-note">
+                <strong>You know what I realized?</strong><br><br>
+                Distance doesn't make me love you less. If anything, it makes me realize how much you mean to me.
+                Every day apart is a reminder of how lucky I am to have you in my life.
+                How I can't wait to make more memories like these. 💝<br><br>
+                Valentine's Day is coming, and even though we can't be together physically,
+                my heart is always with you. Always. ✨
             </div>
 
-            <div class="space-y-12">
-                <!-- Table 1: Structural -->
-                <div class="animate-in">
-                    <div class="flex items-center space-x-2 mb-4">
-                        <span class="h-8 w-1 rounded-full"
-                            style="background: linear-gradient(135deg, #a855f7, #ec4899);"></span>
-                        <h2 class="text-xl font-black uppercase tracking-tight"
-                            style="color: #fbbf24; font-family: 'Playfair Display', serif;">1. Structural Impairments
-                        </h2>
-                    </div>
-                    <div class="rounded-2xl overflow-hidden card-shadow overflow-x-auto"
-                        style="background: rgba(10, 1, 24, 0.5);">
-                        <table class="w-full icf-table min-w-[800px]">
-                            <thead>
-                                <tr>
-                                    <th class="w-1/4">Impairment</th>
-                                    <th class="w-1/2">Clinical Reasoning (The Why)</th>
-                                    <th class="w-1/4">Supportive Findings (The Proof)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="struct-table-body">
-                                <!-- Dynamic Content -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <button class="btn continue-btn" onclick="showSpotify()">
+                There's More... 💕
+            </button>
+        </div>
 
-                <!-- Table 2: Functional -->
-                <div class="animate-in">
-                    <div class="flex items-center space-x-2 mb-4">
-                        <span class="h-8 w-1 rounded-full"
-                            style="background: linear-gradient(135deg, #ec4899, #f472b6);"></span>
-                        <h2 class="text-xl font-black uppercase tracking-tight"
-                            style="color: #fbbf24; font-family: 'Playfair Display', serif;">2. Functional Impairments
-                        </h2>
-                    </div>
-                    <div class="rounded-2xl overflow-hidden card-shadow overflow-x-auto"
-                        style="background: rgba(10, 1, 24, 0.5);">
+        <!-- Spotify Section -->
+        <div class="entry-card hidden" id="spotifySection">
+            <h1>🎵 Our Love Has A Soundtrack 🎵</h1>
+            <p class="subtitle">Every song reminds me of you...</p>
+            <p class="subtitle" style="font-size: 1rem; margin-top: -20px; opacity: 0.9;">
+                Let's blend our music, just like our hearts 💕
+            </p>
 
-                        <table class="w-full icf-table min-w-[800px]">
-                            <thead>
-                                <tr>
-                                    <th class="w-1/4">Impairment</th>
-                                    <th class="w-1/2">Clinical Reasoning (The Why)</th>
-                                    <th class="w-1/4">Supportive Findings (The Proof)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="func-table-body">
-                                <!-- Dynamic Content -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- VIEW: TOPIC BANK -->
-        <section id="view-bank" class="hidden space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="bank-container">
-                <!-- Populated by JS -->
-            </div>
-        </section>
-
-        <!-- VIEW: LOVE NOTES & ENCOURAGEMENT -->
-        <section id="view-summary" class="hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="p-8 rounded-3xl card-shadow"
-                    style="background: rgba(26, 10, 46, 0.7); backdrop-filter: blur(15px);">
-                    <h3 class="font-bold text-lg mb-4"
-                        style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Playfair Display', serif;">
-                        📊 Your Study Journey
-                    </h3>
-                    <div style="height: 300px; position: relative;">
-                        <canvas id="distChart"></canvas>
-                    </div>
-                    <p class="text-center mt-4 text-sm italic" style="color: #c4b5fd;">
-                        Every topic mastered is a step closer to your dreams! 🎯
-                    </p>
-                </div>
-                <div class="p-8 rounded-3xl flex flex-col justify-center card-shadow"
-                    style="background: linear-gradient(135deg, #5b21b6, #7c3aed, #a855f7, #ec4899); color: #fef3c7;">
-                    <h3 class="text-2xl font-bold mb-6 text-center"
-                        style="font-family: 'Playfair Display', serif; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);">Love
-                        Notes from Me 🌹</h3>
-                    <div class="space-y-5">
-                        <div class="p-4 rounded-2xl"
-                            style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(251, 191, 36, 0.3);">
-                            <p class="text-sm leading-relaxed">
-                                <strong style="color: #fbbf24;">✨ Remember:</strong> You're not just studying, you're
-                                building your dreams. Every sleepless night, every difficult concept you master - it's
-                                all bringing you closer to being the amazing physiotherapist I know you'll be!
-                            </p>
-                        </div>
-                        <div class="p-4 rounded-2xl"
-                            style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(251, 191, 36, 0.3);">
-                            <p class="text-sm leading-relaxed">
-                                <strong style="color: #fbbf24;">💪 You've got this:</strong> I've watched you overcome
-                                so much already. This exam? It's just another milestone you'll conquer with that
-                                brilliant mind of yours. I believe in you more than you know!
-                            </p>
-                        </div>
-                        <div class="p-4 rounded-2xl"
-                            style="background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(251, 191, 36, 0.3);">
-                            <p class="text-sm leading-relaxed">
-                                <strong style="color: #fbbf24;">🌟 My Promise:</strong> No matter what happens, I'm so
-                                proud of how hard you're working. Your dedication inspires me every single day. You're
-                                going to ace this and make all your dreams come true!
-                            </p>
-                        </div>
-                    </div>
-                    <p class="text-center mt-6 text-sm opacity-90 italic">
-                        Forever your biggest cheerleader 💖
-                    </p>
-                </div>
-            </div>
-
-            <!-- Additional Study Tips with Love -->
-            <div class="mt-8 rounded-3xl overflow-hidden card-shadow"
-                style="background: rgba(26, 10, 46, 0.7); backdrop-filter: blur(15px);">
-                <div class="p-6"
-                    style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2)); border-bottom: 1px solid rgba(251, 191, 36, 0.3);">
-                    <h3 class="text-xl font-bold text-center"
-                        style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Playfair Display', serif;">
-                        💝 Quick Study Reminders (Because I Care!)
-                    </h3>
-                </div>
-                <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="text-center p-4 rounded-2xl"
-                        style="background: rgba(168, 85, 247, 0.15); border: 2px solid rgba(168, 85, 247, 0.3);">
-                        <div class="text-3xl mb-3">🎯</div>
-                        <h4 class="font-bold mb-2" style="color: #fbbf24;">ICF Tip</h4>
-                        <p class="text-sm" style="color: #e9d5ff;">If you forget reasoning, think "Pain → Muscle
-                            Inhibition" or
-                            "Tissue Damage → Blocked Movement"</p>
-                    </div>
-                    <div class="text-center p-4 rounded-2xl"
-                        style="background: rgba(236, 72, 153, 0.15); border: 2px solid rgba(236, 72, 153, 0.3);">
-                        <div class="text-3xl mb-3">🧠</div>
-                        <h4 class="font-bold mb-2" style="color: #fbbf24;">Neuro Cases</h4>
-                        <p class="text-sm" style="color: #e9d5ff;">Always mention *Reflexes* and *Tone* (MAS Grade) in
-                            Structural
-                            Findings. You've got this!</p>
-                    </div>
-                    <div class="text-center p-4 rounded-2xl"
-                        style="background: rgba(245, 158, 11, 0.15); border: 2px solid rgba(245, 158, 11, 0.3);">
-                        <div class="text-3xl mb-3">💪</div>
-                        <h4 class="font-bold mb-2" style="color: #fbbf24;">Functional Tip</h4>
-                        <p class="text-sm" style="color: #e9d5ff;">Always include an ADL limitation (e.g., dressing,
-                            walking,
-                            stairs). You're brilliant!</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Motivational Quote -->
-            <div class="mt-8 text-center p-8 rounded-3xl card-shadow"
-                style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2)); border: 2px solid rgba(251, 191, 36, 0.2);">
-                <p class="text-2xl mb-3"
-                    style="font-family: 'Playfair Display', serif; background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700;">
-                    "Success is not final, failure is not fatal: it is the courage to continue that counts."
+            <div class="spotify-section">
+                <div class="spotify-icon">🎶</div>
+                <p class="spotify-text" style="font-size: 1.15rem; line-height: 1.8;">
+                    <strong style="color: #fff; font-size: 1.2rem;">My Beautiful Love,</strong><br><br>
+                    I made this Spotify Blend for us. Every song I listen to, I think of you. 🎵<br>
+                    Let's connect our music and see how perfectly we match!<br><br>
+                    <span style="font-size: 0.95rem; opacity: 0.9;">
+                        (Because I already know we're perfect together in every way 💖)
+                    </span>
                 </p>
-                <p class="text-sm italic" style="color: #d8b4fe;">
-                    And you, my love, have all the courage in the world 🌟
+                <a href="https://open.spotify.com/blend/taste-match/6e26c55b7255bb4f?si=1NGBCzEKQaePrXVIAfGmsg&fallback=getapp"
+                    target="_blank" style="text-decoration: none;">
+                    <button class="btn spotify-btn">
+                        <span>💚</span>
+                        Join Our Spotify Blend
+                        <span>💚</span>
+                    </button>
+                </a>
+            </div>
+
+            <div class="success-msg">
+                <p style="margin-bottom: 10px;">
+                    <strong>💝 From Najuk Kali To You:</strong>
+                </p>
+                <p>
+                    I know this separation is temporary, but my love for you is forever.
+                    These Valentine's days apart only make me more excited for all the ones we'll spend together in the
+                    future.
+                    Until then, know that I'm thinking of you, missing you, loving you - every single second. 💕<br><br>
+                    You're my Valentine, today and always. ✨
                 </p>
             </div>
-        </section>
 
-    </main>
+            <button class="btn continue-btn" onclick="proceedToWebsite()">
+                Continue to Your Surprise 💝
+            </button>
 
+            <p
+                style="color: rgba(255,255,255,0.95); margin-top: 25px; font-size: 1rem; font-weight: 600; line-height: 1.6;">
+                "Distance means so little when someone means so much."<br>
+                <span style="font-size: 0.9rem; opacity: 0.9;">And you mean everything to me. 💕</span>
+            </p>
+        </div>
 
-    <footer class="py-10 text-center"
-        style="background: linear-gradient(135deg, rgba(10, 1, 24, 0.95), rgba(26, 10, 46, 0.95)); border-top: 1px solid rgba(236, 72, 153, 0.3); position: relative; z-index: 10;">
-        <div class="max-w-4xl mx-auto px-4">
-            <p class="text-lg font-bold mb-2"
-                style="background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Playfair Display', serif;">
-                Made with 🌹 for the most amazing person in the world
-            </p>
-            <p class="text-sm mb-3" style="color: #e9d5ff;">
-                Every line of code written while thinking of your success, Tanisha 💖
-            </p>
-            <p class="text-xs italic" style="color: #c4b5fd;">
-                "You're going to do amazing things. I'm so proud of you!" ✨
-            </p>
-            <div class="mt-5">
-                <span class="inline-block text-2xl rose-float">🌹</span>
+        <!-- Loading state -->
+        <div class="entry-card hidden" id="loadingSection">
+            <h1>✨ Preparing Your Final Surprise ✨</h1>
+            <p class="subtitle">Just a moment, my love...</p>
+            <div class="loading-hearts">
+                <span>💕</span>
+                <span>💖</span>
+                <span>💗</span>
             </div>
         </div>
-    </footer>
-
+    </div>
 
     <script>
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = Math.random() > 0.5 ? '💕' : (Math.random() > 0.5 ? '💖' : '💗');
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            return heart;
+        }
 
-        const database = {
-            msk: {
-                "Lumbar IVDP (L4-L5)": {
-                    struct: [
-                        { i: "Localized Nociceptive Pain", r: "• Posterolateral disc protrusion compresses L5 nerve root in lateral recess<br>• Mechanical compression → intraneural edema + ischemia<br>• Release of inflammatory cytokines (IL-1β, TNF-α) from damaged nerve<br>• Sensitizes nociceptors → severe neuropathic pain (VAS 8/10)<br>• Sinuvertebral nerve irritation → local disc tenderness", f: "VAS 8/10, Tenderness at L4-L5" },
-                        { i: "Neural Mechanosensitivity", r: "• Disc herniation → nerve root tethering, restricts gliding (normal 2-6mm)<br>• Intraneural edema → compresses vasa nervorum → ischemia<br>• Nerve becomes hypersensitive to mechanical stress<br>• SLR elongates sciatic nerve → tensile stress on compressed root<br>• Positive SLR at 30-70° reproduces radicular pain", f: "+ve SLR at 40 degrees" },
-                        { i: "Restricted Spinal Flexion", r: "• Flexion increases intradiscal pressure (100kg → 220kg)<br>• Increased pressure → nucleus migrates posteriorly<br>• Worsens nerve root compression<br>• Multifidus + erector spinae → protective muscle spasm<br>• Muscle guarding restricts flexion ROM<br>• Schober's test: Normal 5-7cm, Restricted <3cm", f: "Schober's Test < 3cm" },
-                        { i: "Muscle Weakness (EHL)", r: "• L5 nerve root compression → LMN weakness<br>• Affects L5 myotome: EHL, Tibialis anterior, EDL<br>• Axonal damage + demyelination → disrupted transmission<br>• Reduced motor units → decreased force production<br>• MMT 3/5: Movement against gravity, not against resistance<br>• Prolonged compression → muscle atrophy + EMG changes", f: "MMT: 3/5 for Big Toe Ext" }
-                    ],
-                    func: [
-                        { i: "Impaired Prolonged Sitting", r: "• Sitting → intradiscal pressure increases to 140% of standing<br>• Forward-leaning (typing) → further increase to 185%<br>• Elevated pressure → worsens posterior disc migration<br>• Increases L5 nerve root compression → radicular pain<br>• Prolonged static loading → creep deformation of tissues<br>• Tolerance limited to <10 mins before position change needed", f: "Tolerance < 10 mins" },
-                        { i: "Difficulty putting on socks", r: "• Task requires: Max lumbar flexion + hip flexion + ankle DF<br>• Triple combination → maximum neural tension<br>• Lumbar flexion → increases disc pressure + nuclear shift<br>• Hip flexion → elongates sciatic nerve by ~12mm<br>• Reproduces positive SLR in functional position<br>• Sustained forward bend → maintains high disc pressure", f: "Patient report / Obs" },
-                        { i: "Antalgic Gait", r: "• Compensatory pattern to minimize pain<br>• Lateral weight shift away from painful side<br>• Reduces ground reaction forces + axial loading on disc<br>• Stance phase shortened (60% → <40% of gait cycle)<br>• Features: Lateral trunk lean, reduced step length<br>• Prolonged use → secondary hip abductor weakness", f: "Shortened stance phase" },
-                        { i: "Work Absenteeism", r: "• Office work → sustained sitting 4-8 hours daily<br>• Maintains elevated disc pressure throughout day<br>• Prevents disc rehydration + nuclear centralization<br>• Severe radicular pain (VAS 8/10) → cognitive interference<br>• Reduces concentration, productivity, task performance<br>• Inflammatory phase lasts 6-12 weeks → medical leave >5 days", f: "Sick leave > 5 days" }
-                    ],
-                    ddx: [
-                        { diff: 'Spinal Stenosis', reason: 'IVDP pain is flexion-intolerant (sitting/bending worsens pain due to increased intradiscal pressure forcing nucleus posteriorly). Stenosis is extension-intolerant; flexion actually increases foraminal volume and relieves symptoms (shopping cart sign - patient leans forward for relief). Stenosis shows bilateral neurogenic claudication that improves with rest, while IVDP shows unilateral radiculopathy with positive straight leg raise.' },
-                        { diff: 'Sacroiliac Joint Dysfunction', reason: 'SI joint pain is unilateral buttock/posterior thigh pain that rarely radiates below the knee (non-radicular). IVDP involves dermatomal radiation below the knee following L5 or S1 distribution with positive SLR and neural tension signs. SI joint provocative tests (FABER, Gaenslen) are positive in SI dysfunction but negative in IVDP. Pain pattern: SI is worse with prolonged standing and single-leg stance, while IVDP is worse with flexion activities.' },
-                        { diff: 'Piriformis Syndrome', reason: 'Piriformis involves deep buttock pain with FAIR test (Flexion, Adduction, Internal Rotation) positivity due to sciatic nerve compression by the piriformis muscle. IVDP has positive SLR at 30-70° and specific nerve root signs (L5: EHL weakness, foot drop; S1: absent ankle reflex, calf weakness). Piriformis pain is reproduced by resisted external rotation and relieved by piriformis stretching, while IVDP pain is reproduced by spinal flexion and Valsalva maneuvers.' },
-                        { diff: 'Facet Joint Arthropathy', reason: 'Facet joint pain is localized paraspinal pain without leg radiation (purely axial). IVDP involves sciatica with dermatomal distribution, paresthesia, and motor weakness. Facet pain is worse with extension and rotation (loading the facet joints), while IVDP is worse with flexion. Facet joints show tenderness over the joint line, while IVDP shows midline or paracentral disc tenderness. Imaging: facet arthropathy shows joint space narrowing and osteophytes, while IVDP shows disc bulge/herniation on MRI.' },
-                        { diff: 'Ankylosing Spondylitis', reason: 'AS pain is inflammatory in nature (worse at night/rest, improves with exercise, morning stiffness >30 mins). IVDP is mechanical (worse with activity, relieved by rest). AS is bilateral and symmetrical affecting the sacroiliac joints and spine, while IVDP is typically unilateral. AS shows reduced spinal mobility in all planes (Schober test <5cm), while IVDP shows selective loss of flexion. Lab findings: AS has elevated ESR/CRP and positive HLA-B27, while IVDP has normal inflammatory markers.' }
-                    ]
-                },
-                "Knee Osteoarthritis (Grade III)": {
-                    struct: [
-                        { i: "Articular Crepitus", r: "• Cartilage degradation → loss of smooth articular surface<br>• Subchondral bone exposed → roughened surface<br>• Osteophyte formation adds to irregular surfaces<br>• Bone-on-bone grinding during movement<br>• Palpable + audible throughout ROM (indicates Grade III-IV)", f: "Palpable grating during ROM" },
-                        { i: "VMO Atrophy", r: "• Joint effusion → stretch of joint capsule receptors<br>• Triggers arthrogenic muscle inhibition (AMI) reflex<br>• Inhibits VMO selectively (fires last 15° extension)<br>• Pain inhibition → reduced quadriceps activation<br>• Thigh girth deficit >2cm indicates significant atrophy", f: "Thigh girth deficit 3cm" },
-                        { i: "Flexion Deformity", r: "• Posterior capsule fibrosis → shortening + contracture<br>• Posterior osteophyte formation → mechanical block<br>• Prolonged flexed postures → adaptive shortening<br>• Hamstrings remain shortened → fixed flexion<br>• Typical deformity: 10-15° fixed flexion", f: "Fixed flexed knee 10 degrees" },
-                        { i: "Joint Space Narrowing", r: "• Medial compartment loading (varus alignment)<br>• Proteoglycan loss → cartilage thinning<br>• Meniscal degeneration → loss of shock absorption<br>• X-ray grading: Grade III = severe narrowing<br>• Medial > lateral typically affected", f: "X-ray: Grade III medial OA" }
-                    ],
-                    func: [
-                        { i: "Difficulty Climbing Stairs", r: "• Stair climbing → knee load 3-4x body weight<br>• Requires full knee extension + strong quadriceps<br>• VMO weakness → insufficient force production<br>• Descending worse (eccentric control needed)<br>• Uses handrails/step-by-step pattern", f: "Uses handrails / step-by-step" },
-                        { i: "Impaired Sit-to-Stand", r: "• Transition fors → maximum knee flexion moment<br>• Quadriceps force needed to extend against body weight<br>• Pain during loading phase → hesitation<br>• VMO weakness → compensatory strategies<br>• 5-Time STS: Normal <12s, OA >15s", f: "5-Time STS > 15 seconds" },
-                        { i: "Reduced Walking Speed", r: "• Pain-avoidance strategy → shortened stride<br>• Reduced knee flexion during swing → stiff gait<br>• Decreases ground reaction forces → less loading<br>• Normal walk speed 1.2-1.4 m/s<br>• OA patients typically <0.8 m/s", f: "Timed 10m walk < 0.8 m/s" },
-                        { i: "Inability to squat", r: "• Squat requires >120° knee flexion<br>• Posterior osteophytes → mechanical block<br>• High patellofemoral joint stress at deep flexion<br>• Severe pain at end-range<br>• Daily activities limited (prayer, floor sitting)", f: "Failed functional test" }
-                    ],
-                    ddx: [
-                        { diff: 'Meniscal Tear', reason: 'OA pain is global/diffuse throughout the joint, worse with prolonged weight-bearing due to cartilage degradation and bone-on-bone contact. Meniscal tears involve mechanical locking/catching (bucket-handle tear blocks extension), McMurray test positive with focal joint-line tenderness, and a specific traumatic onset (twisting injury). OA develops gradually over years with morning stiffness <30 mins, while meniscal tears are acute with immediate swelling. X-ray: OA shows joint space narrowing and osteophytes; MRI: meniscal tear shows cleft/signal change in meniscus.' },
-                        { diff: 'Patellofemoral Pain Syndrome', reason: 'PFPS pain is anterior/retropatellar, worse with stairs (especially descending), prolonged sitting (moviegoer sign), and squatting due to increased patellofemoral contact forces. OA involves diffuse joint pain with crepitus throughout ROM and radiographic joint space narrowing (medial > lateral typically). PFPS has normal X-rays, positive patellar grind/compression test, and J-sign (lateral patellar tracking). Pain location: PFPS is behind patella, OA is medial/lateral joint line. Age: PFPS affects young athletes, OA affects elderly >50 years.' },
-                        { diff: 'Pes Anserine Bursitis', reason: 'Pes anserine pain is medial proximal tibia (2-3cm below joint line) where sartorius, gracilis, and semitendinosus insert. Point tenderness over the bursa, worse with stairs and resisted knee flexion. OA is diffuse knee joint pain with VMO atrophy, fixed flexion deformity, and crepitus. Pes anserine bursitis has normal knee ROM and no effusion, while OA has restricted extension and joint effusion. Treatment: bursitis responds to local corticosteroid injection, OA requires systemic management.' },
-                        { diff: 'Gout (Acute)', reason: 'Gout is sudden severe pain with rapid joint swelling (podagra when affecting 1st MTP), redness, warmth, and extreme tenderness (cannot bear bed sheets). Elevated serum uric acid >7mg/dL, needle-shaped negatively birefringent crystals on joint aspiration. OA is chronic degenerative with gradual onset over months/years and no systemic inflammation (normal ESR/CRP). Gout attacks last 7-10 days and resolve spontaneously, while OA is persistent. Associated: gout with kidney stones and tophi, OA with Heberden/Bouchard nodes in hands.' },
-                        { diff: 'Ligamentous Instability (ACL/PCL)', reason: 'Ligament injury shows mechanical instability with positive Lachman (ACL) or posterior drawer (PCL) tests. History of acute trauma (pivot/twist injury) with immediate hemarthrosis (blood in joint within 2 hours). OA shows stiffness with fixed deformity (varus/valgus) but no acute instability unless end-stage bone loss. Ligament injuries occur in young athletes with normal X-rays (MRI shows ligament discontinuity), while OA affects elderly with joint space narrowing on X-ray. Giving way: ligament tear causes true instability (knee buckles), OA causes pain-related pseudo-giving way.' }
-                    ]
-                },
-                "Frozen Shoulder (Freezing)": {
-                    struct: [
-                        { i: "Capsular Pattern Restriction", r: "• Adhesive capsulitis → global capsular fibrosis<br>• Coracohumeral ligament thickening + shortening<br>• Capsular pattern: ER > Abd > IR (most to least restricted)<br>• Glenohumeral volume reduces (30ml → 10ml)<br>• Both active + passive ROM equally restricted", f: "ER < Abd < IR restriction" },
-                        { i: "Scapulohumeral Rhythm Disturbance", r: "• Normal rhythm: 2:1 (glenohumeral:scapulothoracic)<br>• Capsular restriction → early scapular compensation<br>• Scapula moves excessively to achieve arm elevation<br>• 1:1 rhythm observed (scapula hiking)<br>• Leads to secondary trapezius overactivity", f: "1:1 rhythm observed" },
-                        { i: "Severe Night Pain", r: "• Chronic synovitis → inflammatory exudate<br>• Increased intra-capsular pressure in recumbent position<br>• Lying on affected shoulder → compression<br>• Disturbs sleep repeatedly<br>• Stage 1 (Freezing): Pain > stiffness", f: "Disturbed sleep history" },
-                        { i: "Myofascial Trigger Points", r: "• Upper trapezius overworks to compensate<br>• Loss of GH abduction → excessive scapular elevation<br>• Sustained muscle tension → trigger point formation<br>• Palpable taut bands with referred pain<br>• Tender points in upper trap fibers", f: "Tenderness at Trap fibers" }
-                    ],
-                    func: [
-                        { i: "Inability to comb hair", r: "• Combing hair → requires abduction + ER (Apley's Superior)<br>• Capsular restriction prevents overhead reach<br>• Cannot achieve required ROM for grooming<br>• Compensates with trunk side-bending<br>• Functional independence compromised", f: "Apley's Superior Failed" },
-                        { i: "Difficulty in Toileting", r: "• Perineal hygiene → requires IR + extension<br>• Hand-behind-back position (Apley's Inferior)<br>• IR is most restricted in capsular pattern<br>• Unable to reach buttock/perineum<br>• May require adaptive equipment", f: "Apley's Inferior Failed" },
-                        { i: "Difficulty putting on a jacket", r: "• Jacket requires humeral clearance + reach<br>• Abduction + ER needed for arm insertion<br>• Capsular block prevents required ROM<br>• Observable functional lag during task<br>• Needs assistance for upper body dressing", f: "Observed functional lag" },
-                        { i: "Restricted Overhead reaching", r: "• Overhead reach → requires 160-180° elevation<br>• Inferior capsule contracture → mechanical block<br>• Prevents humeral head inferior glide<br>• Maximum elevation <90° in freezing stage<br>• Cannot reach top shelf, hang clothes", f: "Reach < 90 degrees" }
-                    ],
-                    ddx: [
-                        { diff: 'Rotator Cuff Tear', reason: 'Frozen Shoulder involves severe restriction in BOTH Active and Passive ROM (Capsular Pattern). RC tears show restricted Active ROM but generally preserved Passive ROM.' },
-                        { diff: 'Glenohumeral Osteoarthritis', reason: 'OA shows bony crepitus and osteophyte formation on X-ray. Frozen shoulder involves capsular fibrosis without significant bony changes initially.' },
-                        { diff: 'Calcific Tendinitis', reason: 'Calcific tendinitis shows acute severe pain with calcium deposits on X-ray. Frozen shoulder is chronic progressive stiffness without calcium deposits.' },
-                        { diff: 'Shoulder Impingement', reason: 'Impingement pain is in mid-arc (60-120°) with Neer\'s/Hawkins +ve. Frozen shoulder has global restriction in all planes (capsular pattern: ER < Abd < IR).' },
-                        { diff: 'C5 Radiculopathy', reason: 'C5 radiculopathy involves neck pain radiating to deltoid with motor weakness. Frozen shoulder is localized shoulder stiffness without neurological deficits.' }
-                    ]
-                },
-                "Cervical Radiculopathy (C6-C7)": {
-                    struct: [
-                        { i: "Foraminal Compression", r: "• C6-C7 disc herniation or osteophytes<br>• Narrowing of intervertebral foramen<br>• C7 nerve root compressed (exits C6-C7)<br>• Mechanical compression + inflammation<br>• Spurling's test: Extension + ipsilateral rotation + compression", f: "+ve Spurling's Test" },
-                        { i: "Triceps Weakness", r: "• C7 myotome innervates triceps (elbow extension)<br>• Nerve root compression → motor unit loss<br>• Axonal damage + demyelination<br>• MMT 3/5: Movement against gravity only<br>• Also affects wrist/finger extensors", f: "MMT 3/5 for Triceps" },
-                        { i: "Diminished Reflexes", r: "• C7 nerve root supplies triceps reflex arc<br>• Lower motor neuron lesion → hyporeflexia<br>• Triceps jerk: 1+ (sluggish) vs normal 2+<br>• Compare bilaterally for asymmetry<br>• Indicates nerve root pathology", f: "Triceps Jerk: 1+ (Sluggish)" },
-                        { i: "Neural Tension", r: "• Nerve root tethering → increased mechanosensitivity<br>• Brachial plexus (C5-T1) involvement<br>• ULNT (Upper Limb Neural Tension) test positive<br>• Median nerve bias most common<br>• Reproduces radicular symptoms", f: "+ve ULNT (Median Nerve)" }
-                    ],
-                    func: [
-                        { i: "Difficulty in Overhead lifting", r: "• Overhead lifting → neck extension required<br>• Extension narrows intervertebral foramen<br>• Increases nerve root compression<br>• Radicular pain reproduced<br>• Limits occupational activities (shelving, painting)", f: "Patient report" },
-                        { i: "Impaired Grip Stability", r: "• C7 → wrist extensors (ECRL, ECRB, ECU)<br>• Wrist extension stabilizes for grip<br>• Weakness → unstable wrist during gripping<br>• Dynamometer shows 15kg deficit<br>• Affects ADLs (carrying bags, opening jars)", f: "Dynamometer: 15kg deficit" },
-                        { i: "Restricted driving (Blind spot)", r: "• Blind spot check → neck rotation 60-80°<br>• Rotation + extension narrows foramen<br>• Aggravates nerve compression → pain<br>• Limited to 30° rotation before symptoms<br>• Unsafe driving, uses mirrors only", f: "Limited rotation to 30 deg" },
-                        { i: "Difficulty Typing", r: "• Typing → sustained wrist extension + fine motor control<br>• C7 weakness → reduced wrist extensor endurance<br>• Paresthesia in middle finger (C7 dermatome)<br>• Sensory interference → typing errors<br>• Productivity significantly affected", f: "Dropped speed / Errors" }
-                    ],
-                    ddx: [
-                        { diff: 'Thoracic Outlet Syndrome', reason: 'Radiculopathy has dermatomal/myotomal deficits and Spurling\'s +ve. TOS involves posture-dependent symptoms, vascular changes (Adson\'s sign), and no specific dermatome.' },
-                        { diff: 'Brachial Plexus Injury', reason: 'Plexus injury involves multiple nerve roots (C5-T1) after trauma. Radiculopathy is a single nerve root compression with specific level findings (C7 = triceps).' },
-                        { diff: 'Peripheral Nerve Entrapment', reason: 'Nerve entrapment (ulnar/median) involves distal symptoms. Cervical radiculopathy involves proximal neck pain radiating distally with Spurling\'s test.' },
-                        { diff: 'Shoulder Pathology (Referred)', reason: 'Shoulder pathology worsens with shoulder movement. Cervical radiculopathy worsens with neck extension/rotation and has positive ULNT.' },
-                        { diff: 'Pancoast Tumor', reason: 'Pancoast tumor involves Horner\'s syndrome (ptosis, miosis) and apical lung mass on X-ray. Radiculopathy is degenerative disc/osteophyte compression.' }
-                    ]
-                },
-                "Lateral Epicondylitis": {
-                    struct: [
-                        { i: "Angiofibroblastic Hyperplasia", r: "• Failed healing at ECRB origin (common extensor tendon)<br>• Repetitive microtrauma → tendinosis (not tendinitis)<br>• Angiofibroblastic degeneration (chronic)<br>• No active inflammation present<br>• Point tenderness at lateral epicondyle", f: "Tenderness at epicondyle" },
-                        { i: "Painful Resisted Extension", r: "• Cozen's test: Resisted wrist extension with elbow extended<br>• Loads ECRB origin → pain reproduction<br>• Contractile tissue stress test<br>• Positive if pain at lateral epicondyle<br>• Indicates extensor tendinopathy", f: "+ve Cozen's Test" },
-                        { i: "Reduced Passive Wrist Flexion", r: "• Mill's test: Passive wrist flexion + pronation + elbow extension<br>• Stretches sensitized extensor origin<br>• Reproduces pain at lateral epicondyle<br>• Positive indicates tendon involvement<br>• Differentiates from radial tunnel syndrome", f: "Mill's Test: Positive" },
-                        { i: "Radial Nerve Mechanosensitivity", r: "• Secondary irritation of PIN (Posterior Interosseous Nerve)<br>• Passes through supinator muscle near lateral epicondyle<br>• ULNT radial bias test positive<br>• Nerve mechanosensitivity component<br>• May require neural mobilization", f: "+ve ULNT Radial bias" }
-                    ],
-                    func: [
-                        { i: "Difficulty Pouring Tea", r: "• Pouring → eccentric load on ECRB<br>• Wrist extension + ulnar deviation during tilt<br>• Heavy teapot increases load<br>• Pain reproduction prevents task<br>• Common functional complaint", f: "Reproduction of pain" },
-                        { i: "Reduced Grip Force", r: "• Grip requires wrist extension for stability<br>• Pain inhibition → reduced force production<br>• Grip test reproduces lateral epicondyle pain<br>• Pain-limited (not true weakness)<br>• Normal grip after pain resolution", f: "Grip test: Pain-limited" },
-                        { i: "Difficulty wringing clothes", r: "• Wringing → rotational stress on extensor origin<br>• Combined wrist extension + twisting<br>• High force eccentric load<br>• Functional task failure<br>• Requires modification (using washing machine)", f: "Functional failure" },
-                        { i: "Impaired sport participation", r: "• Tennis/badminton → high velocity loads<br>• Backhand stroke stresses ECRB maximally<br>• VAS 9/10 during play<br>• Prevents recreational activities<br>• Often called 'tennis elbow' (common in 40s)", f: "VAS 9/10 during play" }
-                    ],
-                    ddx: [
-                        { diff: 'Radial Tunnel Syndrome', reason: 'RTS tenderness is 4-5cm distal to lateral epicondyle over supinator. Epicondylitis tenderness is directly on the common extensor origin (lateral epicondyle).' },
-                        { diff: 'C6 Radiculopathy', reason: 'C6 radiculopathy involves neck pain, biceps weakness, and diminished brachioradialis reflex. Lateral epicondylitis is localized elbow pain with normal reflexes.' },
-                        { diff: 'Elbow Osteoarthritis', reason: 'OA involves loss of extension, joint crepitus, and radiographic changes. Lateral epicondylitis has full ROM with pain only on resisted wrist extension.' },
-                        { diff: 'Triceps Tendinopathy', reason: 'Triceps tendinopathy involves posterior elbow pain on resisted extension. Lateral epicondylitis is lateral pain on resisted wrist/finger extension.' },
-                        { diff: 'Radial Head Fracture', reason: 'Radial head fracture involves acute trauma, joint swelling, and limited pronation/supination. Lateral epicondylitis is chronic overuse without trauma.' }
-                    ]
-                },
-                "Ankle Sprain (Grade II)": {
-                    struct: [
-                        { i: "Ligamentous Laxity (ATFL)", r: "• Partial tearing of ATFL fibers post-inversion injury<br>• Disruption of structural integrity<br>• Micro-hemorrhage within ligament<br>• Mechanical instability in plantarflexion/inversion<br>• Loss of passive restraint", f: "+ve Anterior Drawer Test" },
-                        { i: "Localized Edema", r: "• Inflammatory cascade activation (cytokines)<br>• Increased capillary permeability<br>• Extravasation of fluid into interstitial space<br>• Obliteration of bony landmarks (lateral malleolus)<br>• Compression of nociceptors", f: "Egg-shaped swelling" },
-                        { i: "Proprioceptive Deficit", r: "• Mechanoreceptor damage (Golgi tendon organs)<br>• De-afferentation of the joint<br>• Impaired neuromuscular feedback loop<br>• Delayed peroneal reaction time<br>• Increased risk of recurrent sprain", f: "Failed Single Leg Stance" },
-                        { i: "Reduced Dorsiflexion", r: "• Talar anterior subluxation positional fault<br>• Protective muscle spasm (Gastrocnemius)<br>• Intra-articular effusion blocking glide<br>• Posterior capsule tightness<br>• Adhesions in talocrural joint", f: "Lunge Test < 10cm" }
-                    ],
-                    func: [
-                        { i: "Inability to run", r: "• Impaired push-off phase (plantarflexion)<br>• Pain inhibition during dynamic loading<br>• Lack of lateral stability<br>• Fear avoidance behavior<br>• Altered shock absorption", f: "Failed hop test" },
-                        { i: "Difficulty on uneven ground", r: "• Compromised dynamic stabilization<br>• Slowed reaction time of peroneals<br>• Inability to adjust foot placement<br>• Risk of 'giving way' sensation<br>• Reliance on visual fixation", f: "Subjective instability" },
-                        { i: "Altered Gait (Limping)", r: "• Antalgic gait pattern<br>• Shortened stance phase on affected side<br>• Avoidance of heel strike<br>• Decreased step length<br>• Lateral trunk lean compensation", f: "Antalgic pattern" },
-                        { i: "Difficulty descending stairs", r: "• Requires max dorsiflexion (closed chain)<br>• Eccentric control deficit of soleus<br>• Anterior ankle impingement pain<br>• Decreased confidence<br>• Compensatory hip external rotation", f: "Pain at end range" }
-                    ],
-                    ddx: [
-                        { diff: 'Maisonneuve Fracture', reason: 'Maisonneuve involves proximal fibular fracture; tenderness high at fibular head with syndesmotic injury. ATFL sprain has lateral malleolus tenderness.' },
-                        { diff: 'Lateral Malleolus Fracture', reason: 'Fracture involves bony tenderness, inability to weight-bear (Ottawa rules +ve), and X-ray confirms fracture. ATFL sprain has ligamentous laxity without fracture.' },
-                        { diff: 'Peroneal Tendinopathy', reason: 'Peroneal tendinopathy involves pain posterior to lateral malleolus along tendon course. ATFL sprain is anterior-lateral with ligamentous laxity (anterior drawer +ve).' },
-                        { diff: 'Subtalar Joint Sprain', reason: 'Subtalar sprain involves hindfoot instability and pain below lateral malleolus. ATFL involves ankle joint with anterior drawer and talar tilt tests positive.' },
-                        { diff: 'Sinus Tarsi Syndrome', reason: 'Sinus tarsi syndrome involves anterolateral hindfoot pain in the sinus (between talus/calcaneus). ATFL sprain is anterior ankle with lateral malleolus swelling.' }
-                    ]
-                },
-                "Rheumatoid Arthritis (Hand)": {
-                    struct: [
-                        { i: "Synovial Hyperplasia (Pannus)", r: "• Autoimmune attack on synovium (T-cells)<br>• Formation of invasive pannus tissue<br>• Destruction of articular cartilage & bone<br>• Joint space narrowing<br>• Capsular distension & ligament laxity", f: "Ulnar drift, MCP swelling" },
-                        { i: "Swan Neck Deformity", r: "• Synovitis of PIP joint<br>• Stretching of volar plate<br>• Migration of lateral bands dorsally<br>• PIP hyperextension + DIP flexion<br>• Imbalance of intrinsic muscles", f: "PIP hyperextension, DIP flex" },
-                        { i: "Morning Stiffness", r: "• Accumulation of inflammatory exudate during rest<br>• 'Gel phenomenon' (thickening of synovial fluid)<br>• Circadian rhythm of cytokines (IL-6 peak)<br>• Edema absorption delayed due to inactivity<br>• Resolves with movement pumping fluid", f: "Duration > 1 hour" },
-                        { i: "Reduced Grip Strength", r: "• Reflex inhibition due to pain<br>• Disuse atrophy of intrinsics (interossei)<br>• Mechanical disadvantage of deformities<br>• Joint instability/subluxation<br>• Rupture of extensor tendons", f: "Sphygmomanometer test low" }
-                    ],
-                    ddx: [
-                        { diff: 'Osteoarthritis (Hand)', reason: 'OA involves DIP joints (Heberden nodes) and is non-inflammatory. RA targets PIP/MCP joints with morning stiffness >1 hour and symmetrical involvement.' },
-                        { diff: 'Psoriatic Arthritis', reason: 'Psoriatic arthritis involves DIP joints with nail pitting and psoriasis plaques. RA is symmetrical PIP/MCP without skin involvement.' },
-                        { diff: 'Gouty Arthritis', reason: 'Gout involves acute monoarticular attacks (often 1st MTP) with tophi and elevated uric acid. RA is chronic polyarticular with +ve RF/Anti-CCP.' },
-                        { diff: 'Systemic Lupus Erythematosus', reason: 'SLE has non-erosive arthritis with malar rash and positive ANA. RA is erosive arthritis with joint deformity (ulnar deviation) and positive RF.' },
-                        { diff: 'Dupuytren\'s Contracture', reason: 'Dupuytren involves palmar fascial thickening (cord) without joint involvement. RA involves synovitis with joint swelling and morning stiffness.' }
-                    ],
-                    func: [
-                        { i: "Difficulty opening jars", r: "• Inability to generate torque<br>• Pain at MCP/PIP joints under load<br>• Weakness of cylindrical grip<br>• Instability of wrist/thumb<br>• Radial deviation weakness", f: "Functional observation" },
-                        { i: "Difficulty in writing", r: "• Loss of fine motor control (pincer)<br>• Three-jaw chuck pinch compromise<br>• Fatigue of intrinsic muscles<br>• Pain with sustained static grip<br>• Joint subluxation impacting pen hold", f: "Speed / Legibility drop" },
-                        { i: "Difficulty fastening buttons", r: "• Impaired tip-to-tip pinch<br>• Loss of tactile sensation if neuropathy exists<br>• Reduced PIP flexion dexterity<br>• Frustration with fine manipulation<br>• Restricted thumb opposition", f: "Timed dressing test high" },
-                        { i: "Social Isolation", r: "• Embarrassment regarding hand appearance<br>• Inability to participate in social dining<br>• Depression associated with chronic pain<br>• Avoidance of handshakes<br>• Loss of role identity", f: "Psychological report" }
-                    ]
-                },
-                "Scoliosis (Adolescent)": {
-                    struct: [
-                        { i: "Lateral Curvature of Spine", r: "• Asymmetric vertebral growth (Hueter-Volkmann law)<br>• Wedging of vertebral bodies<br>• Structural fixed deviation >10 degrees<br>• 3D deformity (coronal/sagittal/axial)<br>• Cobb's angle progression", f: "Cobb's Angle 25 degrees" },
-                        { i: "Rib Hump", r: "• Vertebral rotation towards convexity<br>• Ribs pushed posteriorly on convex side<br>• Thoracic cage asymmetry<br>• Scapular prominence (winging)<br>• Detected on Adam's Forward Bend Test", f: "+ve Adam's Forward Bend" },
-                        { i: "Muscle Imbalance", r: "• Short/tight muscles on concave side<br>• Overstretched/weak on convex side<br>• Altered length-tension relationship<br>• Paraspinal muscle asymmetry<br>• Multifidus atrophy", f: "Tightness of concave lateral" },
-                        { i: "Uneven Shoulder Height", r: "• Coronal plane decompensation<br>• Clavicular asymmetry<br>• Trapezius contour altered<br>• Visual body image disturbance<br>• Pelvic obliquity compensatory", f: "Visual discrepancy 2cm" }
-                    ],
-                    func: [
-                        { i: "Impaired Body Image", r: "• Visible cosmetic deformity<br>• Psychological distress in adolescence<br>• Poor self-esteem regarding clothing fit<br>• Avoidance of swimming/sports<br>• Social withdrawal", f: "Psychological screening" },
-                        { i: "Reduced Vital Capacity", r: "• Thoracic cage distortion (if curve >60 deg)<br>• Decreased lung expansion on convex side<br>• Diaphragmatic mechanics altered<br>• Dyspnea on exertion<br>• Reduced chest excursion", f: "PFT: Restrictive pattern" },
-                        { i: "Back Pain on fatigue", r: "• Muscle fatigue from asymmetry<br>• Facet joint loading on concave side<br>• Disc compression<br>• Postural strain during sitting<br>• Trigger point development", f: "VAS 4/10 after school" },
-                        { i: "Difficulty in fitting clothes", r: "• Asymmetry of waistline<br>• One pant leg appears shorter<br>• Hemline unevenness<br>• Shoulder strap slipping<br>• Frustration with appearance", f: "Patient report" }
-                    ],
-                    ddx: [
-                        { diff: 'Kyphosis (Scheuermann\'s)', reason: 'Scoliosis involves lateral curvature and rotation (rib hump). Scheuermann\'s is structural hyper-kyphosis (sagittal plane) with anterior vertebral wedging.' },
-                        { diff: 'Postural Round Back', reason: 'Postural kyphosis corrects with voluntary extension. Structural scoliosis (Cobb angle >10°) is fixed and does not correct with posture.' },
-                        { diff: 'Leg Length Discrepancy', reason: 'LLD causes functional scoliosis that corrects with heel lift. Idiopathic scoliosis is structural with vertebral rotation and rib hump.' },
-                        { diff: 'Neuromuscular Scoliosis (CP)', reason: 'Neuromuscular scoliosis involves underlying muscle weakness (CP/muscular dystrophy). Idiopathic scoliosis has no neurological deficits.' },
-                        { diff: 'Congenital Scoliosis', reason: 'Congenital scoliosis involves vertebral malformations (hemivertebra) present from birth. Idiopathic scoliosis develops during growth without bony defects.' }
-                    ]
-                },
-            },
-            neuro: {
-                "Stroke (MCA Hemiplegia)": {
-                    struct: [
-                        { i: "Spasticity", r: "• UMN lesion → loss of descending inhibition<br>• Reticulospinal tract disinhibition<br>• Hyperexcitability of stretch reflex (alpha-gamma coactivation)<br>• Velocity-dependent increase in tone<br>• Predominant in antigravity muscles (flexors of UL)", f: "MAS Grade 2 (Biceps)" },
-                        { i: "Muscle Weakness (Hemiplegia)", r: "• Infarction in MCA territory → Motor Cortex/Internal Capsule damage<br>• Disruption of Corticospinal tract<br>• Loss of voluntary motor unit recruitment<br>• Contralateral hemiplegia (face + arm > leg in MCA)<br>• Flaccidity initially (shock) → Spasticity", f: "MMT: 1/5 in UL, 2/5 in LL" },
-                        { i: "Synergistic Movement", r: "• Loss of selective motor control (fractionation)<br>• Unmasking of primitive reflex patterns<br>• Stereotypical mass movement patterns<br>• Flexor synergy typical in UL (Scap retraction, shld abd/ER, elbow flex)<br>• Extensor synergy in LL", f: "Flexor Synergy in UL" },
-                        { i: "Impaired Balance", r: "• Sensorimotor integration deficit<br>• Delayed postural reflexes (ankle/hip strategies)<br>• Asymmetric weight bearing (shifts to strong side)<br>• Loss of equilibrium reactions<br>• Risk of falls to weak side", f: "BBS Score: 28/56" }
-                    ],
-                    func: [
-                        { i: "Inability to walk independently", r: "• Lack of stance stability (buckling)<br>• Poor foot clearance (drop foot) in swing<br>• Circumduction gait compensation<br>• Decreased walking speed & cadence<br>• High energy cost of hemiplegic gait", f: "Requires assist of 2" },
-                        { i: "Difficulty in Feeding", r: "• Dominant hand paralysis/paresis<br>• Loss of fine motor pincer grasp<br>• Inability to manipulate utensils<br>• Spasticity interferes with reaching (flexor pattern)<br>• Requires adaptive equipment (universal cuff)", f: "FIM: 3/7 for Eating" },
-                        { i: "Impaired Community Ambulation", r: "• Gait speed <0.8 m/s (insufficient for crosswalks)<br>• Inability to negotiate curbs/uneven terrain<br>• Fear of falling (post-fall syndrome)<br>• Cognitive/perceptual deficits (neglect)<br>• Social isolation risk", f: "Gait speed < 0.4 m/s" },
-                        { i: "Speech Impairment (Aphasia)", r: "• Left MCA stroke usually involves language centers<br>• Broca's (expressive) or Wernicke's (receptive)<br>• Dysarthria if motor articulation affected<br>• Communication breakdown impacts rehab<br>• Requires speech therapy", f: "Communication screen failed" }
-                    ],
-                    ddx: [
-                        { diff: 'Hemorrhagic Stroke', reason: 'Ischemic stroke (MCA) is gradual onset with focal deficits. Hemorrhagic stroke is sudden severe headache (thunderclap) with rapid deterioration and loss of consciousness.' },
-                        { diff: 'Transient Ischemic Attack (TIA)', reason: 'TIA symptoms resolve completely within 24 hours (usually <1 hour). Stroke causes permanent neurological deficits with brain tissue damage.' },
-                        { diff: 'Brain Tumor', reason: 'Tumor symptoms are progressive over weeks/months with headache and seizures. Stroke is sudden onset with vascular territory distribution.' },
-                        { diff: 'Todd\'s Paralysis (Post-Seizure)', reason: 'Todd\'s paralysis follows a seizure and resolves within 48 hours. Stroke has sudden vascular onset without seizure history.' },
-                        { diff: 'Hypoglycemia', reason: 'Hypoglycemia causes global confusion and resolves with glucose. Stroke causes focal deficits (hemiplegia/aphasia) not responsive to glucose.' }
-                    ]
-                },
-                "Parkinson's Disease": {
-                    struct: [
-                        { i: "Lead-pipe Rigidity", r: "• Dopamine depletion in Substantia Nigra (Pars Compacta)<br>• Disinhibition of Basal Ganglia output (Indirect pathway)<br>• Increased agonist-antagonist co-contraction<br>• Uniform resistance throughout ROM (Lead-pipe)<br>• Called Cog-wheel if superimposed tremor exists", f: "Resistance throughout PROM" },
-                        { i: "Resting Tremor", r: "• Pacemaker-like firing of thalamocortical neurons<br>• 4-6 Hz frequency (Pill-rolling characteristic)<br>• Occurs at rest, disappears with movement<br>• Asymmetric onset (starts in one hand)<br>• Worsened by stress/fatigue", f: "Pill-rolling tremor (4-6Hz)" },
-                        { i: "Bradykinesia", r: "• Difficulty initiating voluntary movement<br>• Reduced amplitude & speed (hypokinesia)<br>• Deficit in internal cueing mechanism<br>• Manifests as masked face (hypomimia)<br>• Most disabling motor symptom", f: "Hypomimia (Masked face)" },
-                        { i: "Flexed Posture", r: "• Loss of postural extensor reflexes<br>• Camptocormia (forward flexion of trunk)<br>• Displaced Center of Gravity (COG) forward<br>• Muscle stiffness/rigidity in trunk<br>• Increases fall risk", f: "Forward head, Kyphosis" }
-                    ],
-                    func: [
-                        { i: "Freezing of Gait (FOG)", r: "• Sudden motor block (feet glued to floor)<br>• Cognitive-motor dissociation<br>• Triggers: Doorways, turning, dual tasks<br>• High risk of falls during turn (180°)<br>• Auditory/Visual cues help unlock freezing", f: "Stuck at 180 deg turn" },
-                        { i: "Micrographia", r: "• Progressive shrinking of handwriting size<br>• Due to bradykinesia (reduced amplitude)<br>• Fatigue effect during sequential movements<br>• Diagnostic clinical sign<br>• Impacts signing checks/documents", f: "Handwriting shrinking" },
-                        { i: "Frequent Falls", r: "• Loss of postural reflexes (Retropulsion)<br>• Impaired righting reactions<br>• Freezing episodes + festination<br>• 'Pull Test' positive (takes >2 steps backwards)<br>• Major cause of morbidity", f: "Pull Test: Positive" },
-                        { i: "Difficulty in Bed Mobility", r: "• Axial rigidity complicates turning (en bloc turning)<br>• Bradykinesia slows movement sequence<br>• Nocturnal hypokinesia (inability to turn in sleep)<br>• Difficulty rising from supine<br>• Impact on sleep quality", f: "Timed bed roll > 30s" }
-                    ],
-                    ddx: [
-                        { diff: 'Essential Tremor', reason: 'PD tremor is resting tremor (disappears during activity) with pill-rolling. Essential tremor is action/postural tremor (appears during movement) and often involves head/voice.' },
-                        { diff: 'Progressive Supranuclear Palsy', reason: 'PSP has early vertical gaze palsy and frequent falls backwards. PD has horizontal gaze preserved and festinating gait forward.' },
-                        { diff: 'Multiple System Atrophy', reason: 'MSA has early autonomic failure (orthostatic hypotension) and poor L-DOPA response. PD responds well to L-DOPA initially.' },
-                        { diff: 'Vascular Parkinsonism', reason: 'Vascular parkinsonism involves lower body predominance (gait difficulty) without upper limb tremor. PD has asymmetric tremor starting in one hand.' },
-                        { diff: 'Drug-Induced Parkinsonism', reason: 'Drug-induced is symmetric, caused by antipsychotics/metoclopramide, and resolves with drug cessation. PD is asymmetric and progressive.' }
-                    ]
-                },
-                "Spinal Cord Injury (T10)": {
-                    struct: [
-                        { i: "Complete Paraplegia", r: "• Complete transection/injury of spinal cord at T10 level<br>• Interruption of all descending motor tracts (corticospinal)<br>• Paralysis of lower limbs + lower trunk<br>• ASIA Impairment Scale A: No motor/sensory preservation in S4-S5<br>• Upper limbs preserved (above T1)", f: "ASIA A: No motor/sensory S4" },
-                        { i: "Hyperreflexia", r: "• Loss of supraspinal inhibitory control<br>• Axonal sprouting + synaptic reorganization below injury<br>• Spasticity develops after spinal shock resolves (weeks)<br>• Brisk deep tendon reflexes (3+ or 4+)<br>• Clonus (sustained rhythmic contractions) common", f: "Ankle Clonus: Sustained" },
-                        { i: "Areflexic Bladder (Shock Phase)", r: "• Spinal Shock: Temporary loss of all reflexes below lesion<br>• Flaccid / Areflexic bladder initially<br>• Urinary retention → overflow incontinence<br>• Requires indwelling or intermittent catheterization<br>• Later becomes spastic (Neurogenic detrusor overactivity)", f: "Catheter dependent" },
-                        { i: "Muscle Atrophy", r: "• Disuse atrophy of paralyzed muscles<br>• Reduced metabolic activity<br>• Loss of trophic neuro-signals<br>• Rapid reduction in muscle bulk (calf/thigh)<br>• Risk of deep vein thrombosis (DVT) due to stasis", f: "Calf girth significantly low" }
-                    ],
-                    func: [
-                        { i: "Loss of Ambulation", r: "• Complete paralysis of hip, knee, ankle musculature<br>• Loss of trunk stability (lower abdominals/extensors)<br>• Cannot maintain upright posture<br>• Wheelchair dependent for all mobility<br>• Independence achieved via wheelchair skills", f: "Wheelchair dependent" },
-                        { i: "Impaired Transfers", r: "• Requires strong upper limb and upper trunk control<br>• Loss of lower trunk balance makes gap crossing difficult<br>• Unable to bear weight through legs<br>• Requires sliding board initially<br>• Technique: Head-Hips relationship", f: "Requires sliding board" },
-                        { i: "Risk of Pressure Sores", r: "• Loss of sensation prevents feedback for pressure relief<br>• Immobility prevents spontaneous position changes<br>• High pressure over ischial tuberosities/sacrum<br>• Requires regimented pressure relief (push-ups every 15-20 mins)<br>• High risk of osteomyelitis if neglected", f: "History of Grade I sore" },
-                        { i: "Inability to perform ADLs (LL)", r: "• Dressing lower body (pants/shoes) requires trunk balance<br>• Cannot lift legs voluntarily<br>• Spasticity may interfere with dressing<br>• Requires adaptive tools (leg lifter, reacher)<br>• Long sitting balance essential for independence", f: "Requires adaptive tools" }
-                    ],
-                    ddx: [
-                        { diff: 'Spinal Tumor', reason: 'SCI (T10) is acute trauma with sudden complete paralysis. Spinal tumor is gradual progressive weakness with sensory level ascending slowly over weeks/months.' },
-                        { diff: 'Transverse Myelitis', reason: 'Transverse myelitis is inflammatory (often post-viral) with partial recovery. SCI is traumatic with poor recovery of complete lesions.' },
-                        { diff: 'Multiple Sclerosis', reason: 'MS has relapsing-remitting course with multiple CNS lesions. SCI is single traumatic event with fixed sensory/motor level.' },
-                        { diff: 'Guillain-Barré Syndrome', reason: 'GBS is ascending flaccid paralysis (LMN) with areflexia. SCI below T10 has UMN signs (spasticity, hyperreflexia) in legs.' },
-                        { diff: 'Cauda Equina Syndrome', reason: 'Cauda Equina involves LMN lesion (areflexic, flaccid) below L1-L2. T10 SCI is UMN (spastic, hyperreflexic) with reflex bladder.' }
-                    ]
-                },
-                "Guillain-Barré Syndrome (GBS)": {
-                    struct: [
-                        { i: "Lower Motor Neuron Weakness", r: "• Acute Inflammatory Demyelinating Polyneuropathy (AIDP)<br>• Autoimmune attack on Schwann cells (myelin) of peripheral nerves<br>• Symmetrical ascending paralysis (Legs → Arms → Face)<br>• LMN pattern: Flaccidity, muscle wasting<br>• Rapid progression over 2-4 weeks", f: "MMT: 0/5 distally" },
-                        { i: "Areflexia", r: "• Demyelination interrupts the reflex arc (efferent limb)<br>• Conduction block in peripheral nerves<br>• Deep tendon reflexes absent (first sign)<br>• Distinguishes from UMN conditions (spinal cord compression)<br>• Global areflexia typical", f: "Absent Knee/Ankle jerks" },
-                        { i: "Respiratory Insufficiency", r: "• Ascending paralysis reaches phrenic nerve (C3-C5)<br>• Diaphragm and intercostal weakness<br>• Reduced vital capacity (VC <20ml/kg indicates danger)<br>• FVC <15 ml/kg requires intubation/ventilation<br>• Critical monitoring phase", f: "FVC < 15 ml/kg" },
-                        { i: "Autonomic Instability", r: "• Demyelination affects autonomic fibers<br>• Sympathetic/Parasympathetic dysfunction<br>• Fluctuating BP (hypo/hypertension) & arrhythmias (tachy/bradycardia)<br>• Risk of cardiac arrest<br>• Requires ICU monitoring", f: "Fluctuating BP / HR" }
-                    ],
-                    func: [
-                        { i: "Bed Bound State", r: "• Global flaccid paralysis (tetraplegia)<br>• Loss of all functional mobility<br>• Dependent for all position changes<br>• High risk of complications (DVT, sores, pneumonia)<br>• FIM score minimal (Total Assist)", f: "FIM: Total Assist" },
-                        { i: "Inability to swallow", r: "• Bulbar nerve involvement (CN IX, X, XII)<br>• Weakness of pharyngeal/laryngeal muscles<br>• Dysphagia with risk of aspiration<br>• Loss of gag reflex<br>• Requires NPO stat & NG tube feeding", f: "NPO / NG Tube needed" },
-                        { i: "Loss of fine motor skills", r: "• Distal weakness often more severe initially<br>• Loss of intrinsic hand muscle function<br>• Sensory loss (glove and stocking) affects feedback<br>• Unable to hold objects/utensils<br>• Profound functional impact", f: "Unable to hold cup" },
-                        { i: "Impaired Communication", r: "• Facial nerve (CN VII) weakness (bilateral typically)<br>• Ventilator dependence prevents vocalization<br>• Dysarthria from bulbar weakness<br>• Requires alternative communication (eye blinks, charts)<br>• Psychological distress high", f: "Uses eye signals" }
-                    ],
-                    ddx: [
-                        { diff: 'Multiple Sclerosis', reason: 'GBS is peripheral LMN condition with ascending flaccid paralysis and areflexia. MS is central UMN with spasticity, visual changes (optic neuritis), and scanning speech.' },
-                        { diff: 'Myasthenia Gravis', reason: 'MG has fatigability (worse with use) and positive Tensilon test. GBS has progressive weakness (not fatigable) with negative Tensilon.' },
-                        { diff: 'Botulism', reason: 'Botulism starts with cranial nerves (ptosis, diplopia) descending down. GBS is ascending paralysis starting from legs.' },
-                        { diff: 'Polymyositis', reason: 'Polymyositis is proximal muscle weakness with elevated CK and muscle inflammation. GBS is demyelinating neuropathy with nerve conduction abnormalities.' },
-                        { diff: 'Tick Paralysis', reason: 'Tick paralysis is acute flaccid paralysis that resolves within 24 hours of tick removal. GBS is progressive over days and requires weeks of recovery.' }
-                    ]
-                },
-                "Bell's Palsy": {
-                    struct: [
-                        { i: "Unilateral Facial Paralysis", r: "• Inflammation of CN VII (LMN) in facial canal<br>• Compression at stylomastoid foramen<br>• Ischemic neuropathy (edema)<br>• Loss of innervation to facial expression muscles<br>• Flaccid paralysis of upper & lower face", f: "House-Brackmann Grade VI" },
-                        { i: "Lagophthalmos", r: "• Weakness of Orbicularis Oculi (sphincter)<br>• Disruption of temporal branch of CN VII<br>• Unopposed action of Levator Palpebrae<br>• Loss of corneal blink reflex<br>• Risk of exposure keratopathy", f: "Inability to close eye" },
-                        { i: "Loss of Taste", r: "• Involvement of Chorda Tympani nerve<br>• Disruption of sensory fibers<br>• Impaired gustatory sensation<br>• Anterior 2/3 of tongue affected<br>• Metallic taste reports", f: "Anterior 2/3 tongue numb" },
-                        { i: "Hyperacusis", r: "• Stapedius muscle paralysis<br>• Loss of sound dampening reflex<br>• Unopposed movement of stapes<br>• Hypersensitivity to vibration<br>• Normal sounds perceived as painful", f: "Sensitive to loud sounds" }
-                    ],
-                    func: [
-                        { i: "Difficulty in Chewing", r: "• Weakness of Buccinator muscle<br>• Food bolus accumulates in gingivobuccal sulcus<br>• Drooling of liquids (Orbicularis Oris)<br>• Difficulty with lip seal<br>• Chewing restricted to unaffected side", f: "Manual assistance needed" },
-                        { i: "Speech Blur (Slurring)", r: "• Labial sound incompetence (B, P, M)<br>• Poor lip closure<br>• Asymmetric mouth movement<br>• Articular dyspraxia<br>• Communication frustration", f: "Observed dysarthria" },
-                        { i: "Eye Irritation", r: "• Inability to close eye fully (Lagophthalmos)<br>• Reduced tear distribution<br>• Drying of cornea (Xerophthalmia)<br>• Necessity for eye patch/taping<br>• Risk of infection", f: "Redness / Dryness" },
-                        { i: "Social Withdrawal", r: "• Cosmetic disfigurement concern<br>• Facial asymmetry (pulling to normal side)<br>• Loss of non-verbal expression<br>• Depression/Anxiety<br>• Avoidance of social eating", f: "Avoids cameras/people" }
-                    ],
-                    ddx: [
-                        { diff: 'Stroke (Hemiplegia)', reason: 'Bell\'s Palsy (LMN) involves whole half of face including forehead. Stroke (UMN) spares forehead (preserves wrinkling) due to bilateral cortical supply.' },
-                        { diff: 'Ramsay Hunt Syndrome', reason: 'Ramsay Hunt involves vesicles in ear canal (herpes zoster) with severe otalgia. Bell\'s Palsy is idiopathic without vesicles.' },
-                        { diff: 'Acoustic Neuroma', reason: 'Acoustic neuroma has gradual onset with hearing loss and tinnitus. Bell\'s Palsy is acute onset (24-48 hours) without hearing loss.' },
-                        { diff: 'Lyme Disease', reason: 'Lyme disease has tick bite history, erythema migrans rash, and bilateral facial palsy. Bell\'s Palsy is unilateral without rash.' },
-                        { diff: 'Parotid Tumor', reason: 'Parotid tumor has palpable mass in parotid gland and gradual progression. Bell\'s Palsy has no mass and acute onset.' }
-                    ]
-                },
-                "Cerebral Palsy (Spastic Diplegia)": {
-                    struct: [
-                        { i: "Scissoring of Legs", r: "• Adductor spasticity dominating over abductors<br>• Increased hip flexion/adduction/internal rotation tone<br>• Myostatic contractures<br>• Lever arm dysfunction<br>• Compounded by weak gluteus medius", f: "Adductor MAS Grade 3" },
-                        { i: "Equinus Deformity", r: "• Spasticity of Gastroc-Soleus complex<br>• Shortening of Achilles tendon<br>• Loss of heel strike capability<br>• Midfoot break compensation<br>• Plantarflexion contracture", f: "Toe walking" },
-                        { i: "Contractures (Hamstrings)", r: "• Persistent knee flexion tone<br>• Reduced sarcomeres in series<br>• Popliteal angle reduction<br>• Posterior pelvic tilt in sitting<br>• Crouch gait precursor", f: "Thomas Test: Positive" },
-                        { i: "Delayed Postural Reaction", r: "• Periventricular Leukomalacia (PVL)<br>• Damage to corticospinal tracts<br>• Impaired central postural control<br>• Deficient righting/equilibrium reactions<br>• Poor trunk stability", f: "GMFCS Level III" }
-                    ],
-                    func: [
-                        { i: "Bunny Hopping Mobility", r: "• Inability to dissociate lower limbs<br>• Flexor synergy pattern dominance<br>• Poor trunk counter-rotation<br>• Recruitment of momentum for movement<br>• Inefficient energy expenditure", f: "Observed crawling" },
-                        { i: "Difficulty in toileting", r: "• Hip adductor spasticity prevents spread<br>• Poor sitting balance on commode<br>• Difficulty managing clothing<br>• Constipation (associated motility issues)<br>• Caregiver dependence", f: "Parent assistance needed" },
-                        { i: "Slow walking speed", r: "• Reduced stride length (step length)<br>• High energy cost of pathological gait<br>• Poor force generation (push-off)<br>• Balance constraints<br>• Necessity for walking aids (walker)", f: "Speed < 0.5 m/s" },
-                        { i: "Academic struggle", r: "• Visual-perceptual deficits<br>• Fine motor dysgraphia<br>• Attention span issues<br>• Fatigue from physical effort<br>• Need for classroom modifications", f: "IEP required" }
-                    ],
-                    ddx: [
-                        { diff: 'Duchenne Muscular Dystrophy', reason: 'CP is static brain lesion (non-progressive) present from birth. DMD is progressive muscle wasting with positive Gower\'s sign and calf pseudohypertrophy.' },
-                        { diff: 'Hereditary Spastic Paraplegia', reason: 'HSP is progressive spastic paraplegia with family history. CP is non-progressive with perinatal insult (birth asphyxia/prematurity).' },
-                        { diff: 'Spinal Muscular Atrophy', reason: 'SMA is LMN disease with hypotonia and areflexia. CP is UMN with spasticity and hyperreflexia (scissoring gait).' },
-                        { diff: 'Metachromatic Leukodystrophy', reason: 'MLD is progressive white matter disease with developmental regression. CP is static with no regression after initial injury.' },
-                        { diff: 'Rett Syndrome', reason: 'Rett involves developmental regression in girls with hand wringing. CP has developmental delay but no specific regression pattern.' }
-                    ]
-                },
-                "Multiple Sclerosis (Cerebellar)": {
-                    struct: [
-                        { i: "Intention Tremor", r: "• Demyelination in cerebellar peduncles<br>• Failure of dampening mechanism<br>• Oscillation worsens as target approaches<br>• Dysmetria component<br>• Kinetic tremor character<br>• Disruption of cerebro-cerebellar loop", f: "Finger-to-nose: Oscillations" },
-                        { i: "Dysmetria", r: "• Impaired force/timing estimation<br>• Agonist-antagonist mismatch<br>• Hypermetria (overshooting) typical<br>• Inability to halt movement precisely<br>• Proprioceptive integration error", f: "+ve Past-pointing" },
-                        { i: "Nystagmus", r: "• Lesion in Vestibulo-Ocular Reflex (VOR) pathways<br>• Cerebellar vermis involvement<br>• Gaze-evoked instability<br>• Oscillopsia (visual bouncing)<br>• Impaired visual fixation", f: "Involuntary eye movement" },
-                        { i: "Scanning Speech", r: "• Ataxic dysarthria<br>• Incoordination of respiratory/voice muscles<br>• Equal stress on all syllables<br>• Slow, halting cadence<br>• Explosive articulation segments", f: "Staccato speech" }
-                    ],
-                    func: [
-                        { i: "Difficulty in Drinking", r: "• Intention tremor spills liquid near mouth<br>• Inability to stabilize cup<br>• Dysphagia (coordination of swallow)<br>• Risk of aspiration<br>• Reliance on adaptive cups (lidded)", f: "Needs straw / lid" },
-                        { i: "Ataxic Gait", r: "• Wide-based compensatory stance<br>• Irregular step length/width<br>• 'Drunken' sailor appearance<br>• High fall risk due to balance<br>• Visual dependence for navigation", f: "Frequent falls" },
-                        { i: "Difficulty in dressing", r: "• Fine motor ataxia affects buttoning<br>• Balance loss while putting on pants<br>• Sensory deficits (numbness)<br>• Fatigue prevents completion<br>• Time-consuming", f: "Timed task: High" },
-                        { i: "Fatigue during ADLs", r: "• Central fatigue (lassitude)<br>• Conductive failure of demyelinated nerves<br>• High metabolic cost of ataxic movement<br>• Heat sensitivity (Uhthoff's phenomenon)<br>• 'Spoon theory' energy management", f: "Fatigue scale > 8/10" }
-                    ],
-                    ddx: [
-                        { diff: 'Parkinson\'s Disease', reason: 'MS cerebellar features include intention tremor and nystagmus. PD has resting tremor (pill-rolling), bradykinesia, and lead-pipe rigidity without cerebellar signs.' },
-                        { diff: 'Friedreich\'s Ataxia', reason: 'Friedreich\'s is hereditary spinocerebellar degeneration with cardiomyopathy and diabetes. MS is autoimmune demyelination with optic neuritis and relapsing course.' },
-                        { diff: 'Brain Tumor (Posterior Fossa)', reason: 'Brain tumor shows progressive symptoms with increased ICP (headache, vomiting). MS has relapsing-remitting course with MRI plaques in time/space.' },
-                        { diff: 'Vitamin B12 Deficiency', reason: 'B12 deficiency causes subacute combined degeneration with posterior column signs. MS has cerebellar ataxia with visual symptoms (optic neuritis).' },
-                        { diff: 'Chronic Alcoholism', reason: 'Alcoholic cerebellar degeneration affects vermis (truncal ataxia) with alcohol history. MS is autoimmune with positive oligoclonal bands in CSF.' }
-                    ]
-                },
-                "Cerebellar Ataxia": {
-                    struct: [
-                        { i: "Hypotonia", r: "• Reduced gamma-motor neuron drive<br>• Decreased muscle spindle sensitivity<br>• Loss of cerebellar facilitation<br>• 'Rag doll' passive movement<br>• Pendular reflexes due to lack of dampening", f: "Pendular Knee Jerk" },
-                        { i: "Dysdiadochokinesia", r: "• Inability to perform rapid alternating movements<br>• Failure to switch agonist/antagonist quickly<br>• Disorganized movement sequence<br>• Timing/Force error<br>• Tested with supination/pronation", f: "Supination/Pronation failed" },
-                        { i: "Broad Based Stance", r: "• Compensatory strategy for instability<br>• Maximizing Base of Support (BOS)<br>• Titubation (truncal tremor)<br>• Anterior-Posterior sway<br>• Fear of falling", f: "Inter-foot distance > 30cm" },
-                        { i: "Rebound Phenomenon", r: "• Delayed check reflex<br>• Inability to brake limb after release<br>• Agonist continues firing unchecked<br>• Risk of self-injury<br>• Stewart-Holmes sign positive", f: "Holmes test: Positive" }
-                    ],
-                    func: [
-                        { i: "Difficulty walking in straight line", r: "• Truncal ataxia affects midline stability<br>• Veering to side of lesion<br>• Inability to place feet in tandem<br>• Visual fixation required<br>• Cannot multitask while walking", f: "Tandem walk failed" },
-                        { i: "Impaired Writing", r: "• Macrographia (large letters)<br>• Tremulous stroke quality<br>• Poor line adherence<br>• Proximal instability affects distal control<br>• Slow writing speed", f: "Large, shaky letters" },
-                        { i: "Difficulty in stairs", r: "• Single limb stance instability<br>• Imprecise foot placement<br>• Lack of eccentric control<br>• High visual monitoring needed<br>• Reliance on handrails", f: "Needs 2-person assist" },
-                        { i: "Inability to cycle", r: "• Complex multi-joint coordination deficit<br>• Dynamic balance requirement failed<br>• Steering over-correction<br>• Safety risk high<br>• Alternative: Static bike", f: "Failed attempt" }
-                    ],
-                    ddx: [
-                        { diff: 'Sensory Ataxia', reason: 'In Cerebellar Ataxia, balance is poor with eyes OPEN and CLOSED (Romberg -ve). In Sensory Ataxia (Tabes Dorsalis), balance worsens dramatically with eyes closed (Romberg +ve).' },
-                        { diff: 'Vestibular Ataxia', reason: 'Vestibular ataxia has vertigo, nystagmus worsened by head movement. Cerebellar ataxia has nystagmus at rest and no vertigo.' },
-                        { diff: 'Friedreich\'s Ataxia', reason: 'Friedreich\'s is hereditary with onset <25 years, areflexia, and cardiomyopathy. Acquired cerebellar ataxia is sporadic with preserved reflexes.' },
-                        { diff: 'Alcoholic Cerebellar Degeneration', reason: 'Alcoholic degeneration primarily affects gait (vermis) with chronic alcohol use. Idiopathic cerebellar ataxia affects limbs equally without alcohol history.' },
-                        { diff: 'Posterior Fossa Tumor', reason: 'Tumor shows progressive unilateral cerebellar signs with increased ICP signs. Idiopathic cerebellar ataxia is bilateral and slowly progressive without ICP.' }
-                    ]
-                }
-            },
-            cvrs: {
-                "COPD (Severe)": {
-                    struct: [
-                        { i: "Air Trapping (Hyperinflation)", r: "• Loss of elastic recoil → airways collapse on expiration<br>• Premature airway closure traps air in alveoli<br>• Increased residual volume → hyperinflation<br>• Chest becomes barrel-shaped (AP diameter increases)<br>• Reduces diaphragm efficiency (flattened position)", f: "X-ray: Barrel Chest" },
-                        { i: "Diaphragm Flattening", r: "• Hyperinflated lungs push diaphragm downward<br>• Normal dome shape → flattened position<br>• Reduces zone of apposition (mechanical disadvantage)<br>• Hoover's sign: Paradoxical inward rib movement<br>• Accessory muscles recruited for breathing", f: "Hoover's Sign: Positive" },
-                        { i: "Altered V/Q Mismatch", r: "• Emphysema → destruction of alveolar-capillary membrane<br>• Reduced surface area for gas exchange<br>• Ventilation > Perfusion (dead space ventilation)<br>• Chronic hypoxemia → SpO2 <88%<br>• Leads to pulmonary hypertension → cor pulmonale", f: "SpO2 < 88% on room air" },
-                        { i: "Muscle Fiber Shift", r: "• Chronic hypoxia → metabolic stress on muscles<br>• Type I fibers (endurance) → Type II (fast-twitch)<br>• Quadriceps preferentially affected<br>• Muscle wasting → visible atrophy<br>• Contributes to exercise intolerance", f: "Quadriceps wasting" }
-                    ],
-                    func: [
-                        { i: "Dyspnea on ADLs", r: "• ADLs → increased metabolic demand + O2 consumption<br>• Dynamic hyperinflation during exertion<br>• Increased work of breathing → exhaustion<br>• Borg scale >6 indicates severe dyspnea<br>• Simple tasks (dressing, cooking) become impossible", f: "Borg Dyspnea > 6" },
-                        { i: "Reduced Exercise Capacity", r: "• Ventilatory limitation → cannot meet O2 demands<br>• Early lactic acidosis (anaerobic threshold reduced)<br>• 6-Minute Walk Test: <250m indicates severe impairment<br>• Normal >400m, Moderate 250-350m<br>• Predicts mortality + hospitalization risk", f: "6MWT < 250m" },
-                        { i: "Difficulty in bathing", r: "• Steam + humidity → increased airway resistance<br>• Warm moist air triggers bronchospasm<br>• Upper body movement → increased dyspnea<br>• Fear of breathlessness → avoidance behavior<br>• Requires assistance for bathing", f: "Patient report" },
-                        { i: "Social Withdrawal", r: "• Oxygen dependency → embarrassment in public<br>• Fear of sudden breathlessness episodes<br>• Reduced mobility → cannot attend social events<br>• Depression + anxiety common (60% of COPD patients)<br>• Leads to social isolation + quality of life decline", f: "Avoids outings" }
-                    ],
-                    ddx: [
-                        { diff: 'Congestive Heart Failure', reason: 'COPD features hyper-resonance, barrel chest and smoking history. CHF features fine basal crepitations (wet lungs), S3 gallop, and orthopnea.' },
-                        { diff: 'Bronchial Asthma', reason: 'Asthma has reversible airflow obstruction (responds to bronchodilators). COPD is irreversible obstruction with poor bronchodilator response.' },
-                        { diff: 'Bronchiectasis', reason: 'Bronchiectasis involves chronic copious purulent sputum (3 layers) and clubbing. COPD has scanty mucoid sputum without clubbing (unless severe).' },
-                        { diff: 'Interstitial Lung Disease', reason: 'ILD shows restrictive pattern (FEV1/FVC normal/high) with fine crackles. COPD is obstructive (FEV1/FVC <70%) with wheeze.' },
-                        { diff: 'Pulmonary Tuberculosis', reason: 'TB has night sweats, hemoptysis, and cavitary lesions on X-ray. COPD has chronic productive cough with hyperinflation on X-ray.' }
-                    ]
-                },
-                "Post-CABG (Day 2)": {
-                    struct: [
-                        { i: "Sternal Pain", r: "• Median sternotomy → bone + periosteum trauma<br>• Surgical incision → tissue damage + inflammation<br>• Coughing/movement → stress on healing sternum<br>• VAS 9/10 on cough (most painful stimulus)<br>• Pain limits deep breathing + secretion clearance", f: "VAS 9/10 on cough" },
-                        { i: "Basal Atelectasis", r: "• General anesthesia → surfactant dysfunction<br>• Shallow breathing due to pain → reduced lung expansion<br>• Supine position → gravitational collapse of bases<br>• Reduced FRC → alveolar collapse<br>• Typically affects right lower lobe (RLL)", f: "Reduced breath sounds RLL" },
-                        { i: "Reduced FVC", r: "• Pain → restrictive breathing pattern<br>• Rib cage stiffness → reduced chest wall compliance<br>• Inspiratory muscle weakness post-anesthesia<br>• FVC reduced to 40% of predicted (severe restriction)<br>• Limits effective cough + secretion clearance", f: "PFT: 40% of predicted" },
-                        { i: "Impaired Secretion Clearance", r: "• Weak ineffective cough due to sternal pain<br>• Anesthesia → increased mucus production<br>• Reduced mucociliary clearance<br>• Visible secretions retained in airways<br>• Increases risk of pneumonia", f: "Visible secretions" }
-                    ],
-                    func: [
-                        { i: "Impaired Bed Mobility", r: "• Fear of sternal dehiscence (opening)<br>• Severe pain on rolling/repositioning<br>• Requires 2-person assist for safety<br>• Log-rolling technique with sternal precautions<br>• Limits independence in bed", f: "Requires assist of 2" },
-                        { i: "Inability to walk independently", r: "• Post-op hypotension → orthostatic intolerance<br>• Pain + weakness → reduced mobility<br>• Walking frame needed for balance support<br>• Early mobilization important for recovery<br>• Gradual progression from bed → chair → walking", f: "Requires walking frame" },
-                        { i: "Difficulty in Deep Breathing", r: "• Splinting → voluntary restriction of chest movement<br>• Pain-avoidance behavior reduces inspiration<br>• Paradoxical breathing pattern<br>• Low inspiratory capacity → incomplete lung inflation<br>• Requires incentive spirometry coaching", f: "Inspiratory capacity low" },
-                        { i: "Anxiety", r: "• Psychological trauma from cardiac event<br>• Fear of heart failure recurring<br>• Refuses exercise due to fear<br>• Catastrophic thinking about exertion<br>• Requires cardiac rehabilitation + counseling", f: "Refuses exercise" }
-                    ],
-                    ddx: [
-                        { diff: 'Pneumonia', reason: 'Post-CABG atelectasis is non-infectious lung collapse from pain/anesthesia. Pneumonia is active infection with high fever, productive sputum, and consolidation on X-ray.' },
-                        { diff: 'Pleural Effusion', reason: 'Effusion shows stony dull percussion with absent breath sounds. Atelectasis has dull percussion but bronchial breathing (transmitted sounds).' },
-                        { diff: 'Pulmonary Embolism', reason: 'PE has sudden dyspnea, tachycardia, and positive D-dimer. Atelectasis is gradual post-op onset with normal D-dimer.' },
-                        { diff: 'Acute Respiratory Distress Syndrome', reason: 'ARDS shows bilateral infiltrates on X-ray with severe hypoxemia (PaO2/FiO2 <200). Atelectasis is localized collapse with milder hypoxemia.' },
-                        { diff: 'Pericardial Effusion', reason: 'Pericardial effusion shows distant heart sounds and electrical alternans on ECG. Atelectasis involves reduced breath sounds in lung fields.' }
-                    ]
-                },
-                "Myocardial Infarction": {
-                    struct: [
-                        { i: "Reduced Cardiac Output", r: "• Myocardial necrosis → loss of contractile tissue<br>• Wall motion defect (hypokinesia/akinesia)<br>• Ejection fraction reduced (Normal 55-70%, MI <40%)<br>• Echo shows EF 35% (moderate-severe dysfunction)<br>• Leads to peripheral hypoperfusion", f: "Echo: EF 35%" },
-                        { i: "Tachycardia at Rest", r: "• Compensatory sympathetic activation<br>• Attempts to maintain cardiac output (CO = HR x SV)<br>• Reduced stroke volume → increased heart rate<br>• Resting HR 110 bpm (normal 60-100 bpm)<br>• Increases myocardial oxygen demand", f: "HR 110 bpm" },
-                        { i: "Ischemic ECG changes", r: "• Acute MI → ST segment elevation (STEMI)<br>• T wave inversion indicates ischemia<br>• Reflects ongoing oxygen demand-supply mismatch<br>• Location of changes indicates affected coronary artery<br>• Serial ECGs monitor evolution", f: "ST Elevation / T wave invert" },
-                        { i: "Low Blood Pressure", r: "• Pump failure → cannot sustain MAP<br>• Reduced ejection fraction → low cardiac output<br>• BP 90/60 mmHg (hypotension, MAP ~70 mmHg)<br>• Target MAP >65 mmHg for organ perfusion<br>• May require inotropic support", f: "BP 90/60 mmHg" }
-                    ],
-                    func: [
-                        { i: "Activity Intolerance", r: "• Reduced cardiac reserve → cannot meet O2 demands<br>• Angina occurs at low exertion (20m walk)<br>• Chest pain limits functional capacity<br>• MET level severely restricted (<2 METs)<br>• Gradual cardiac rehabilitation needed", f: "Angina on walking 20m" },
-                        { i: "Impaired Self-Care", r: "• Severe fatigue from low cardiac output<br>• Risk of arrhythmia during exertion<br>• Total assistance needed for ADLs<br>• Energy conservation techniques required<br>• Bed rest initially, gradual mobilization", f: "Needs total assist" },
-                        { i: "Fear of Exercise", r: "• Psychological trauma from cardiac event<br>• Kinesiophobia (fear of movement)<br>• Avoids even minor movements<br>• Catastrophic thinking about exertion<br>• Requires psychological support + education", f: "Avoids even minor movements" },
-                        { i: "Inability to climb stairs", r: "• Stairs → sudden high cardiac output demand<br>• Each step = 4-6 METs (MI tolerance <2 METs)<br>• Risk of angina, arrhythmia, sudden death<br>• Failed functional capacity test<br>• Contraindicated until cardiac rehabilitation", f: "Failed test" }
-                    ],
-                    ddx: [
-                        { diff: 'Angina Pectoris', reason: 'Angina is relieved by rest or Nitroglycerin within 15 mins. MI pain is more severe (crushing), lasts >30 mins, and is NOT relieved by rest/GTN (requires morphine).' },
-                        { diff: 'Pericarditis', reason: 'Pericarditis pain is sharp/stabbing, improves by leaning forward, and worsens lying flat. MI pain is pressure-like and not posture-dependent.' },
-                        { diff: 'Aortic Dissection', reason: 'Aortic dissection is sudden tearing pain radiating to back with blood pressure differential in arms. MI is anterior chest pain without BP differential.' },
-                        { diff: 'Pulmonary Embolism', reason: 'PE has pleuritic chest pain (worse with breathing), tachypnea, and positive D-dimer. MI has crushing central pain with elevated troponin.' },
-                        { diff: 'Gastroesophageal Reflux', reason: 'GERD is burning retrosternal pain worse after meals, relieved by antacids. MI is crushing pain with radiation to jaw/arm, not relieved by antacids.' }
-                    ]
-                },
-                "Bronchial Asthma": {
-                    struct: [
-                        { i: "Airway Bronchospasm", r: "• IgE-mediated hypersensitivity (Type I)<br>• Allergen exposure → mast cell degranulation<br>• Histamine + leukotrienes → smooth muscle contraction<br>• Hyper-responsive airways → narrowing<br>• Polyphonic wheezing (expiratory predominantly)", f: "Polyphonic wheezing" },
-                        { i: "Mucus Hypersecretion", r: "• Goblet cell hyperplasia → excess mucus production<br>• Inflammatory cytokines stimulate secretion<br>• Thick tenacious mucus plugs airways<br>• Productive cough with expectoration<br>• Worsens airway obstruction", f: "Productive cough" },
-                        { i: "Reduced FEV1", r: "• Obstructive airway narrowing → reduced airflow<br>• PEFR (Peak Expiratory Flow Rate) <60% of best<br>• FEV1/FVC ratio <70% (obstructive pattern)<br>• Reversible with bronchodilators (vs COPD)<br>• Severity: Mild >80%, Moderate 60-80%, Severe <60%", f: "PEFR < 60% of best" },
-                        { i: "Accessory Muscle Overuse", r: "• High work of breathing to overcome resistance<br>• SCM (sternocleidomastoid) + scalenes recruited<br>• Upper trapezius prominence visible<br>• Indicates respiratory distress<br>• May progress to respiratory failure", f: "SCM / Trap prominence" }
-                    ],
-                    func: [
-                        { i: "Sleep Disturbance", r: "• Nocturnal dip in cortisol levels (3-4 AM)<br>• Cortisol normally suppresses inflammation<br>• Nighttime bronchospasm worsens<br>• Wakes 3-4 times/night with cough/wheeze<br>• Poor sleep → daytime fatigue", f: "Wakes 3-4 times/night" },
-                        { i: "Absenteeism from School", r: "• Frequent exacerbations → acute attacks<br>• Triggered by allergens, infections, exercise<br>• Missed 15 days/term (significant impact)<br>• Academic performance affected<br>• Social participation limited", f: "Missed 15 days/term" },
-                        { i: "Restricted Sport Play", r: "• Exercise-induced bronchospasm (EIB)<br>• Cold/dry air during exercise → airway cooling<br>• Wheezing after 5 mins of play<br>• Limits physical activity participation<br>• Pre-treatment with bronchodilators helpful", f: "Wheezing after 5 mins play" },
-                        { i: "Inability to use perfumes", r: "Chemical triggers for airway spasm.", f: "Avoids cosmetics" }
-                    ],
-                    ddx: [
-                        { diff: 'Cardiac Asthma', reason: 'Bronchial asthma is reversible and has allergic components (wheeze). Cardiac asthma is secondary to left heart failure (pink frothy sputum) and not relieved by salbutamol.' },
-                        { diff: 'COPD', reason: 'COPD is chronic irreversible obstruction in adults/smokers. Asthma is reversible airway obstruction with childhood onset and strong family history.' },
-                        { diff: 'Vocal Cord Dysfunction', reason: 'VCD involves paradoxical vocal cord closure with inspiratory stridor. Asthma has expiratory wheeze with peak flow reduction.' },
-                        { diff: 'Bronchiectasis', reason: 'Bronchiectasis involves chronic productive cough with copious sputum. Asthma involves episodic dry cough/wheeze triggered by allergens.' },
-                        { diff: 'Pulmonary Embolism', reason: 'PE has sudden dyspnea without wheeze, positive D-dimer, and pleuritic pain. Asthma has gradual onset wheeze with diurnal variation.' }
-                    ]
-                },
-                "Bronchiectasis": {
-                    struct: [
-                        { i: "Permanent Airway Dilation", r: "• Chronic or severe infection → destroys elastic + muscular layers<br>• Airways lose structural integrity → abnormal dilation<br>• Irreversible bronchial widening<br>• HRCT shows 'tram-track' (parallel lines) + 'signet ring' signs<br>• Most commonly affects lower lobes (gravity-dependent)", f: "HRCT: Tram-track signs" },
-                        { i: "Copious Sputum Production", r: "• Damaged airways → impaired mucociliary clearance<br>• Pooling of secretions → chronic infection cycle<br>• Produces >50ml sputum daily (3-layer: frothy, purulent, sediment)<br>• Pseudomonas aeruginosa common organism<br>• Requires daily postural drainage", f: "3-layer sputum (>50ml)" },
-                        { i: "Finger Clubbing", r: "• Chronic hypoxia → soft tissue hyperplasia<br>• Loss of angle between nail + nail bed (Lovibond angle >180°)<br>• Increased AP diameter of fingertip<br>• Grade III clubbing (severe)<br>• Indicates chronic suppurative lung disease", f: "Grade III Clubbing" },
-                        { i: "Hemoptysis", r: "• Chronic inflammation → bronchial artery hypertrophy<br>• Rupture of dilated vessels → bleeding<br>• Blood-stained sputum (streaky or frank blood)<br>• Can be life-threatening if massive<br>• Requires bronchial artery embolization if severe", f: "Blood stained sputum" }
-                    ],
-                    func: [
-                        { i: "Social Embarrassment", r: "• Foul-smelling (fetid) sputum<br>• Frequent uncontrollable coughing in public<br>• Need to expectorate frequently<br>• Social stigma + embarrassment<br>• Leads to avoidance of public events", f: "Avoids public events" },
-                        { i: "Reduced Lung Endurance", r: "• Chronic airway obstruction → V/Q mismatch<br>• Fibrosis reduces lung compliance<br>• 6-Minute Walk Test <300m (moderate impairment)<br>• Normal >400m<br>• Exertional dyspnea limits activities", f: "6MWT < 300m" },
-                        { i: "Difficulty in concentrated work", r: "• Frequent coughing bouts interrupt tasks<br>• Need for postural drainage 2-3x/day<br>• Fatigue from chronic infection<br>• Productivity significantly affected<br>• May require workplace accommodations", f: "Productivity drop" },
-                        { i: "Anorexia (Weight Loss)", r: "• High metabolic cost of chronic infection<br>• Systemic inflammation → increased energy expenditure<br>• Early satiety from abdominal distension<br>• BMI <18.5 indicates malnutrition<br>• Nutritional supplementation needed", f: "BMI < 18.5" }
-                    ],
-                    ddx: [
-                        { diff: 'Lung Abscess', reason: 'Bronchiectasis involves chronic copious 3-layered sputum and clubbing. Lung Abscess is acute/sub-acute with high spiking fever and distinct foul-smelling (putrid) breath.' },
-                        { diff: 'COPD', reason: 'COPD has irreversible airflow obstruction with scanty sputum. Bronchiectasis has permanent bronchial dilatation with copious purulent sputum (>100ml/day).' },
-                        { diff: 'Pulmonary Tuberculosis', reason: 'TB has night sweats, weight loss, and cavitary lesions (apical). Bronchiectasis has chronic sputum (basal) without constitutional symptoms.' },
-                        { diff: 'Cystic Fibrosis', reason: 'CF has early onset (<5 years), pancreatic insufficiency, and positive sweat chloride test. Bronchiectasis is acquired (post-infection) without pancreatic involvement.' },
-                        { diff: 'Chronic Aspiration', reason: 'Aspiration involves recurrent pneumonias in dependent zones with swallowing difficulty. Bronchiectasis has bronchial dilatation on HRCT without dysphagia.' }
-                    ]
-                },
-                "Pleural Effusion": {
-                    struct: [
-                        { i: "Fluid in Pleural Space", r: "• Transudate (CHF, cirrhosis) → altered hydrostatic pressure<br>• Exudate (pneumonia, cancer) → inflammatory leakage<br>• Accumulation in pleural cavity<br>• Stony dull percussion note (fluid blocks resonance)<br>• Light's criteria differentiates transudate vs exudate", f: "Stony dull percussion" },
-                        { i: "Lung Compression", r: "• Fluid volume compresses adjacent lung tissue<br>• Physically prevents lung expansion<br>• Reduces functional residual capacity (FRC)<br>• Absent/reduced breath sounds at base<br>• Compression atelectasis develops", f: "Absent breath sounds base" },
-                        { i: "Mediastinal Shift", r: "• Massive effusion (>1000ml) → space-occupying effect<br>• Pressure pushes mediastinum to opposite side<br>• Tracheal deviation away from affected side<br>• Can be palpated/observed<br>• Indicates need for urgent drainage", f: "Tracheal shift observed" },
-                        { i: "Pleuritic Chest Pain", r: "• Parietal pleura has rich pain innervation (intercostal nerves)<br>• Inflammation/irritation → sharp localized pain<br>• VAS 7/10, worse with deep breathing/coughing<br>• Pleura rub may be audible<br>• Patient splints affected side", f: "VAS 7/10 on deep breath" }
-                    ],
-                    func: [
-                        { i: "Orthopnea", r: "• Lying flat → fluid redistributes + compresses lungs more<br>• Reduced vital capacity in supine position<br>• Sleeps on 3+ pillows for elevation<br>• Gravitational effect on fluid distribution<br>• Improves with upright positioning", f: "Sleeps on 3 pillows" },
-                        { i: "Difficulty in Side-lying", r: "• Side-lying on affected side → increased pain<br>• Fluid shifts with position change<br>• Patient prefers lying on affected side (paradoxical)<br>• Splints painful side, allows unaffected lung to expand<br>• Position-dependent dyspnea", f: "Prefers affected side" },
-                        { i: "Impaired Chest Expansion", r: "• Fluid creates mechanical block to rib cage movement<br>• Prevents normal chest wall excursion<br>• Normal chest expansion 5-7cm<br>• Effusion → <2cm indicates significant restriction<br>• Measured at nipple line/xiphoid level", f: "Excursion < 2cm" },
-                        { i: "Inability to walk long distances", r: "• Reduced vital capacity → exertional dyspnea<br>• Increased work of breathing with exertion<br>• Stops after 50m due to breathlessness<br>• Activity limitation significant<br>• Improves after therapeutic aspiration", f: "Stops after 50m" }
-                    ],
-                    ddx: [
-                        { diff: 'Pneumonia (Consolidation)', reason: 'Effusion features stony dull percussion, reduced vocal fremitus, and absent breath sounds (fluid blocks sound). Pneumonia involves dull percussion but INCREASED vocal resonance (solid transmits sound).' },
-                        { diff: 'Pneumothorax', reason: 'Pneumothorax has hyper-resonance with absent breath sounds. Effusion has stony dullness with tracheal shift away from lesion (massive effusion).' },
-                        { diff: 'Hemothorax', reason: 'Hemothorax has trauma history and bloody fluid on aspiration. Pleural effusion (transudate) is straw-colored without trauma.' },
-                        { diff: 'Empyema', reason: 'Empyema is infected effusion with high fever, pus on aspiration, and septations on ultrasound. Simple effusion is clear/straw-colored fluid.' },
-                        { diff: 'Lung Collapse (Atelectasis)', reason: 'Atelectasis has volume loss with tracheal shift towards lesion. Effusion has tracheal shift away with no volume loss.' }
-                    ]
-                },
-                "Pneumonia": {
-                    struct: [
-                        { i: "Alveolar Consolidation", r: "• Bacterial invasion → inflammatory exudate fills alveoli<br>• Air spaces replaced with fluid/pus/bacteria<br>• Lobar (entire lobe) vs bronchopneumonia (patchy)<br>• Bronchial breath sounds (solid lung transmits)<br>• Increased vocal resonance (tactile fremitus)", f: "Bronchial breath sounds" },
-                        { i: "Hypoxemia", r: "• Consolidated alveoli → impaired gas diffusion<br>• V/Q mismatch (perfusion without ventilation)<br>• SpO2 92% indicates moderate hypoxemia<br>• Normal >95% on room air<br>• May require supplemental oxygen", f: "SpO2 92% on room air" },
-                        { i: "Pyrexia (Fever)", r: "• Systemic inflammatory response syndrome (SIRS)<br>• Pyrogen release (IL-1, TNF-α) → hypothalamic set point elevated<br>• Temperature 101°F (38.3°C)<br>• Associated with rigors (shaking chills)<br>• Antimicrobial therapy reduces fever", f: "Temp 101 F" },
-                        { i: "Reduced Lung Compliance", r: "• Infiltrates make lung tissue stiff (non-compliant)<br>• Increased work of breathing to expand lungs<br>• Tachypnea (high respiratory rate) compensates<br>• Normal RR 12-20/min, Pneumonia >24/min<br>• Shallow rapid breathing pattern", f: "High RR (Tachypnea)" }
-                    ],
-                    func: [
-                        { i: "Inability to clear secretions", r: "• Weak ineffective cough from exhaustion<br>• Pleuritic pain limits cough effort<br>• Productive green/yellow sputum (purulent)<br>• Retained secretions worsen infection<br>• Requires chest physiotherapy", f: "Productive green sputum" },
-                        { i: "Reduced Exercise Tolerance", r: "• Systemic infection → cytokine-induced fatigue<br>• Hypoxemia → reduced O2 delivery to muscles<br>• Severe fatigue at minimal exertion<br>• Bed rest indicated during acute phase<br>• Gradual activity resumption post-recovery", f: "Fatigue at minimal walk" },
-                        { i: "Impaired Appetite", r: "• Malaise + systemic illness → anorexia<br>• High work of breathing → energy expenditure<br>• Dyspnea interferes with eating<br>• Low caloric intake delays recovery<br>• Nutritional support important", f: "Caloric intake low" },
-                        { i: "Difficulty in speech", r: "• Shortness of breath prevents long sentences<br>• Can only speak in short phrases (<3 words)<br>• Indicates severe respiratory distress<br>• Normal: Can speak full sentences<br>• Sign of respiratory failure risk", f: "Phrases < 3 words" }
-                    ],
-                    ddx: [
-                        { diff: 'Pulmonary Tuberculosis', reason: 'Pneumonia is acute bacterial infection with high fever and rapid onset. TB is chronic with night sweats, weight loss, and cavitary lesions on X-ray.' },
-                        { diff: 'Bronchitis', reason: 'Bronchitis is inflammation of airways with normal chest X-ray. Pneumonia shows consolidation (alveolar infiltrates) on X-ray.' },
-                        { diff: 'Pulmonary Edema', reason: 'Pulmonary edema has bilateral perihilar infiltrates (bat-wing) and cardiac enlargement. Pneumonia has unilateral lobar consolidation.' },
-                        { diff: 'Lung Abscess', reason: 'Lung abscess shows cavity with air-fluid level on X-ray. Pneumonia shows homogenous consolidation without cavity.' },
-                        { diff: 'Pulmonary Embolism with Infarction', reason: 'PE with infarction has pleuritic pain, wedge-shaped opacity, and positive D-dimer. Pneumonia has productive cough and lobar consolidation.' }
-                    ]
-                },
-                "Congestive Heart Failure": {
-                    struct: [
-                        { i: "Systemic Congestion", r: "• Right heart failure → inadequate RV ejection<br>• Venous backflow → systemic venous congestion<br>• Pitting edema (ankles/legs) - Grade 2-3<br>• Jugular venous pressure (JVP) raised >4cm above sternal angle<br>• Hepatomegaly (liver congestion) may be present", f: "Pitting Edema / Raised JVP" },
-                        { i: "Pulmonary Edema", r: "• Left heart failure → elevated left atrial pressure<br>• Increased pulmonary capillary wedge pressure (PCWP >18mmHg)<br>• Fluid leaks into alveoli (cardiogenic pulmonary edema)<br>• Fine basal crackles (rales) on auscultation<br>• Pink frothy sputum in severe cases", f: "Basal crackles" },
-                        { i: "Cardiomegaly", r: "• Chronic volume/pressure overload → ventricular hypertrophy<br>• Compensatory mechanism (Frank-Starling law)<br>• Cardiothoracic ratio >0.5 on X-ray (enlarged heart shadow)<br>• Echo shows dilated ventricle + reduced EF<br>• Left ventricular hypertrophy (LVH) on ECG", f: "X-ray: Large heart shadow" },
-                        { i: "Reduced Renal Perfusion", r: "• Low cardiac output → reduced renal blood flow<br>• Activates RAAS (renin-angiotensin-aldosterone system)<br>• Aldosterone → Na+ and water retention<br>• Oliguria (reduced urine output <400ml/day)<br>• Worsens fluid overload (vicious cycle)", f: "Reduced urine output" }
-                    ],
-                    func: [
-                        { i: "Paroxysmal Nocturnal Dyspnea", r: "• Lying flat → increased venous return to heart<br>• Reabsorption of peripheral edema fluid overnight<br>• LV cannot handle increased preload<br>• Sudden pulmonary edema → severe dyspnea<br>• Patient awakes gasping, sits upright for relief", f: "Awakes gasping at night" },
-                        { i: "Difficulty in Dressing", r: "• Raising arms overhead → increased cardiac demand<br>• Severe fatigue even with minimal exertion<br>• MET level <2 (severely limited functional capacity)<br>• Requires assistance for basic ADLs<br>• Energy conservation techniques needed", f: "Requires assist" },
-                        { i: "Inability to walk up driveways", r: "• Incline/slight slope → sudden increased cardiac output demand<br>• Reduced cardiac reserve cannot meet demand<br>• Extreme dyspnea with minimal exertion<br>• Forced to stop immediately<br>• NYHA Class IV (symptoms at rest or minimal activity)", f: "Stops immediately" },
-                        { i: "Mood Depression", r: "• Chronic debilitating illness → loss of independence<br>• Significant physical activity limitations<br>• Social isolation from reduced mobility<br>• Depression prevalence 40-60% in CHF<br>• Positive depression screening (PHQ-9)", f: "Mental screen positive" }
-                    ],
-                    ddx: [
-                        { diff: 'Cor Pulmonale', reason: 'CHF is left heart failure (pulmonary edema). Cor Pulmonale is right heart failure secondary to chronic lung disease (COPD) with peripheral edema and JVP elevation.' },
-                        { diff: 'COPD Exacerbation', reason: 'COPD has barrel chest, hyperresonance, and obstructive spirometry. CHF has cardiomegaly, S3 gallop, and elevated BNP.' },
-                        { diff: 'Renal Failure', reason: 'Renal failure causes fluid overload with uremia and elevated creatinine. CHF is cardiac dysfunction with elevated BNP and normal/near-normal creatinine.' },
-                        { diff: 'Liver Cirrhosis (Ascites)', reason: 'Cirrhosis causes ascites (abdominal fluid) with hepatomegaly. CHF causes pulmonary edema (lung fluid) with cardiomegaly.' },
-                        { diff: 'Restrictive Cardiomyopathy', reason: 'Restrictive cardiomyopathy has diastolic dysfunction with preserved ejection fraction. Systolic CHF has reduced ejection fraction (<40%).' }
-                    ]
-                }
+        // Continuously add hearts
+        const heartsContainer = document.getElementById('heartsContainer');
+        for (let i = 0; i < 30; i++) {
+            heartsContainer.appendChild(createHeart());
+        }
+
+        // Add new hearts periodically
+        setInterval(() => {
+            if (heartsContainer.children.length < 40) {
+                heartsContainer.appendChild(createHeart());
             }
-        };
+        }, 2000);
 
-        const topicsBank = [
-            { q: "Muscles of Rotator Cuff", a: "SITS: Supraspinatus, Infraspinatus, Teres Minor, Subscapularis." },
-            { q: "Anatomy of Facial Nerve", a: "CN VII. 5 branches: Temporal, Zygomatic, Buccal, Mandibular, Cervical. (Ten Zebras Bit My Cat)." },
-            { q: "Bell's Palsy", a: "LMN lesion of CN VII. Symptoms: Drooping mouth, eye can't close, loss of forehead wrinkles." },
-            { q: "Factors affecting BMR", a: "Age (down), Gender (Male up), Fever (up), Thyroid hormone (up), Muscle mass (up)." },
-            { q: "Laws of Radiation", a: "Inverse Square (I ∝ 1/d²), Cosine (max at 90°), Grotthus-Draper (only absorbed rays work)." },
-            { q: "Types of TENS", a: "High Freq (Gate Control), Low Freq (Opioid), Burst (Mix), Brief Intense (Block)." },
-            { q: "Axes and Planes", a: "Planes: Sagittal, Frontal, Transverse. Axes: Mediolateral, Anteroposterior, Vertical." },
-            { q: "Naukasana", a: "Boat pose. Core strength, digestion, back muscle endurance." },
-            { q: "Sodium Potassium Pump", a: "3 Na+ Out, 2 K+ In. Uses ATP. Maintains RMP (-70mV)." },
-            { q: "Strength Duration Curve", a: "Rheobase: Min intensity. Chronaxie: Duration at 2x Rheobase (used to check denervation)." },
-            { q: "Extra Ocular Muscles", a: "4 Recti, 2 Obliques. Innervated by CN 3, 4, 6. (LR6-SO4-O3)." },
-            { q: "Sarvangasana", a: "Shoulder stand. Improves venous return, thyroid, and upper body strength." },
-            { q: "Open vs Close Kinematic", a: "OKC: Distal free (Bicep curl). CKC: Distal fixed (Squat). CKC is more functional." },
-            { q: "Features of Skeletal Muscles", a: "Striated, Voluntary, Multi-nucleated, Fatigue-able." },
-            { q: "Gomukhasana", a: "Cow face pose. Excellent for shoulder and hip mobility." },
-            { q: "Abnormal Breathing Patterns", a: "Cheyne-Stokes (Dying), Kussmaul (DKA), Biot's (Brain injury), Apneustic (Brainstem)." },
-            { q: "Insertional Activities", a: "In EMG: Increased (Denervation/Inflammation), Decreased (Fibrosis/Fatty replace)." },
-            { q: "Pain in Children", a: "FACES Scale (Visual), FLACC Scale (Behavioral for non-verbal)." },
-            { q: "Postural Reflex", a: "Righting (verticality), Equilibrium (balance), Tilting (base shift responses)." },
-            { q: "Trendelenburg Sign", a: "Stand on one leg -> Pelvis drops on sound side = Weak Glute Medius of standing leg." },
-            { q: "Electrodes in EMG", a: "Surface (overall), Needle (Concentric/Fine-wire) for motor unit detail." },
-            { q: "MET Significance", a: "1 MET = 3.5ml O2/kg/min. Used to prescribe exercise intensity based on rest cost." },
-            { q: "Righting Reactions", a: "Midbrain reflexes. Labyrinthine/Optical/Body-on-head to keep head vertical." },
-            { q: "RPE (Borg)", a: "6-20 scale. Multiplied by 10 gives approx Heart Rate. Subjective effort measure." },
-            { q: "F Wave", a: "Late motor response from antidromic firing. Checks proximal nerve trunk conduction." },
-            { q: "H Reflex", a: "Electrical equivalent of stretch reflex. Checks S1 nerve root / spinal excitability." },
-            { q: "Rigidity types", a: "Lead-pipe (constant) vs Cogwheel (tremor added). Extrapyramidal sign (Parkinson's)." },
-            { q: "ATNR", a: "Turn head -> Arm/Leg extends on jaw side, flexes on skull side. (Fencer pose)." },
-            { q: "STNR", a: "Head flex -> Arm flex, Leg ext. Head ext -> Arm ext, Leg flex." },
-            { q: "Endurance Assessment", a: "Static (hold time) vs Dynamic (reps/time). 12-min walk or 6MWT." },
-            { q: "Quadriceps Lag", a: "Active extension range is less than passive extension range (indicates weak VMO)." },
-            { q: "Babinski Reflex", a: "Stroke lateral sole -> Big toe extension + fanning = UMN lesion sign." },
-            { q: "Postural Syndrome", a: "McKenzie term: Pain from prolonged loading of normal tissues; disappears on movement." },
-            { q: "Irritability", a: "Assessment: 1. Intensity of stimulus to trigger. 2. Severity. 3. Time to settle." },
-            { q: "Abnormal Spine Postures", a: "Kyphosis, Lordosis, Scoliosis, Gibbus (Angular), Flat Back." },
-            { q: "Clubbing Grades", a: "1. Fluctuation. 2. Lovibond angle loss. 3. Curvature. 4. Bone changes (HOA)." },
-            { q: "Horner Syndrome", a: "Sympathetic damage. Ptosis, Miosis, Anhidrosis, Enophthalmos." }
-        ];
-
-        // --- APP LOGIC ---
-        let currentCategory = 'msk';
-
-        function setCategory(cat) {
-            currentCategory = cat;
-            ['msk', 'neuro', 'cvrs'].forEach(c => {
-                const pill = document.getElementById(`pill-${c}`);
-                if (c === cat) { pill.classList.replace('inactive', 'active'); }
-                else { pill.classList.replace('active', 'inactive'); }
-            });
-            populateConditions();
+        // Create sparkles
+        function createSparkles(x, y) {
+            for (let i = 0; i < 10; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = x + 'px';
+                sparkle.style.top = y + 'px';
+                sparkle.style.animationDelay = (i * 0.1) + 's';
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 2000);
+            }
         }
 
-        function populateConditions() {
-            const select = document.getElementById('conditionSelect');
-            select.innerHTML = '';
-            Object.keys(database[currentCategory]).forEach(cond => {
-                const opt = document.createElement('option');
-                opt.value = cond;
-                opt.innerText = cond;
-                select.appendChild(opt);
-            });
-            renderTables();
-        }
+        // Password check
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const password = input.value.trim().toLowerCase();
+            const errorMsg = document.getElementById('errorMsg');
 
-        function renderTables() {
-            const condName = document.getElementById('conditionSelect').value;
-            const data = database[currentCategory][condName];
+            // Accept variations
+            const correctAnswers = [
+                'i miss you',
+                'imissyou',
+                'i miss u',
+                'imissu',
+                'i love you',
+                'iloveyou',
+                'i love u',
+                'iloveu'
+            ];
 
-            // Render DDx Card
-            const ddxCard = document.getElementById('ddx-card');
-            const ddxGrid = document.getElementById('ddx-grid');
+            if (correctAnswers.includes(password)) {
+                // Correct password
+                errorMsg.classList.add('hidden');
 
-            if (data.ddx && data.ddx.length > 0) {
-                ddxCard.classList.remove('hidden');
-                ddxGrid.innerHTML = '';
+                // Create celebration sparkles
+                createSparkles(window.innerWidth / 2, window.innerHeight / 2);
 
-                data.ddx.forEach((item, index) => {
-                    const ddxItem = document.createElement('div');
-                    ddxItem.className = 'rounded-xl border p-4 transition-all duration-300 hover:scale-105';
-                    ddxItem.style.background = 'rgba(0,0,0,0.2)';
-                    ddxItem.style.borderColor = 'rgba(251, 191, 36, 0.3)';
-
-                    ddxItem.innerHTML = `
-                        <div class="flex items-start gap-2 mb-2">
-                            <span class="text-lg font-bold" style="color: #f59e0b;">${index + 1}.</span>
-                            <div class="flex-1">
-                                <p class="text-[10px] font-black uppercase tracking-wider opacity-60 mb-1" style="color: #fbbf24;">Vs.</p>
-                                <p class="text-md font-bold mb-2" style="color: #fce7f3;">${item.diff}</p>
-                                <div class="pl-3 border-l-2 mt-2" style="border-color: rgba(236, 72, 153, 0.4);">
-                                    <p class="text-xs leading-relaxed" style="color: #d8b4fe;">${item.reason}</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    ddxGrid.appendChild(ddxItem);
-                });
+                // Show photo section
+                setTimeout(() => {
+                    document.getElementById('entryGate').classList.add('hidden');
+                    document.getElementById('photoSection').classList.remove('hidden');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 500);
             } else {
-                ddxCard.classList.add('hidden');
+                // Wrong password
+                errorMsg.classList.remove('hidden');
+                input.value = '';
+                input.focus();
+
+                // Shake effect
+                input.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    input.style.animation = '';
+                }, 500);
+            }
+        }
+
+        // Show Spotify section
+        function showSpotify() {
+            document.getElementById('photoSection').classList.add('hidden');
+            document.getElementById('spotifySection').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Create sparkles
+            createSparkles(window.innerWidth / 2, window.innerHeight / 2);
+        }
+
+        // Enter key support
+        document.getElementById('passwordInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Proceed to main website
+        function proceedToWebsite() {
+            document.getElementById('spotifySection').classList.add('hidden');
+            document.getElementById('loadingSection').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Create massive sparkle celebration
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    createSparkles(
+                        Math.random() * window.innerWidth,
+                        Math.random() * window.innerHeight
+                    );
+                }, i * 50);
             }
 
-            const structTbody = document.getElementById('struct-table-body');
-            const funcTbody = document.getElementById('func-table-body');
-
-            structTbody.innerHTML = '';
-            funcTbody.innerHTML = '';
-
-            data.struct.forEach(row => {
-                structTbody.innerHTML += `
-                <tr>
-                    <td class="font-bold" style="color: #fbbf24;">${row.i}</td>
-                    <td class="reasoning-text">"${row.r}"</td>
-                    <td><span class="finding-badge">${row.f}</span></td>
-                </tr>
-            `;
-            });
-
-            data.func.forEach(row => {
-                funcTbody.innerHTML += `
-                <tr>
-                    <td class="font-bold" style="color: #fbbf24;">${row.i}</td>
-                    <td class="reasoning-text">"${row.r}"</td>
-                    <td><span class="finding-badge">${row.f}</span></td>
-                </tr>
-            `;
-            });
+            // Redirect to main site after animation
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 3000);
         }
 
-        function renderBank() {
-            const container = document.getElementById('bank-container');
-            container.innerHTML = '';
-            topicsBank.forEach((item, i) => {
-                container.innerHTML += `
-                <div class="rounded-xl overflow-hidden shadow-sm card-shadow" style="background: rgba(26, 10, 46, 0.6); border: 1px solid rgba(168, 85, 247, 0.3);">
-                    <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="w-full text-left p-4 flex justify-between items-center group transition-all hover:bg-opacity-80" style="background: rgba(168, 85, 247, 0.1);">
-                        <span class="font-bold text-sm group-hover:text-amber-400 transition-colors" style="color: #e9d5ff;">${i + 1}. ${item.q}</span>
-                        <span style="color: #a855f7;">▼</span>
-                    </button>
-                    <div class="hidden p-4 border-t text-sm leading-relaxed italic" style="background: rgba(10, 1, 24, 0.4); border-color: rgba(236, 72, 153, 0.2); color: #d8b4fe;">
-                        ${item.a}
-                    </div>
-                </div>
-            `;
-            });
-        }
-
-        function switchView(v) {
-            ['icf', 'bank', 'summary'].forEach(view => {
-                document.getElementById(`view-${view}`).classList.add('hidden');
-                document.getElementById(`nav-${view}`).classList.remove('active');
-            });
-            document.getElementById(`view-${v}`).classList.remove('hidden');
-            document.getElementById(`nav-${v}`).classList.add('active');
-            if (v === 'summary') renderChart();
-        }
-
-        function renderChart() {
-            const ctx = document.getElementById('distChart').getContext('2d');
-            if (window.myChart) window.myChart.destroy();
-            window.myChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['MSK ICF', 'Neuro ICF', 'CVRS ICF', 'Question Bank'],
-                    datasets: [{
-                        data: [8, 8, 8, 37],
-                        backgroundColor: ['#ec4899', '#f472b6', '#a855f7', '#fb7185']
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: '#831843',
-                                font: {
-                                    weight: 'bold'
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        window.onload = () => {
-            populateConditions();
-            renderBank();
-        };
-
+        // Auto-focus on load
+        window.addEventListener('load', () => {
+            document.getElementById('passwordInput').focus();
+        });
     </script>
 </body>
 
