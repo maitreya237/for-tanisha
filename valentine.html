@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Najuk Kali 💕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 25%, #d946ef 50%, #b565f2 75%, #a78bfa 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Floating hearts background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.6;
+            animation: floatUp 8s infinite ease-in;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        /* Entry Gate Card */
+        .entry-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(255, 105, 180, 0.5),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+            animation: cardEntrance 1s ease-out;
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Title styling */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(255, 105, 180, 0.6);
+            margin-bottom: 20px;
+            line-height: 1.3;
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.03);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 40px;
+            font-weight: 400;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Input styling */
+        .input-container {
+            margin: 40px 0;
+            position: relative;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 18px 25px;
+            font-size: 1.1rem;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.3),
+                0 12px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Button styling */
+        .btn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c471ed 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 35px rgba(255, 107, 157, 0.4),
+                0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 45px rgba(255, 107, 157, 0.6),
+                0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Error message */
+        .error-msg {
+            color: #fff;
+            background: rgba(220, 38, 38, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-weight: 500;
+            border: 2px solid rgba(220, 38, 38, 0.5);
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
+        /* Spotify section */
+        .spotify-section {
+            margin-top: 30px;
+            padding: 30px;
+            background: rgba(30, 215, 96, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 2px solid rgba(30, 215, 96, 0.4);
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .spotify-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .spotify-text {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .spotify-btn {
+            background: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 15px 35px rgba(29, 185, 84, 0.4);
+        }
+
+        .spotify-btn:hover {
+            box-shadow: 0 20px 45px rgba(29, 185, 84, 0.6);
+        }
+
+        /* Success message */
+        .success-msg {
+            background: rgba(34, 197, 94, 0.25);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-weight: 600;
+            border: 2px solid rgba(34, 197, 94, 0.5);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Loading animation */
+        .loading-hearts {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .loading-hearts span {
+            font-size: 2rem;
+            animation: heartBeat 1s infinite;
+        }
+
+        .loading-hearts span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-hearts span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes heartBeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .entry-card {
+                padding: 40px 25px;
+            }
+        }
+
+        /* Sparkles */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkleAnim 2s infinite;
+        }
+
+        @keyframes sparkleAnim {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .continue-btn {
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 15px 35px rgba(236, 72, 153, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 15px 35px rgba(236, 72, 153, 0.7), 0 0 40px rgba(236, 72, 153, 0.5);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Floating hearts background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <div class="container">
+        <!-- Entry Gate -->
+        <div class="entry-card" id="entryGate">
+            <h1>najuk kali really misses you 💕</h1>
+            <p class="subtitle">Even though we're apart, you're always in my heart...</p>
+            <p class="subtitle" style="font-size: 1rem; margin-top: -20px; opacity: 0.9;">
+                ✨ Type the magic words to unlock my surprise for you ✨
+            </p>
+
+            <div class="input-container">
+                <input type="text" id="passwordInput" placeholder="How do you feel about me?..." autocomplete="off"
+                    spellcheck="false">
+            </div>
+
+            <button class="btn" onclick="checkPassword()">Enter Our World 🌹</button>
+
+            <div id="errorMsg" class="error-msg hidden">
+                Not quite right, my love... think about what we both feel 💗
+            </div>
+
+            <p style="color: rgba(255,255,255,0.7); margin-top: 30px; font-size: 0.9rem; font-style: italic;">
+                Hint: Three little words we both know too well... �
+            </p>
+        </div>
+
+        <!-- Spotify Section -->
+        <div class="entry-card hidden" id="spotifySection">
+            <h1>🎵 Our Love Symphony 🎵</h1>
+            <p class="subtitle">Every love story has a soundtrack...</p>
+            <p class="subtitle" style="font-size: 1rem; margin-top: -20px; opacity: 0.9;">
+                Let's create ours together 💕
+            </p>
+
+            <div class="spotify-section">
+                <div class="spotify-icon">🎶</div>
+                <p class="spotify-text" style="font-size: 1.15rem; line-height: 1.8;">
+                    <strong style="color: #fff; font-size: 1.2rem;">My darling Najuk Kali,</strong><br><br>
+                    Music sounds better when I think of you 🎵<br>
+                    Let's blend our playlists and see how perfectly we match!<br><br>
+                    <span style="font-size: 0.95rem; opacity: 0.9;">
+                        Click below to connect your Spotify with mine.<br>
+                        I can't wait to see what our combined taste reveals! �
+                    </span>
+                </p>
+                <a href="https://open.spotify.com/blend/taste-match/6e26c55b7255bb4f?si=1NGBCzEKQaePrXVIAfGmsg&fallback=getapp"
+                    target="_blank" style="text-decoration: none;">
+                    <button class="btn spotify-btn">
+                        <span>💚</span>
+                        Join Our Spotify Blend
+                        <span>💚</span>
+                    </button>
+                </a>
+            </div>
+
+            <div class="success-msg"
+                style="background: rgba(168, 85, 247, 0.25); border-color: rgba(168, 85, 247, 0.5);">
+                <p style="margin-bottom: 10px;">
+                    <strong>💝 A Little Note From Me:</strong>
+                </p>
+                <p style="font-size: 0.95rem; font-weight: 400; line-height: 1.6;">
+                    Distance means so little when someone means so much.<br>
+                    Every song we share, every moment we connect - it brings us closer.<br>
+                    I'm counting down the days until we're together again! ✨
+                </p>
+            </div>
+
+            <button class="btn continue-btn" onclick="proceedToWebsite()">
+                Continue to Your Surprise 💝
+            </button>
+
+            <p style="color: rgba(255,255,255,0.85); margin-top: 25px; font-size: 0.95rem; font-style: italic;">
+                "In case you ever foolishly forget: I am never not thinking of you." 💕
+            </p>
+        </div>
+
+        <!-- Loading state -->
+        <div class="entry-card hidden" id="loadingSection">
+            <h1>✨ Preparing Your Surprise ✨</h1>
+            <div class="loading-hearts">
+                <span>💕</span>
+                <span>💖</span>
+                <span>💗</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = Math.random() > 0.5 ? '💕' : (Math.random() > 0.5 ? '💖' : '💗');
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            return heart;
+        }
+
+        // Continuously add hearts
+        const heartsContainer = document.getElementById('heartsContainer');
+        for (let i = 0; i < 30; i++) {
+            heartsContainer.appendChild(createHeart());
+        }
+
+        // Add new hearts periodically
+        setInterval(() => {
+            if (heartsContainer.children.length < 40) {
+                heartsContainer.appendChild(createHeart());
+            }
+        }, 2000);
+
+        // Create sparkles
+        function createSparkles(x, y) {
+            for (let i = 0; i < 10; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = x + 'px';
+                sparkle.style.top = y + 'px';
+                sparkle.style.animationDelay = (i * 0.1) + 's';
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 2000);
+            }
+        }
+
+        // Password check
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const password = input.value.trim().toLowerCase();
+            const errorMsg = document.getElementById('errorMsg');
+
+            // Accept variations
+            const correctAnswers = [
+                'i miss you',
+                'imissyou',
+                'i miss u',
+                'imissu'
+            ];
+
+            if (correctAnswers.includes(password)) {
+                // Correct password
+                errorMsg.classList.add('hidden');
+
+                // Create celebration sparkles
+                createSparkles(window.innerWidth / 2, window.innerHeight / 2);
+
+                // Show spotify section
+                setTimeout(() => {
+                    document.getElementById('entryGate').classList.add('hidden');
+                    document.getElementById('spotifySection').classList.remove('hidden');
+                }, 500);
+            } else {
+                // Wrong password
+                errorMsg.classList.remove('hidden');
+                input.value = '';
+                input.focus();
+
+                // Shake effect
+                input.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    input.style.animation = '';
+                }, 500);
+            }
+        }
+
+        // Enter key support
+        document.getElementById('passwordInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Proceed to main website
+        function proceedToWebsite() {
+            document.getElementById('spotifySection').classList.add('hidden');
+            document.getElementById('loadingSection').classList.remove('hidden');
+
+            // Create massive sparkle celebration
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    createSparkles(
+                        Math.random() * window.innerWidth,
+                        Math.random() * window.innerHeight
+                    );
+                }, i * 50);
+            }
+
+            // Redirect to main site after animation
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 3000);
+        }
+
+        // Auto-focus on load
+        window.addEventListener('load', () => {
+            document.getElementById('passwordInput').focus();
+        });
+    </script>
+</body>
+
+</html>
